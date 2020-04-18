@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans:400,600&display=swap&subset=latin-ext')
+
+$body-font-family : 'Montserrat'
+$heading-font-family : 'Open Sans'
+
+.v-application
+    font-family: $body-font-family, Arial, sans-serif
+    .title
+        word-break: break-word
+        font-family: $heading-font-family, Arial, sans-serif
+
+.theme--light.v-application
+    background: #fff
+
+a
+    text-decoration: none
+
+.v-btn
+    margin: 5px
+
+.theme--light.v-text-field--solo-inverted.v-text-field--solo > .v-input__control > .v-input__slot
+    background: rgb(241, 243, 244)
+
+.v-label
+    color: #c9cbcb
+
+.theme--light.v-text-field--solo-inverted.v-text-field--solo.v-input--is-focused > .v-input__control > .v-input__slot
+    background: #fff
+    box-shadow: 0 1px 1px 0 rgba(65,69,73,0.3), 0 1px 3px 1px rgba(65,69,73,0.15)
+    border-radius: 8px
+
+    input
+        color: #444
+
+    .v-label
+
+        color: #c9cbcb
+.v-tab
+    font-weight: bold
+
+.v-card
+    text-align: center
+
+.v-card__title
+    font-family: "Open Sans", Arial, Helvetica, sans-serif
+
+.v-card__title, .v-card__subtitle
+    text-align: left
+
+.v-card__text
+    text-align: left !important
+
+.object
+    border-radius: 12px !important
+
+.page
+    margin: auto
+    width: 100%
+    border-radius: 10px !important
+
+.v-carousel__item
+    height: 100% !important
+
+@media screen and (min-width: 961px)
+    .page
+        box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important
+
+.v-btn__content, .v-tabs__item
+    font-weight: 600
+
+.chill
+    color: white !important
+    background: linear-gradient(135deg, #09e485 0%,#0291e3 100%)
+
+.chill--text
+    color: white !important
+    background: linear-gradient(170deg, #09e485 35%,#0291e3 100%)
+    background-clip: text
+    -webkit-text-fill-color: transparent
+
+.plume
+    background: linear-gradient(135deg, #ce2cb3 0%,#022be3 100%)
+
+.plume--text
+    color: white !important
+    background: linear-gradient(135deg, #ce2cb3 0%,#022be3 100%)
+    background-clip: text
+    -webkit-text-fill-color: transparent
+
+.cool
+    background: linear-gradient(135deg, #5fe7ff 0%,#2421c7 100%)
+
+.cool--text
+    color: white !important
+    background: linear-gradient(135deg, #5fe7ff 0%,#2421c7 100%)
+    background-clip: text
+    -webkit-text-fill-color: transparent
+
+.warm
+    background: linear-gradient(135deg, #a8e715 0%, #648612 100%)
+
+.warm--text
+    color: white !important
+    background: linear-gradient(135deg, #a8e715 0%, #648612 100%)
+    background-clip: text
+    -webkit-text-fill-color: transparent
+
+.hot
+    background: linear-gradient(135deg, #fdd35e 0%, #ff001e 100%)
+
+.hot--text
+    color: white !important
+    background: linear-gradient(135deg, #fdd35e 0%, #ff001e 100%)
+    background-clip: text
+    -webkit-text-fill-color: transparent
+
+.facebook
+    background: linear-gradient(135deg, #83aaff 0%,#3b5998 100%)
+
+.facebook--text
+    color: white !important
+    background: linear-gradient(135deg, #83aaff 0%,#3b5998 100%)
+    background-clip: text
+    -webkit-text-fill-color: transparent
+
+.youtube
+    background: linear-gradient(135deg, #ff2626 0%,#cd201f 100%)
+
+.youtube--text
+    color: white !important
+    background: linear-gradient(135deg, #ff2626  0%,#cd201f 100%)
+    background-clip: text
+    -webkit-text-fill-color: transparent
+
+.multiline-truncate
+    display: -webkit-box
+    -webkit-box-orient: vertical
+    -webkit-line-clamp: 3
+    overflow: hidden
+
+.full-height
+    height: 100%
