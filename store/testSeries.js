@@ -101,11 +101,11 @@ export const mutations = {
     state.status = { loading: true }
   },
   getSuccess(state, testSeries) {
-    state.status = {}
+    state.status = { loading: false }
     state.testSeries = testSeries
   },
   getFailure(state, error) {
-    state.status = { error }
+    state.status = { error, loading: false }
   },
   updateRequest(state, id) {
     state.status = { updating: true, id }
@@ -126,11 +126,11 @@ export const mutations = {
     state.status = { loading: true }
   },
   listSuccess(state, testSeries) {
-    state.status = {}
+    state.status = { loading: false }
     state.items = testSeries
   },
   listFailure(state, error) {
-    state.status = { error }
+    state.status = { error, loading: false }
   },
   createRequest(state, data) {
     state.status = { creating: true }
@@ -140,7 +140,7 @@ export const mutations = {
     state.status = { created: true, testSeries: data }
   },
   createFailure(state, error) {
-    state.status = { error: error }
+    state.status = { error }
   },
   removeRequest(state, id) {
     state.status = { removing: true, id: id }
@@ -150,7 +150,7 @@ export const mutations = {
     state.items = state.items.filter((item) => item.id !== id)
   },
   removeFailure(state, error) {
-    state.status = { error: error }
+    state.status = { error }
   },
   addTestSuccess(state, test) {
     const item = state.items.filter((item) => test.testSeries.includes(item.id))

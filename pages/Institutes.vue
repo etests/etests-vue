@@ -15,11 +15,17 @@
     <v-col cols="12">
       <v-card class="transparent elevation-0">
         <v-row justify="center" justify-sm="start" justify-lg="start">
-          <template v-if="status.loading">
-            <v-col v-for="i in 3" :key="i" cols="12" sm="6" md="4" lg="auto">
-              <v-skeleton-loader type="card" min-width="200" />
-            </v-col>
-          </template>
+          <v-col
+            v-for="i in 3"
+            :key="'loader-' + i"
+            cols="12"
+            sm="6"
+            md="4"
+            lg="auto"
+            v-show="status.loading"
+          >
+            <v-skeleton-loader type="card" min-width="200" />
+          </v-col>
           <v-col
             v-for="institute in filteredInstitutes"
             :key="institute.id"
@@ -28,40 +34,38 @@
             md="4"
             lg="auto"
           >
-            <v-hover #default="{ hover }">
-              <v-card
-                class="object"
-                :elevation="hover ? 8 : 1"
-                :min-width="['lg', 'xl'].includes($mq) ? '240px' : ''"
-                :to="`/testseries?institute=${institute.id}`"
+            <v-card
+              class="object"
+              hover
+              :min-width="['lg', 'xl'].includes($mq) ? '240px' : ''"
+              :to="`/testseries?institute=${institute.id}`"
+            >
+              <v-img
+                :src="require('@/assets/images/bg/circle.svg')"
+                max-height="80"
+                class="hot white--text font-weight-bold"
               >
+                <v-card-title class="text-truncate">
+                  {{ institute.name }}
+                </v-card-title>
+              </v-img>
+              <v-divider />
+              <v-card-text class="text-center">
                 <v-img
-                  :src="require('@/assets/images/bg/circle.svg')"
-                  max-height="80"
-                  class="hot white--text font-weight-bold"
+                  class="mx-auto"
+                  max-width="150px"
+                  :src="require('@/assets/images/icons/institute.png')"
                 >
-                  <v-card-title class="text-truncate">
-                    {{ institute.name }}
-                  </v-card-title>
+                  <template #placeholder>
+                    <v-skeleton-loader type="image" min-width="200" />
+                  </template>
                 </v-img>
-                <v-divider />
-                <v-card-text class="text-center">
-                  <v-img
-                    class="mx-auto"
-                    max-width="150px"
-                    :src="require('@/assets/images/icons/institute.png')"
-                  >
-                    <template #placeholder>
-                      <v-skeleton-loader type="image" min-width="200" />
-                    </template>
-                  </v-img>
-                </v-card-text>
-                <v-divider />
-                <v-card-text class="text-center">
-                  <span v-if="institute.city">{{ institute.city }}, {{ institute.state }}</span>
-                </v-card-text>
-              </v-card>
-            </v-hover>
+              </v-card-text>
+              <v-divider />
+              <v-card-text class="text-center">
+                <span v-if="institute.city">{{ institute.city }}, {{ institute.state }}</span>
+              </v-card-text>
+            </v-card>
           </v-col>
         </v-row>
       </v-card>
@@ -89,18 +93,7 @@ export default {
       rollNumber: "",
       joiningKey: "",
       searchInstitute: "",
-      filteredInstitutes: [],
       selectedTestSeries: {}
-    }
-  },
-  watch: {
-    searchInstitute(newValue, oldValue) {
-      this.filteredInstitutes = this.institutes.filter((institute) =>
-        institute.name.toLowerCase().includes(newValue.toLowerCase())
-      )
-    },
-    institutes(newList, oldList) {
-      if (this.filteredInstitutes.length === 0) this.filteredInstitutes = this.institutes
     }
   },
   created() {
@@ -114,6 +107,11 @@ export default {
       loggedIn: "loggedIn",
       user: "user"
     }),
+    filteredInstitutes() {
+      return this.institutes.filter((institute) =>
+        institute.name.toLowerCase().includes(this.searchInstitute.toLowerCase())
+      )
+    },
     instituteDialog: {
       get() {
         if (this.$route.hash)

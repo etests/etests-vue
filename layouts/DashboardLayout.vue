@@ -45,7 +45,6 @@
                 <template #activator="{ on }">
                   <v-hover #default="{ hover }">
                     <v-btn
-                      :elevation="hover ? 10 : 4"
                       small
                       :class="[$style.tab, ['xs', 'sm'].includes($mq) ? 'mx-4' : '']"
                       :color="hover || tab == i ? control.color : 'white'"

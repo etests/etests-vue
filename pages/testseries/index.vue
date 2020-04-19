@@ -14,11 +14,17 @@
     <v-col cols="12">
       <v-card class="transparent elevation-0">
         <v-row justify="center" justify-sm="start" justify-lg="start">
-          <template v-if="status.loading">
-            <v-col v-for="i in 3" :key="i" cols="12" sm="6" md="4" lg="auto">
-              <v-skeleton-loader type="card" min-width="200" />
-            </v-col>
-          </template>
+          <v-col
+            v-for="i in 3"
+            :key="'loader-' + i"
+            cols="12"
+            sm="6"
+            md="4"
+            lg="auto"
+            v-show="status.loading"
+          >
+            <v-skeleton-loader type="card" min-width="200" />
+          </v-col>
           <v-col
             v-for="testSeries in filteredTestSeries"
             :key="testSeries.id"
@@ -96,7 +102,7 @@
       </v-card>
     </v-col>
     <v-sheet
-      v-if="!status.loading && filteredTestSeries.length === 0"
+      v-show="!status.loading && filteredTestSeries.length === 0"
       class="text-center title chill--text ma-auto pa-12"
     >
       Oops! Nothing Found
@@ -120,20 +126,10 @@ export default {
   data() {
     return {
       searchTestSeries: "",
-      filteredTestSeries: [],
       selectedTestSeries: {}
     }
   },
   watch: {
-    searchTestSeries(newValue, oldValue) {
-      this.filteredTestSeries = this.testSeriesList.filter((testSeries) =>
-        testSeries.name.toLowerCase().includes(newValue.toLowerCase())
-      )
-    },
-    testSeriesList(newList, oldList) {
-      if (!this.filteredTestSeries || this.filteredTestSeries.length === 0)
-        this.filteredTestSeries = this.testSeriesList
-    },
     $route(to, from) {
       if (to.query !== from.query) {
         location.reload()
@@ -145,9 +141,16 @@ export default {
     this.$store.cache.dispatch("publicTestSeries/list", params)
   },
   computed: {
-    ...mapGetters({ status: "publicTestSeries/status", loggedIn: "loggedIn", user: "user" }),
-    testSeriesList() {
-      return this.$store.state.publicTestSeries.items
+    ...mapGetters({
+      status: "publicTestSeries/status",
+      testSeriesList: "publicTestSeries/allTestSeries",
+      loggedIn: "loggedIn",
+      user: "user"
+    }),
+    filteredTestSeries() {
+      return this.testSeriesList.filter((testSeries) =>
+        testSeries.name.toLowerCase().includes(this.searchTestSeries.toLowerCase())
+      )
     },
     layout() {
       return this.$handle == "public" ? StandardLayout : InstituteLayout

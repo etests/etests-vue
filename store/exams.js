@@ -1,9 +1,10 @@
 export const state = () => ({
-  status: {},
+  status: { loading: false },
   items: []
 })
 
 export const getters = {
+  status: (state) => state.status,
   exams: (state) => state.items
 }
 
@@ -28,10 +29,10 @@ export const mutations = {
     state.status = { loading: true }
   },
   listSuccess(state, exams) {
-    state.status = { exists: true }
+    state.status = { loading: false }
     state.items = exams
   },
   listFailure(state, error) {
-    state.status = { error }
+    state.status = { error, loading: false }
   }
 }

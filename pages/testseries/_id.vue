@@ -29,16 +29,15 @@
               @submit="testSeries.status = 4"
             />
             <template v-if="testSeries.price === 0" />
-            <v-hover v-else-if="testSeries.status === 2" #default="{ hover }">
-              <v-btn
-                depressed
-                :class="hover ? 'elevation-5' : ''"
-                color="primary"
-                @click="paymentDialog = true"
-              >
-                buy
-              </v-btn>
-            </v-hover>
+            <v-btn
+              v-else-if="testSeries.status === 2"
+              depressed
+              hover
+              color="primary"
+              @click="paymentDialog = true"
+            >
+              buy
+            </v-btn>
             <v-chip v-else-if="testSeries.status !== 1" label color="grey lighten-5">
               <template v-if="testSeries.status === 0">
                 Login to Buy

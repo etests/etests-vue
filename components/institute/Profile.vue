@@ -96,7 +96,7 @@ export default {
   },
   computed: {
     profile() {
-      return this.$auth.user
+      return { ...this.$auth.user }
     }
   },
   methods: {
@@ -123,7 +123,7 @@ export default {
           image: this.profile.image
         }
 
-        this.$store.cache.dispatch("users/updateProfile", data)
+        this.$store.cache.dispatch("profile/updateProfile", data)
       }
     }
   }

@@ -1,5 +1,5 @@
 export const state = () => ({
-  status: {},
+  status: { loading: false },
   testSeries: {},
   items: []
 })
@@ -48,20 +48,20 @@ export const mutations = {
     state.status = { loading: true }
   },
   getSuccess(state, testSeries) {
-    state.status = {}
+    state.status = { loading: false }
     state.testSeries = testSeries
   },
   getFailure(state, error) {
-    state.status = { error }
+    state.status = { error, loading: false }
   },
   listRequest(state) {
     state.status = { loading: true }
   },
   listSuccess(state, testSeries) {
-    state.status = {}
+    state.status = { loading: false }
     state.items = testSeries
   },
   listFailure(state, error) {
-    state.status = { error }
+    state.status = { error, loading: false }
   }
 }

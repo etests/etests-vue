@@ -1,6 +1,6 @@
 export const state = () => ({
   institute: null,
-  status: {},
+  status: { loading: false },
   joined: [],
   items: []
 })
@@ -105,10 +105,10 @@ export const mutations = {
   },
   getSuccess(state, institute) {
     state.institute = institute
-    state.status = {}
+    state.status = { loading: false }
   },
   getFailure(state, error) {
-    state.status = { error }
+    state.status = { error, loading: false }
   },
   updateRequest(state) {
     state.status = { updating: true }
@@ -124,7 +124,7 @@ export const mutations = {
     state.status = { loading: true }
   },
   listSuccess(state, institutes) {
-    state.status = {}
+    state.status = { loading: false }
     state.items = institutes
   },
   listFailure(state, error) {
@@ -135,7 +135,7 @@ export const mutations = {
   },
   getJoinedSuccess(state, institutes) {
     state.joined = institutes
-    state.status = {}
+    state.status = { loading: false }
   },
   getJoinedFailure(state, error) {
     state.status = { error }
@@ -144,10 +144,10 @@ export const mutations = {
     state.status = { loading: true }
   },
   contactSuccess(state, data) {
-    state.status = {}
+    state.status = { loading: false }
     Object.assign(state.institute, data)
   },
   contactFailure(state, error) {
-    state.status = { error: error }
+    state.status = { error, loading: false }
   }
 }

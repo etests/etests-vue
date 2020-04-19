@@ -180,7 +180,7 @@ export const mutations = {
   },
   joinSuccess(state, data) {
     state.status = { joined: true, id: data["roll_number"] }
-    this.dispatch("users/joinInstitute", data.institute)
+    this.dispatch("profile/joinInstitute", data.institute)
   },
   joinFailure(state, error) {
     state.status = { error: error }

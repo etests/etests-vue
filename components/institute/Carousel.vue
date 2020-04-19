@@ -82,18 +82,12 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn text color="primary" @click="deleteDialog = false">
+          <v-btn text color="error" @click="deleteDialog = false">
             Close
           </v-btn>
-          <v-hover v-slot="{ hover }">
-            <v-btn
-              :color="hover ? 'error' : 'primary'"
-              :disabled="selected.length === 0"
-              @click="deleteConfirmation"
-            >
-              delete
-            </v-btn>
-          </v-hover>
+          <v-btn text color="error" :disabled="selected.length === 0" @click="deleteConfirmation">
+            delete
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
