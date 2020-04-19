@@ -124,12 +124,18 @@ import Payment from "@/components/common/Payment"
 import StandardLayout from "@/layouts/StandardLayout"
 import InstituteLayout from "@/layouts/InstituteLayout"
 import utils from "@/js/utils"
+import { testTemplate } from "../../js/test"
 
 export default {
   components: {
     StandardLayout,
     Payment,
     RazorPay
+  },
+  head() {
+    return {
+      title: this.testSeries ? this.testSeries.name : "Tests"
+    }
   },
   data() {
     return {

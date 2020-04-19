@@ -33,12 +33,9 @@
       </v-row>
     </v-card>
   </component>
-  <EditTest
-    v-else-if="test !== null && !completed"
-    :test-data="test"
-    @update="updateTest"
-    @save="saveTest"
-  />
+  <client-only v-else-if="test !== null && !completed">
+    <EditTest :test-data="test" @update="updateTest" @save="saveTest" />
+  </client-only>
 </template>
 
 <script>
@@ -53,14 +50,14 @@ import { testTemplate } from "@/js/test"
 import { demoTests } from "@/js/demoTests"
 
 export default {
-  props: {
-    demo: {
-      required: false,
-      default: false
+  head() {
+    return {
+      title: this.test ? this.test.name : "Edit Test"
     }
   },
   data() {
     return {
+      demo: this.$route.query.demo,
       id: parseInt(this.$route.params.id) || 10000000000,
       test: null,
       started: false,
@@ -84,28 +81,24 @@ export default {
   methods: {
     startEdit() {
       this.loading = true
-      this.$Progress.start()
       if (!this.demo) {
         this.$store.cache.dispatch("tests/get", this.id).then(
           (test) => {
             this.test = test
-            localStorage.setItem("editing", this.id)
+            if (process.client) localStorage.setItem("editing", this.id)
             this.started = true
             this.loading = false
-            this.$Progress.finish()
           },
           (error) => {
             this.error = this.status.error
-            this.$Progress.fail()
           }
         )
       } else {
         const test = testTemplate
         this.test = test
-        localStorage.setItem("editing", this.id)
+        if (process.client) localStorage.setItem("editing", this.id)
         this.started = true
         this.loading = false
-        this.$Progress.finish()
       }
     },
     updateTest(newTest) {
@@ -114,7 +107,7 @@ export default {
     saveTest() {
       if (this.demo) {
         this.completed = true
-        localStorage.removeItem("editing")
+        if (process.client) localStorage.removeItem("editing")
       } else {
         this.$store.cache.dispatch("tests/update", this.test)
       }
@@ -122,11 +115,11 @@ export default {
     attemptTest() {
       const session = demoTests.newSession(this.test)
       session.testId = this.id
-      localStorage.setItem("session", JSON.stringify(session))
+      if (process.client) localStorage.setItem("session", JSON.stringify(session))
       this.$router.push(`/demo/${this.id}`)
     },
     deleteTest() {
-      localStorage.removeItem("session")
+      if (process.client) localStorage.removeItem("session")
       location.reload()
     }
   },

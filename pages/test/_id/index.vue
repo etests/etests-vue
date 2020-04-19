@@ -63,9 +63,14 @@ import StandardLayout from "@/layouts/StandardLayout"
 import { demoTests } from "@/js/demoTests"
 
 export default {
+  head() {
+    return {
+      title: this.session ? this.session.test.name : "Start Test"
+    }
+  },
   data() {
     return {
-      demo: this.$route.params.demo,
+      demo: this.$route.query.demo,
       id: parseInt(this.$route.params.id),
       session: null,
       started: false,

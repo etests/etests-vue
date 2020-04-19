@@ -112,6 +112,11 @@ import InstituteLayout from "@/layouts/InstituteLayout"
 import utils from "@/js/utils"
 
 export default {
+  head() {
+    return {
+      title: "Test Series"
+    }
+  },
   data() {
     return {
       searchTestSeries: "",

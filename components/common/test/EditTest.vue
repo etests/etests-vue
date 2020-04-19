@@ -597,12 +597,19 @@
 </template>
 
 <script>
-import CKEditor from "@ckeditor/ckeditor5-vue"
-import ClassicEditor from "ckeditor5-build-advanced"
 import EditorHelp from "./EditorHelp.vue"
 import utils from "@/js/utils"
-
 import TestLayout from "@/layouts/TestLayout.vue"
+
+let ClassicEditor
+let CKEditor
+
+if (process.client) {
+  ClassicEditor = require("ckeditor5-build-advanced")
+  CKEditor = require("@ckeditor/ckeditor5-vue")
+} else {
+  CKEditor = { component: { template: "<div></div>" } }
+}
 
 export default {
   components: {
@@ -639,7 +646,6 @@ export default {
         options: ["A", "B", "C", "D"],
         answers: ["P", "Q", "R", "S", "T"]
       },
-      windowHeight: window.innerHeight - 200,
       swipeActions: {
         left: () => this.nextQuestion(),
         right: () => this.previousQuestion()

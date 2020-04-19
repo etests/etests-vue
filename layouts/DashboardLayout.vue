@@ -93,6 +93,11 @@ export default {
       defaultExpanded: null
     }
   },
+  head() {
+    return {
+      title: !isNaN(this.tab) ? this.controls[this.tab].name : "Dashboard"
+    }
+  },
   computed: {
     small() {
       return ["xs", "sm"].includes(this.$mq)

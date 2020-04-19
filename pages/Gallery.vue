@@ -231,6 +231,11 @@ export default {
   components: {
     InstituteLayout
   },
+  head() {
+    return {
+      title: "Gallery"
+    }
+  },
   data() {
     return {
       event: 0,

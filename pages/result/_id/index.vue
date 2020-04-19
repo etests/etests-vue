@@ -44,6 +44,11 @@ export default {
       type: Boolean
     }
   },
+  head() {
+    return {
+      title: this.report ? "Result - " + this.report.test.name : "Result"
+    }
+  },
   data() {
     return {
       id: parseInt(this.$route.params.id),

@@ -68,6 +68,11 @@ export default {
   components: {
     StandardLayout
   },
+  head() {
+    return {
+      title: "Careers"
+    }
+  },
   data() {
     return {
       form: false,

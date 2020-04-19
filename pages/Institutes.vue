@@ -78,6 +78,11 @@ export default {
   components: {
     StandardLayout
   },
+  head() {
+    return {
+      title: "Institutes"
+    }
+  },
   data() {
     return {
       batchId: 0,

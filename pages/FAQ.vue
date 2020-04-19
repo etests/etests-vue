@@ -111,6 +111,11 @@ export default {
   components: {
     InstituteLayout
   },
+  head() {
+    return {
+      title: "FAQ"
+    }
+  },
   data() {
     return {
       dialog: false,

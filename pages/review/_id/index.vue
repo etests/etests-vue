@@ -199,6 +199,11 @@ export default {
       default: false
     }
   },
+  head() {
+    return {
+      title: this.test ? "Review - " + this.test.name : "Review"
+    }
+  },
   data() {
     return {
       id: parseInt(this.$route.params.id),

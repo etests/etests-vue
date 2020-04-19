@@ -12,6 +12,11 @@ export default {
   components: {
     DashboardLayout
   },
+  head() {
+    return {
+      title: this.$auth.user ? this.$auth.user.name + " - Dashboard" : "Dashboard"
+    }
+  },
   data() {
     return {
       editing: false,
@@ -196,7 +201,7 @@ export default {
             name: "Question Bank",
             icon: "mdi-book-multiple",
             color: "chill",
-            link: { path: "/question-bank" },
+            link: { path: "/questionbank" },
             cards: []
           },
           {

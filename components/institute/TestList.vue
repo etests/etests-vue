@@ -183,7 +183,7 @@
                 mdi-settings
               </v-icon>
             </v-btn>
-            <v-btn rounded icon small color="info" @click="$router.new(`/test/${item.id}/edit`)">
+            <v-btn rounded icon small color="info" :to="`/edit/${item.id}`" target="blank">
               <v-icon small>
                 mdi-pencil
               </v-icon>
@@ -407,14 +407,14 @@ export default {
       return this.rankLists.find((rankList) => rankList.id === id)
     },
     exportTest(testId) {
-      this.$Progress.start()
+      this.$nuxt.$loading.start()
       this.$store.cache.dispatch("tests/get", testId).then(
         (test) => {
           utils.downloadData(test)
-          this.$Progress.finish()
+          this.$nuxt.$loading.finish()
         },
         (error) => {
-          this.$Progress.fail()
+          this.$nuxt.$loading.fail()
         }
       )
     }

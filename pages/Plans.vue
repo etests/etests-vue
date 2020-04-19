@@ -100,6 +100,11 @@ export default {
       return " ₹" + value
     }
   },
+  head() {
+    return {
+      title: "Plans"
+    }
+  },
   data() {
     return {
       plans: [

@@ -117,6 +117,11 @@ export default {
   components: {
     InstituteLayout
   },
+  head() {
+    return {
+      title: "Courses"
+    }
+  },
   data() {
     return {
       editIndex: -1,

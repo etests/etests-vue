@@ -10,7 +10,9 @@
               <v-expansion-panels flat focusable>
                 <v-expansion-panel
                   v-for="(step, i) in steps"
-                  v-show="step.scope.find((scope) => $auth.hasScope(scope))"
+                  v-show="
+                    step.scope.find((scope) => $auth.hasScope(scope)) || $auth.hasScope('staff')
+                  "
                   :key="i"
                   class="text-left"
                 >
@@ -37,6 +39,11 @@ import StandardLayout from "@/layouts/StandardLayout"
 export default {
   components: {
     StandardLayout
+  },
+  head() {
+    return {
+      title: "Help"
+    }
   },
   data() {
     return {

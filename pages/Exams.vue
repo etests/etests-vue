@@ -50,6 +50,11 @@ export default {
   components: {
     StandardLayout
   },
+  head() {
+    return {
+      title: "Exams"
+    }
+  },
   data() {
     return {
       searchExam: "",

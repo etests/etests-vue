@@ -12,6 +12,11 @@ const PublicHomePage = () => import("@/components/public/homepage/HomePage.vue")
 const InstituteHomePage = () => import("@/components/institute/HomePage.vue")
 
 export default {
+  head() {
+    return {
+      title: "Home"
+    }
+  },
   computed: {
     loading() {
       if (!this.$handle) return true

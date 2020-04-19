@@ -15,8 +15,10 @@ export default {
     StandardLayout,
     Login
   },
-  data() {
-    return {}
+  head() {
+    return {
+      title: "Login"
+    }
   }
 }
 </script>

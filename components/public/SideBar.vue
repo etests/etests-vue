@@ -91,7 +91,7 @@ export default {
         {
           title: "Help",
           icon: "mdi-help-circle",
-          link: { path: "/faq" }
+          link: { path: "/help" }
         }
       ]
     }

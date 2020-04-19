@@ -1,276 +1,279 @@
 <template>
-  <v-container fluid class="px-0">
-    <v-dialog v-model="testDialog" max-width="600px">
-      <v-card :class="$style.dialog">
-        <v-card-title :class="$style.title">
-          Export Test
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-text-field v-model="test.name" solo-inverted flat label="Test Name" />
-            <v-text-field v-model="test.timeAlotted" solo-inverted flat label="Time Alotted" />
-            <div v-for="(section, i) in test.sections" :key="i">
-              <span
-                v-if="
-                  subjects.length &&
-                    subjects.find((subject) => subject.value === section.subject) !== undefined
-                "
-                class="body-1 primary--text font-weight-bold text-uppercase"
-              >
-                {{
-                  typeof section.subject === "number"
-                    ? subjects.find((subject) => subject.value === section.subject).text
-                    : section.subject
-                }}
-              </span>
-              <span class="body-1">
-                {{ section.end - section.start + 1 }} Question{{
-                  section.end === section.start ? "" : "s"
-                }}
-              </span>
-            </div>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" text @click="testDialog = false">
-            Close
-          </v-btn>
-          <v-btn
-            color="primary"
-            @click="
-              exportTest()
-              testDialog = false
-            "
-          >
-            Export
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <v-app-bar class="white" app flat dense>
-      <nuxt-link to="/">
-        <v-toolbar-title :class="$style.logo">
-          <v-img :class="$style.img" :src="require('@/assets/logos/etests.png')" />
-          <span>eTests Question Bank</span>
-        </v-toolbar-title>
-      </nuxt-link>
-    </v-app-bar>
-
-    <v-content>
-      <v-row justify="space-around" align="start" align-content="center" class="px-2">
-        <v-col cols="12" lg="7">
-          <v-skeleton-loader v-if="status.loading" type="paragraph" max-width="50%" />
-          <div v-else-if="questionIndex >= 0">
-            <div
-              v-if="
-                subjects.length &&
-                  subjects.find((subject) => subject.value === questions[questionIndex].subject) !==
-                    undefined
+  <v-app>
+    <v-container fluid class="px-0">
+      <v-dialog v-model="testDialog" max-width="600px">
+        <v-card :class="$style.dialog">
+          <v-card-title :class="$style.title">
+            Export Test
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-text-field v-model="test.name" solo-inverted flat label="Test Name" />
+              <v-text-field v-model="test.timeAlotted" solo-inverted flat label="Time Alotted" />
+              <div v-for="(section, i) in test.sections" :key="i">
+                <span
+                  v-if="
+                    subjects.length &&
+                      subjects.find((subject) => subject.value === section.subject) !== undefined
+                  "
+                  class="body-1 primary--text font-weight-bold text-uppercase"
+                >
+                  {{
+                    typeof section.subject === "number"
+                      ? subjects.find((subject) => subject.value === section.subject).text
+                      : section.subject
+                  }}
+                </span>
+                <span class="body-1">
+                  {{ section.end - section.start + 1 }} Question{{
+                    section.end === section.start ? "" : "s"
+                  }}
+                </span>
+              </div>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="primary" text @click="testDialog = false">
+              Close
+            </v-btn>
+            <v-btn
+              color="primary"
+              @click="
+                exportTest()
+                testDialog = false
               "
             >
-              <span class="primary--text text-uppercase">
-                {{
-                  subjects.find((subject) => subject.value === questions[questionIndex].subject)
-                    .text
-                }}
-              </span>
-              <span
+              Export
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-app-bar class="white" app flat dense>
+        <nuxt-link to="/">
+          <v-toolbar-title :class="$style.logo">
+            <v-img :class="$style.img" :src="require('@/assets/logos/etests.png')" />
+            <span>eTests Question Bank</span>
+          </v-toolbar-title>
+        </nuxt-link>
+      </v-app-bar>
+
+      <v-content>
+        <v-row justify="space-around" align="start" align-content="center" class="px-2">
+          <v-col cols="12" lg="7">
+            <v-skeleton-loader v-if="status.loading" type="paragraph" max-width="50%" />
+            <div v-else-if="questionIndex >= 0">
+              <div
                 v-if="
-                  questions[questionIndex].topic !== null &&
-                    topics[questions[questionIndex].subject].find(
-                      (topic) => topic.value === questions[questionIndex].topic
+                  subjects.length &&
+                    subjects.find(
+                      (subject) => subject.value === questions[questionIndex].subject
                     ) !== undefined
                 "
               >
-                {{
-                  topics[questions[questionIndex].subject].find(
-                    (topic) => topic.value === questions[questionIndex].topic
-                  ).text
-                }}
-              </span>
+                <span class="primary--text text-uppercase">
+                  {{
+                    subjects.find((subject) => subject.value === questions[questionIndex].subject)
+                      .text
+                  }}
+                </span>
+                <span
+                  v-if="
+                    questions[questionIndex].topic !== null &&
+                      topics[questions[questionIndex].subject].find(
+                        (topic) => topic.value === questions[questionIndex].topic
+                      ) !== undefined
+                  "
+                >
+                  {{
+                    topics[questions[questionIndex].subject].find(
+                      (topic) => topic.value === questions[questionIndex].topic
+                    ).text
+                  }}
+                </span>
+              </div>
+              <div v-if="questions[questionIndex].type !== null">
+                {{ questionTypes[questions[questionIndex].type].text }}
+              </div>
+              <div v-if="questions[questionIndex].difficulty !== null">
+                {{ difficultyLevels[questions[questionIndex].difficulty].text }}
+              </div>
             </div>
-            <div v-if="questions[questionIndex].type !== null">
-              {{ questionTypes[questions[questionIndex].type].text }}
-            </div>
-            <div v-if="questions[questionIndex].difficulty !== null">
-              {{ difficultyLevels[questions[questionIndex].difficulty].text }}
-            </div>
-          </div>
-          <v-skeleton-loader v-if="status.loading" type="image" height="250" />
-          <v-carousel
-            v-else-if="questions && questions.length"
-            v-model="questionIndex"
-            :height="['xs', 'sm', 'md'].includes($mq) ? 250 : '500'"
-            hide-delimiter-background
-            hide-delimiters
-            class="mx-auto"
-          >
-            <v-carousel-item v-for="(question, i) in questions" :key="i">
-              <v-sheet color="white" tile>
-                <v-row align="start" justify="center" class="fill-height">
-                  <v-btn
-                    absolute
-                    top
-                    right
-                    fab
-                    small
-                    class="mt-8"
-                    :color="selectedQuestions.indexOf(i) !== -1 ? 'success' : 'grey lighten-1'"
-                    :depressed="selectedQuestions.indexOf(i) === -1"
-                    @click="toggleSelected(i)"
-                  >
-                    <v-icon size="30" v-text="'mdi-check'" />
-                  </v-btn>
-                  <div
-                    v-ripple="{ center: true, class: 'success--text' }"
-                    :class="$style.question"
-                    style="cursor:pointer"
-                    @click="toggleSelected(i)"
-                    v-html="question.text"
-                  />
-                </v-row>
-              </v-sheet>
-            </v-carousel-item>
-          </v-carousel>
+            <v-skeleton-loader v-if="status.loading" type="image" height="250" />
+            <v-carousel
+              v-else-if="questions && questions.length"
+              v-model="questionIndex"
+              :height="['xs', 'sm', 'md'].includes($mq) ? 250 : '500'"
+              hide-delimiter-background
+              hide-delimiters
+              class="mx-auto"
+            >
+              <v-carousel-item v-for="(question, i) in questions" :key="i">
+                <v-sheet color="white" tile>
+                  <v-row align="start" justify="center" class="fill-height">
+                    <v-btn
+                      absolute
+                      top
+                      right
+                      fab
+                      small
+                      class="mt-8"
+                      :color="selectedQuestions.indexOf(i) !== -1 ? 'success' : 'grey lighten-1'"
+                      :depressed="selectedQuestions.indexOf(i) === -1"
+                      @click="toggleSelected(i)"
+                    >
+                      <v-icon size="30" v-text="'mdi-check'" />
+                    </v-btn>
+                    <div
+                      v-ripple="{ center: true, class: 'success--text' }"
+                      :class="$style.question"
+                      style="cursor:pointer"
+                      @click="toggleSelected(i)"
+                      v-html="question.text"
+                    />
+                  </v-row>
+                </v-sheet>
+              </v-carousel-item>
+            </v-carousel>
 
-          <v-card v-else width="600" height="300" class="mx-auto">
-            <v-row
-              align="center"
-              justify="center"
-              class="fill-height primary--text title text-uppercase"
-            >
-              <span v-if="status.loaded">
-                no questions found
-              </span>
-              <span v-else>
-                please apply filters
-              </span>
-            </v-row>
-          </v-card>
-        </v-col>
-        <v-col cols="12" md="10" lg="4" class="px-5">
-          <v-row>
-            <v-col cols="6">
-              <v-select
-                v-model="question.type"
-                outlined
-                clearable
-                :items="questionTypes"
-                label="Type"
-                @change="changeType"
-              />
-            </v-col>
-            <v-col cols="6">
-              <v-select
-                v-model="question.difficulty"
-                outlined
-                clearable
-                :items="difficultyLevels"
-                label="Difficulty"
-              />
-            </v-col>
-          </v-row>
-          <v-autocomplete
-            v-model="question.subject"
-            outlined
-            append-icon="mdi-chevron-down"
-            :items="subjects"
-            persistent-hint
-            prepend-inner-icon="mdi-book"
-            label="Subject"
-            style="max-width:450px"
-          />
-          <v-autocomplete
-            v-model="question.topic"
-            outlined
-            append-icon="mdi-chevron-down"
-            :items="topics[question.subject]"
-            persistent-hint
-            prepend-inner-icon="mdi-file"
-            label="Topic"
-            style="max-width:450px"
-          />
-          <v-combobox
-            v-model="question.tags"
-            solo-inverted
-            flat
-            chips
-            clearable
-            label="Tags"
-            multiple
-            style="max-width:450px"
-          >
-            <template #selection="{ attrs, item, select, selectedQuestions }">
-              <v-chip
-                v-bind="attrs"
-                :input-value="selectedQuestions"
-                close
-                @click="select"
-                @click:close="removeTag(item)"
+            <v-card v-else width="600" height="300" class="mx-auto">
+              <v-row
+                align="center"
+                justify="center"
+                class="fill-height primary--text title text-uppercase"
               >
-                <strong>{{ item }}</strong>
-              </v-chip>
-            </template>
-          </v-combobox>
-          <v-row>
-            <v-col cols="6">
-              <v-skeleton-loader v-if="status.loading" type="button" />
-              <v-btn v-else color="primary" @click="find">
-                <v-icon>mdi-magnify</v-icon>
-                search
-              </v-btn>
-            </v-col>
-            <v-col cols="6">
-              <v-skeleton-loader v-if="status.loading" type="button" />
-              <v-btn v-else color="primary" @click="testDialog = true">
-                <v-icon>mdi-download</v-icon>
-                export
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-content>
-    <v-navigation-drawer
-      width="250"
-      permanent
-      app
-      right
-      :mini-variant="['xs', 'sm'].includes($mq)"
-      mini-variant-width="60"
-      fixed
-    >
-      <v-sheet class="mx-auto my-1">
-        <v-item-group show-arrows>
-          <v-item v-for="(question, i) in questions" :key="i">
-            <v-btn
-              class="ma-2"
-              dark
-              :color="selectedQuestions.indexOf(i) !== -1 ? 'success' : 'info'"
-              :depressed="questionIndex !== i"
-              fab
-              small
-              @click="questionIndex = i"
+                <span v-if="status.loaded">
+                  no questions found
+                </span>
+                <span v-else>
+                  please apply filters
+                </span>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col cols="12" md="10" lg="4" class="px-5">
+            <v-row>
+              <v-col cols="6">
+                <v-select
+                  v-model="question.type"
+                  outlined
+                  clearable
+                  :items="questionTypes"
+                  label="Type"
+                  @change="changeType"
+                />
+              </v-col>
+              <v-col cols="6">
+                <v-select
+                  v-model="question.difficulty"
+                  outlined
+                  clearable
+                  :items="difficultyLevels"
+                  label="Difficulty"
+                />
+              </v-col>
+            </v-row>
+            <v-autocomplete
+              v-model="question.subject"
+              outlined
+              append-icon="mdi-chevron-down"
+              :items="subjects"
+              persistent-hint
+              prepend-inner-icon="mdi-book"
+              label="Subject"
+              style="max-width:450px"
+            />
+            <v-autocomplete
+              v-model="question.topic"
+              outlined
+              append-icon="mdi-chevron-down"
+              :items="topics[question.subject]"
+              persistent-hint
+              prepend-inner-icon="mdi-file"
+              label="Topic"
+              style="max-width:450px"
+            />
+            <v-combobox
+              v-model="question.tags"
+              solo-inverted
+              flat
+              chips
+              clearable
+              label="Tags"
+              multiple
+              style="max-width:450px"
             >
-              {{ i + 1 }}
-            </v-btn>
-          </v-item>
-          <v-item v-if="questions && questionIndex === questions.length - 1">
-            <v-btn class="white ma-2" fab small @click="nextQuestion()">
-              <v-icon>mdi-plus</v-icon>
-            </v-btn>
-          </v-item>
-          <template v-if="status.loading">
-            <v-item v-for="i in 18" :key="`loading-${i}`" class="ma-2">
-              <v-btn color="grey lighten-1" depressed fab small />
+              <template #selection="{ attrs, item, select, selectedQuestions }">
+                <v-chip
+                  v-bind="attrs"
+                  :input-value="selectedQuestions"
+                  close
+                  @click="select"
+                  @click:close="removeTag(item)"
+                >
+                  <strong>{{ item }}</strong>
+                </v-chip>
+              </template>
+            </v-combobox>
+            <v-row>
+              <v-col cols="6">
+                <v-skeleton-loader v-if="status.loading" type="button" />
+                <v-btn v-else color="primary" @click="find">
+                  <v-icon>mdi-magnify</v-icon>
+                  search
+                </v-btn>
+              </v-col>
+              <v-col cols="6">
+                <v-skeleton-loader v-if="status.loading" type="button" />
+                <v-btn v-else color="primary" @click="testDialog = true">
+                  <v-icon>mdi-download</v-icon>
+                  export
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-content>
+      <v-navigation-drawer
+        width="250"
+        permanent
+        app
+        right
+        :mini-variant="['xs', 'sm'].includes($mq)"
+        mini-variant-width="60"
+        fixed
+      >
+        <v-sheet class="mx-auto my-1">
+          <v-item-group show-arrows>
+            <v-item v-for="(question, i) in questions" :key="i">
+              <v-btn
+                class="ma-2"
+                dark
+                :color="selectedQuestions.indexOf(i) !== -1 ? 'success' : 'info'"
+                :depressed="questionIndex !== i"
+                fab
+                small
+                @click="questionIndex = i"
+              >
+                {{ i + 1 }}
+              </v-btn>
             </v-item>
-          </template>
-        </v-item-group>
-      </v-sheet>
-    </v-navigation-drawer>
-  </v-container>
+            <v-item v-if="questions && questionIndex === questions.length - 1">
+              <v-btn class="white ma-2" fab small @click="nextQuestion()">
+                <v-icon>mdi-plus</v-icon>
+              </v-btn>
+            </v-item>
+            <template v-if="status.loading">
+              <v-item v-for="i in 18" :key="`loading-${i}`" class="ma-2">
+                <v-btn color="grey lighten-1" depressed fab small />
+              </v-item>
+            </template>
+          </v-item-group>
+        </v-sheet>
+      </v-navigation-drawer>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -278,6 +281,11 @@ import { testTemplate } from "@/js/test"
 import utils from "@/js/utils"
 
 export default {
+  head() {
+    return {
+      title: "Question Bank"
+    }
+  },
   data() {
     return {
       drawer: false,

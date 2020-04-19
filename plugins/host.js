@@ -1,10 +1,13 @@
-export default ({ req }, inject) => {
-  const ourDomain = "localhost"
-  let host = null
-  let handle = null
+export default ({ req, isDev, env }, inject) => {
+  let ourDomain
+  let handle
+  let host
+
+  if (isDev) ourDomain = "localhost"
+  else ourDomain = env.DOMAIN
 
   if (process.server) {
-    host = req.headers.host
+    host = req.headers.host.split(":")[0]
   } else {
     host = window.location.host.split(":")[0]
   }

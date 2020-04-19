@@ -241,6 +241,11 @@ export default {
     DropUpload,
     InstituteLayout
   },
+  head() {
+    return {
+      title: "Faculty"
+    }
+  },
   data() {
     return {
       subjectIndex: 0,

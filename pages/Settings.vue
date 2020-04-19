@@ -92,6 +92,11 @@ export default {
     InstituteLayout,
     Sketch
   },
+  head() {
+    return {
+      title: "Settings"
+    }
+  },
   data() {
     return {
       defaultSections: [

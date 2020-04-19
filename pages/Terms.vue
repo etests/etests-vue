@@ -148,6 +148,11 @@ import StandardLayout from "@/layouts/StandardLayout"
 export default {
   components: {
     StandardLayout
+  },
+  head() {
+    return {
+      title: "Terms and Conditions"
+    }
   }
 }
 </script>

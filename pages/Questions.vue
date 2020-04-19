@@ -102,6 +102,11 @@ export default {
   components: {
     InstituteLayout
   },
+  head() {
+    return {
+      title: "Questions"
+    }
+  },
   data() {
     return {
       menu1: false,

@@ -219,6 +219,11 @@ export default {
     GmapAutocomplete: Autocomplete,
     InstituteLayout
   },
+  head() {
+    return {
+      title: "Centers"
+    }
+  },
   data() {
     return {
       editIndex: -1,

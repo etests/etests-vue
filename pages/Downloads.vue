@@ -102,6 +102,11 @@ export default {
   components: {
     InstituteLayout
   },
+  head() {
+    return {
+      title: "Downloads"
+    }
+  },
   data() {
     return {
       menu1: false,
