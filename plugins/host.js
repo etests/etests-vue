@@ -1,10 +1,9 @@
-export default ({ req, isDev, env }, inject) => {
+export default ({ req, env }, inject) => {
   let ourDomain
   let handle
   let host
 
-  if (isDev) ourDomain = "localhost"
-  else ourDomain = env.DOMAIN
+  ourDomain = env.DOMAIN
 
   if (process.server) {
     host = req.headers.host.split(":")[0]

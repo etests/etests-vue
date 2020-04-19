@@ -161,10 +161,12 @@
                 <v-col v-for="(image, i) in locationImages" :key="i" cols="3">
                   <v-card
                     @click="
-                      editedItem.image = image.getUrl({
-                        maxWidth: 600,
-                        maxHeight: 400
-                      })
+                      uploadImage(
+                        image.getUrl({
+                          maxWidth: 600,
+                          maxHeight: 400
+                        })
+                      )
                     "
                   >
                     <v-img
@@ -187,14 +189,20 @@
           <v-text-field v-model="editedItem.phone" solo-inverted flat label="Phone" />
           <v-text-field v-model="editedItem.email" solo-inverted flat label="Email" />
 
-          <v-text-field v-model="editedItem.image" solo-inverted flat label="Image" />
+          <v-text-field
+            v-model="editedItem.image"
+            solo-inverted
+            flat
+            label="Image"
+            :loading="loading"
+          />
         </v-card-text>
         <v-card-actions>
           <v-spacer />
           <v-btn color="primary" text @click="editDialog = false">
             Cancel
           </v-btn>
-          <v-btn color="primary" text @click="save">
+          <v-btn color="primary" text @click="save" :loading="loading || status.loading">
             Save
           </v-btn>
         </v-card-actions>
@@ -249,7 +257,9 @@ export default {
       places: [],
       locationImages: [],
       mapTitle: "",
-      currentPlace: null
+      currentPlace: null,
+      uploadUrl: `${process.env.API_URL}/images/`,
+      loading: false
     }
   },
   methods: {
@@ -274,6 +284,24 @@ export default {
       this.editIndex = this.centers.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.editDialog = true
+    },
+    uploadImage(url) {
+      this.editedItem.image = url
+      this.loading = true
+      this.$axios.post(this.uploadUrl, { url }).then(
+        (response) => {
+          const data = response.data
+          if (data && data.uploaded === 1) {
+            this.editedItem.image = data.url
+          } else if (data.error && data.error.message) this.$toast.error(data.error.message)
+          this.loading = false
+        },
+        (error) => {
+          this.editedItem.image = ""
+          this.$toast.error(error)
+          this.loading = false
+        }
+      )
     },
     save() {
       this.editedItem.date = new Date()

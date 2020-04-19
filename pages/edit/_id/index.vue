@@ -57,7 +57,7 @@ export default {
   },
   data() {
     return {
-      demo: this.$route.query.demo,
+      demo: !!this.$route.query.demo,
       id: parseInt(this.$route.params.id) || 10000000000,
       test: null,
       started: false,

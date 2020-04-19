@@ -299,7 +299,7 @@
         >
           <template #activator="{ on }">
             <v-btn class="mx-0" icon color="success" rounded outlined small v-on="on">
-              <span>+{{ currentQuestion.correctMarks }} &nbsp;</span>
+              <span>+{{ currentQuestion.correctMarks }}</span>
             </v-btn>
           </template>
           <v-list min-width="60">
@@ -313,7 +313,7 @@
         <v-menu open-on-hover offset-y transition="slide-y-transition" bottom max-height="300">
           <template #activator="{ on }">
             <v-btn icon color="blue" rounded outlined small v-on="on">
-              <span>+{{ currentQuestion.partialMarks }} &nbsp;</span>
+              <span>+{{ currentQuestion.partialMarks }}</span>
             </v-btn>
           </template>
           <v-list min-width="60">
@@ -327,7 +327,7 @@
         <v-menu open-on-hover offset-y transition="slide-y-transition" bottom max-height="300">
           <template #activator="{ on }">
             <v-btn icon color="error" rounded outlined small v-on="on">
-              <span>-{{ currentQuestion.incorrectMarks }} &nbsp;</span>
+              <span>-{{ currentQuestion.incorrectMarks }}</span>
             </v-btn>
           </template>
           <v-list style="width:75px">
@@ -341,7 +341,7 @@
           </v-list>
         </v-menu>
       </v-col>
-      <v-col cols="12" md="6" lg="4">
+      <v-col cols="12" md="4">
         <v-menu open-on-hover offset-y transition="slide-y-transition" bottom>
           <template #activator="{ on }">
             <v-btn color="indigo" rounded outlined style="width:95%" v-on="on">
@@ -363,7 +363,7 @@
           </v-list>
         </v-menu>
       </v-col>
-      <v-col cols="12" md="6" lg="4">
+      <v-col cols="12" md="4">
         <v-autocomplete
           v-model="currentQuestion.topic"
           outlined

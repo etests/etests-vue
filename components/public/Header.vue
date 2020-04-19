@@ -148,9 +148,10 @@ export default {
     }
   },
   mounted() {
-    window.onscroll = () => {
-      this.offsetTop = window.scrollY
-    }
+    if (process.client)
+      window.onscroll = () => {
+        this.offsetTop = window.scrollY
+      }
   }
 }
 </script>

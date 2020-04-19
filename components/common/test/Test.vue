@@ -242,6 +242,22 @@
         </template>
       </template>
 
+      <div slot="clear">
+        <v-btn
+          color="error"
+          rounded
+          outlined
+          small
+          @click="clearQuestion(questionIndex)"
+          :disabled="isEmpty(currentAnswer.answer)"
+        >
+          <v-icon small>
+            mdi-close
+          </v-icon>
+          <span>Clear response</span>
+        </v-btn>
+      </div>
+
       <v-row slot="options">
         <template v-for="(question, q) in questions">
           <AnswerField
@@ -253,15 +269,6 @@
           />
         </template>
       </v-row>
-
-      <div slot="clear" class="mb-3">
-        <v-btn color="error" rounded outlined small @click="clearQuestion(questionIndex)">
-          <v-icon small>
-            mdi-close
-          </v-icon>
-          <span>Clear response</span>
-        </v-btn>
-      </div>
 
       <template slot="footer">
         <v-btn

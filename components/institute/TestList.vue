@@ -242,7 +242,7 @@
             v-for="(test, i) in tests.slice(0, 5)"
             :key="i"
             dense
-            :to="`/test/${test.id}/edit`"
+            :to="`/edit/${test.id}`"
             target="_blank"
           >
             <v-list-item-content>

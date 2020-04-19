@@ -1,53 +1,53 @@
 <template>
   <div>
-    <v-dialog v-model="exitDialog" persistent max-width="400">
-      <v-card>
-        <v-card-title>
-          You tried to exit the test.
-        </v-card-title>
-        <v-card-text style="text-align:left">
-          The test was submitted automatically.
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" text @click="exitDialog = false">
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <Review v-if="reviewing" :report="report" :demo="demo" @close="reviewing = false" />
-    <component :is="layout" v-else-if="!started || completed">
-      <v-col v-if="completed && report !== null" cols="12">
-        <Marks :report="report" :demo="demo" @review="reviewing = true" />
-        <Analysis v-if="report && report.result" :report="report" />
-        <v-card v-else :class="[$style.card, $style.message]">
-          Analysis of your test is not generated yet.
+    <client-only>
+      <v-dialog v-model="exitDialog" persistent max-width="400">
+        <v-card>
+          <v-card-title>
+            You tried to exit the test.
+          </v-card-title>
+          <v-card-text style="text-align:left">
+            The test was submitted automatically.
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="primary" text @click="exitDialog = false">
+              Close
+            </v-btn>
+          </v-card-actions>
         </v-card>
-      </v-col>
-      <v-row justify="center" align="center">
-        <v-col v-if="error" cols="12">
-          <v-card flat>
-            <v-card-text :class="[$style.error, 'text-center']" v-html="error" />
+      </v-dialog>
+      <Review v-if="reviewing" :report="report" :demo="demo" @close="reviewing = false" />
+      <component :is="layout" v-else-if="!started || completed">
+        <v-col v-if="completed && report !== null" cols="12">
+          <Marks :report="report" :demo="demo" @review="reviewing = true" />
+          <Analysis v-if="report && report.result" :report="report" />
+          <v-card v-else :class="[$style.card, $style.message]">
+            Analysis of your test is not generated yet.
           </v-card>
         </v-col>
-        <v-overlay v-else-if="loading">
-          <v-progress-circular color="primary" indeterminate size="64" />
-        </v-overlay>
-        <v-col v-else-if="!started" class="px-5" cols="12">
-          <Instructions>
-            <v-btn class="primary mx-auto" @click="startTest">
-              Start Test
-            </v-btn>
-          </Instructions>
-        </v-col>
-      </v-row>
-    </component>
-    <template v-else-if="session !== null && !completed">
-      <client-only>
+        <v-row justify="center" align="center">
+          <v-col v-if="error" cols="12">
+            <v-card flat>
+              <v-card-text :class="[$style.error, 'text-center']" v-html="error" />
+            </v-card>
+          </v-col>
+          <v-overlay v-else-if="loading">
+            <v-progress-circular color="primary" indeterminate size="64" />
+          </v-overlay>
+          <v-col v-else-if="!started" class="px-5" cols="12">
+            <Instructions>
+              <v-btn class="primary mx-auto" @click="startTest">
+                Start Test
+              </v-btn>
+            </Instructions>
+          </v-col>
+        </v-row>
+      </component>
+      <template v-else-if="session !== null && !completed">
         <Test :session-data="session" @update="updateSession" @exit="exitDialog = true" />
-      </client-only>
-    </template>
+      </template>
+    </client-only>
   </div>
 </template>
 
@@ -70,7 +70,7 @@ export default {
   },
   data() {
     return {
-      demo: this.$route.query.demo,
+      demo: !!this.$route.query.demo,
       id: parseInt(this.$route.params.id),
       session: null,
       started: false,
@@ -91,19 +91,20 @@ export default {
     }
   },
   created() {
-    if (process.client && localStorage.getItem("session")) {
-      const session = JSON.parse(localStorage.getItem("session"))
-      console.log(session)
-      if (session && this.demo === session.isDemo && session.testId === this.id) {
-        this.startTest()
-      } else if (session && (this.demo !== session.isDemo || session.testId !== this.id))
-        localStorage.removeItem("session")
-    }
+    if (process.client) this.resumeTest()
   },
   methods: {
+    resumeTest() {
+      if (process.client && localStorage.getItem("session")) {
+        const session = JSON.parse(localStorage.getItem("session"))
+        if (session && this.demo === session.isDemo && session.testId === this.id) {
+          this.startTest()
+        } else if (session && (this.demo !== session.isDemo || session.testId !== this.id))
+          localStorage.removeItem("session")
+      }
+    },
     startTest() {
       this.loading = true
-      this.$nuxt.$loading.start()
       if (!this.demo) {
         let storedSession = null
         if (localStorage.getItem("session"))
@@ -121,11 +122,9 @@ export default {
             localStorage.setItem("session", JSON.stringify(newSession))
             this.started = true
             this.loading = false
-            this.$nuxt.$loading.finish()
           },
           (error) => {
             this.error = this.status.error
-            this.$nuxt.$loading.fail()
           }
         )
 
@@ -139,7 +138,6 @@ export default {
         if (session !== null && session.test && session.testId === this.id) {
           this.session = session
           this.started = true
-          this.$nuxt.$loading.finish()
         } else if (demoTests.tests.length > this.id) {
           if (session === null) session = demoTests.newSession(demoTests.tests[this.id])
           else session.test = demoTests.tests[this.id]
@@ -147,10 +145,8 @@ export default {
           if (process.client) localStorage.setItem("session", JSON.stringify(session))
           this.session = session
           this.started = true
-          this.$nuxt.$loading.finish()
         } else {
           this.error = "This test does not exist."
-          this.$nuxt.$loading.fail()
         }
       }
     },

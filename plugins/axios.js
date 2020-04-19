@@ -1,9 +1,8 @@
 import utils from "@/js/utils"
 import handleError from "@/services/errorService"
 
-export default function({ $axios, isDev, env }) {
-  if (isDev) $axios.setBaseURL("http://localhost:8000")
-  else $axios.setBaseURL(env.API_URL)
+export default function({ $axios, env }) {
+  $axios.setBaseURL(env.API_URL)
 
   $axios.onRequest((config) => {
     let params = {}

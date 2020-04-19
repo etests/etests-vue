@@ -16,7 +16,7 @@
           rounded
           outlined
           class="chill"
-          :to="{ name: 'test-id', params: { id: 0, demo: true } }"
+          :to="{ name: 'test-id', query: { demo: 1 }, params: { id: 0 } }"
         >
           <transition appear enter-active-class="animated zoomIn">
             <v-icon>mdi-play-circle</v-icon>

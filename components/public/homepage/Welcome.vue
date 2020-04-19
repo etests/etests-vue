@@ -14,7 +14,13 @@
         </nuxt-link>
         <strong>FREE</strong> of cost.
       </p>
-      <v-btn rounded dark large color="chill" @click="$router.push('/demo/0')">
+      <v-btn
+        rounded
+        dark
+        large
+        color="chill"
+        :to="{ name: 'test-id', query: { demo: 1 }, params: { id: 0 } }"
+      >
         <v-icon>mdi-play-circle</v-icon>
         attempt demo test
       </v-btn>

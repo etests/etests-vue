@@ -646,17 +646,16 @@ export const demoTests = {
     let currentQuestion = {}
     let questionWiseMarks = []
     let topicWiseMarks = []
-    let i = 0
-    for (i = 0; i < noOfSections; i++) {
+    for (let i = 0; i < noOfSections; i++) {
       maxMarks.push(0)
       sectionWise.push(0)
     }
     maxMarks.push(0)
     let marks = { total: 0, maxMarks, sectionWise }
-    for (i = 0; i < session.test.questions.length; i++) {
+    for (let i = 0; i < session.test.questions.length; i++) {
       questionWiseMarks.push({ marks: 0, status: 0 })
     }
-    for (i = 0; i < session.test.sections.length; i++) {
+    for (let i = 0; i < session.test.sections.length; i++) {
       topicWiseMarks.push({})
     }
     let report = {
@@ -666,7 +665,7 @@ export const demoTests = {
       marks
     }
     report.test = session.test
-    for (i = 0; i < session.test.questions.length; i++) {
+    for (let i = 0; i < session.test.questions.length; i++) {
       currentQuestion = session.test.questions[i]
       marks.maxMarks[noOfSections] += currentQuestion.correctMarks
       marks.maxMarks[currentQuestion.section] += currentQuestion.correctMarks
@@ -735,7 +734,7 @@ export const demoTests = {
         for (let j = 0; j < responsesMatrix.length; j++) {
           curMarks.push({ marks: 0, status: 0 })
         }
-        for (j = 0; j < responsesMatrix.length; j++) {
+        for (let j = 0; j < responsesMatrix.length; j++) {
           if (responsesMatrix[j].length !== 0) {
             responsesMatrix[j].sort()
             answersMatrix[j].sort()
@@ -751,7 +750,7 @@ export const demoTests = {
         let totalMatrixMarks = 0
         let matrixMarks = []
         let matrixStatus = []
-        for (j = 0; j < curMarks.length; j++) {
+        for (let j = 0; j < curMarks.length; j++) {
           totalMatrixMarks += curMarks[j]["marks"]
           matrixMarks.push(curMarks[j]["marks"])
           matrixStatus.push(curMarks[j]["status"])

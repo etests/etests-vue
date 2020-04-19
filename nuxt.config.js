@@ -25,7 +25,12 @@ export default {
 
   css: ["@/sass/main.sass"],
 
-  plugins: ["@/plugins/host", "@/plugins/maps", "@/plugins/axios"],
+  plugins: [
+    "@/plugins/host",
+    "@/plugins/maps",
+    "@/plugins/axios",
+    { src: "@/plugins/shortkey", mode: "client" }
+  ],
 
   buildModules: ["@nuxtjs/eslint-module", "@nuxtjs/vuetify"],
 

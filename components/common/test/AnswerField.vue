@@ -38,6 +38,7 @@
         label="Answer (integer or decimal number)"
         type="number"
         :disabled="disabled"
+        style="max-width: 500px"
       />
     </div>
 

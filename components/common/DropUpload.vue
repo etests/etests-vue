@@ -32,11 +32,13 @@
   </div>
 </template>
 <script>
-import axios from "@/plugins/axios"
-
 export default {
   props: {
     small: {
+      type: Boolean,
+      default: false
+    },
+    saveOnServer: {
       type: Boolean,
       default: false
     }
@@ -45,7 +47,7 @@ export default {
     return {
       uploadPercentage: 0,
       loading: false,
-      uploadUrl: `${process.env.VUE_APP_API_URL}/images/`
+      uploadUrl: `${process.env.API_URL}/images/`
     }
   },
   methods: {
@@ -59,11 +61,20 @@ export default {
         else url = url[1]
         const vm = this
         this.checkImage(url, function(valid) {
-          if (valid) vm.$emit("upload", url)
+          if (valid) {
+            vm.$emit("upload", url)
+            if (vm.saveOnServer) {
+              let formData = { url }
+              vm.uploadImage(formData)
+            }
+          } else vm.$toast.error("Invalid Image")
         })
       } else if (files && files.length) {
         const file = files[0]
-        if (file.type.indexOf("image") === 0) this.uploadImage(file)
+        const formData = new FormData()
+        formData.append("file", file, file.name)
+        this.$emit("upload", "")
+        if (file.type.indexOf("image") === 0) this.uploadImage(formData)
       }
     },
     selectFiles(e) {
@@ -73,29 +84,35 @@ export default {
         const reader = new FileReader()
         reader.onload = (event) => vm.$emit("upload", event.target.result)
         reader.readAsDataURL(file)
-        vm.uploadImage(file)
+        const formData = new FormData()
+        formData.append("file", file, file.name)
+        vm.uploadImage(formData)
       }
     },
-    uploadImage(file) {
-      const formData = new FormData()
-      formData.append("file", file, file.name)
-      this.$emit("upload", "")
+    uploadImage(formData) {
       this.loading = true
-      axios
+      this.$axios
         .post(this.uploadUrl, formData, {
           headers: {
-            "Content-Type": "multipart/form-data"
+            "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW"
           },
           onUploadProgress: function(event) {
             this.uploadPercentage = parseInt(Math.round((event.loaded / event.total) * 100))
           }.bind(this)
         })
-        .then(this.afterUpload, console.log)
+        .then(this.afterUpload, (error) => {
+          this.$emit("upload", "")
+          this.$toast.error(error)
+          this.loading = false
+        })
     },
     afterUpload(response) {
       const data = response.data
       if (data && data.uploaded === 1) {
         this.$emit("upload", data.url)
+      } else if (data.error && data.error.message) {
+        this.$emit("upload", "")
+        this.$toast.error(data.error.message)
       }
       this.uploadPercentage = 0
       this.loading = false
