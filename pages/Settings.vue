@@ -104,13 +104,12 @@ export default {
     }
   },
   methods: {
-    addSection(section) {
-      this.sections.push(section)
-    },
     save() {
-      if (this.settings && !this.settings.sections) this.settings.sections = this.defaultSections
       this.$store.cache.dispatch("institutes/update", {
-        settings: this.settings,
+        settings: {
+          color: this.settings.color.hex ? this.settings.color.hex : this.settings.color,
+          sections: this.settings.sections
+        },
         handle: this.$handle
       })
     }

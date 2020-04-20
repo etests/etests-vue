@@ -148,7 +148,7 @@ export default {
       const defaultTitle = "Downloads"
       if (this.institute && this.institute.settings && this.institute.settings.sections) {
         const exists = this.institute.settings.sections.find(
-          (section) => section.component === this.$route.meta.title
+          (section) => section.component === this.$route.name
         )
         if (exists && exists.name && exists.name.length) return exists.name
         else return defaultTitle

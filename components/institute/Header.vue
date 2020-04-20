@@ -164,6 +164,7 @@ export default {
             this.institute.settings.sections.find((section) => {
               if (tab.title === section.component && section.show) {
                 if (section.name.length) tab.customTitle = section.name
+                else tab.customTitle = null
                 return true
               } else return false
             })

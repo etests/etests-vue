@@ -319,30 +319,13 @@ export default {
         index > -1 &&
         confirm("Are you sure you want to delete this item?")
       ) {
-        const updatedSubject = Object.assign(
-          {},
-          {
-            subject: this.faculty[this.subjectIndex].subject,
-            members: [
-              ...this.faculty[this.subjectIndex].members.slice(0, index),
-              ,
-              ...this.faculty[this.subjectIndex].members.slice(index + 1)
-            ]
-          }
-        )
-        this.faculty = [
-          ...this.faculty.slice(0, index),
-          updatedSubject,
-          ...this.faculty.slice(index + 1)
-        ]
+        this.selected = [index]
+        this.deleteMembers()
       }
     },
     save() {
       const subjectIndex = this.newFaculty.subjectIndex
       const memberIndex = this.newFaculty.memberIndex
-
-      // delete this.newFaculty.subjectIndex;
-      // delete this.newFaculty.memberIndex;
 
       if (subjectIndex === -1) {
         this.faculty = this.faculty.concat({
@@ -379,7 +362,7 @@ export default {
       const defaultTitle = "Our Faculty"
       if (this.institute && this.institute.settings && this.institute.settings.sections) {
         const exists = this.institute.settings.sections.find(
-          (section) => section.component === this.$route.meta.title
+          (section) => section.component === this.$route.name
         )
         if (exists && exists.name && exists.name.length) return exists.name
         else return defaultTitle
