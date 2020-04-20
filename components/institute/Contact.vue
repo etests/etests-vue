@@ -1,5 +1,5 @@
 <template>
-  <v-card class="v-application page my-10 elevation-0" outlined max-width="600">
+  <v-card class="page my-10 elevation-0" outlined max-width="600">
     <v-card-title>{{ title }}</v-card-title>
     <v-divider />
     <v-card-text>

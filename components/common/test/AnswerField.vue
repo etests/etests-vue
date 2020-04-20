@@ -66,7 +66,6 @@
 
         <v-col v-for="j in labels.answers.length" :key="`${i}-${j}`" cols="1" class="py-0">
           <v-checkbox
-            :ref="`matrix-${i - 1}-${j - 1}`"
             v-model="response[i - 1]"
             :value="j - 1"
             off-icon="mdi-radiobox-blank"
@@ -105,10 +104,6 @@ export default {
     }
   },
   methods: {
-    matrixInput(i, j) {
-      console.log(this.$refs[`matrix-${i}-${j}`][0].inputValue)
-      console.log(i, j)
-    },
     letter(start, index, order) {
       const small = "abcdefghijklmnopqrstuvwxyz"
       const caps = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

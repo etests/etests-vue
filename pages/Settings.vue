@@ -24,7 +24,7 @@
               <v-subheader>
                 Select the the sections to be displayed. Type a custom heading if required:
               </v-subheader>
-              <v-list-item v-for="(section, i) in sections" :key="i" c>
+              <v-list-item v-for="(section, i) in settings.sections" :key="i" c>
                 <v-list-item-avatar size="50px">
                   <v-checkbox v-model="section.show" label="" />
                 </v-list-item-avatar>
@@ -38,20 +38,6 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list>
-            <v-col v-if="newSections.length" cols="12">
-              <v-subheader>
-                New Sections (click to add):
-              </v-subheader>
-              <v-btn
-                v-for="(section, i) in newSections"
-                :key="i"
-                color="primary"
-                class="ml-3"
-                @click="addSection(section)"
-              >
-                {{ section.component }}
-              </v-btn>
-            </v-col>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
@@ -63,14 +49,12 @@
       </v-col>
       <v-col cols="12" md="4">
         <v-card class="object" flat outlined>
-          <v-card-title>
-            Theme color
-          </v-card-title>
+          <v-card-title> Theme color</v-card-title>
           <v-divider />
           <v-card-text>
             <client-only>
               <Sketch
-                v-model="color"
+                v-model="settings.color"
                 class="ma-auto"
                 style="width:100%; box-shadow:none; padding: 0; margin: 0"
               />
@@ -99,21 +83,24 @@ export default {
   },
   data() {
     return {
-      defaultSections: [
-        { component: "Notifications", name: "", show: true },
-        { component: "Features", name: "", show: true },
-        { component: "Team", name: "", show: true },
-        { component: "Toppers", name: "", show: true },
-        { component: "Contact", name: "", show: true },
-        { component: "Test Series", name: "", show: true },
-        { component: "Downloads", name: "", show: true },
-        { component: "Questions", name: "", show: true },
-        { component: "Gallery", name: "", show: true },
-        { component: "Faculty", name: "", show: true },
-        { component: "Centers", name: "", show: true },
-        { component: "Courses", name: "", show: true },
-        { component: "FAQ", name: "", show: true }
-      ]
+      settings: {
+        color: "#000",
+        sections: [
+          { component: "Notifications", name: "", show: true },
+          { component: "Features", name: "", show: true },
+          { component: "Team", name: "", show: true },
+          { component: "Toppers", name: "", show: true },
+          { component: "Contact", name: "", show: true },
+          { component: "Test Series", name: "", show: true },
+          { component: "Downloads", name: "", show: true },
+          { component: "Questions", name: "", show: true },
+          { component: "Gallery", name: "", show: true },
+          { component: "Faculty", name: "", show: true },
+          { component: "Centers", name: "", show: true },
+          { component: "Courses", name: "", show: true },
+          { component: "FAQ", name: "", show: true }
+        ]
+      }
     }
   },
   methods: {
@@ -133,37 +120,38 @@ export default {
       institute: "institutes/institute",
       editable: "institutes/editable",
       status: "institutes/status"
-    }),
-    settings() {
-      if (this.institute) {
-        return this.institute.settings
-      } else return {}
-    },
-    sections() {
-      if (this.settings && this.settings.sections) return this.settings.sections
-      else return this.defaultSections
-    },
-    newSections() {
-      return this.defaultSections.filter((section1) => {
-        return !this.sections.find((section2) => {
-          return section1.component === section2.component
+    })
+  },
+  mounted() {
+    this.$store.cache.dispatch("institutes/get", this.$handle).then((institute) => {
+      if (institute.settings) {
+        let newSections = this.settings.sections.filter((section1) => {
+          return !institute.settings.sections.find((section2) => {
+            return section1.component === section2.component
+          })
         })
-      })
-    },
-    color: {
-      get() {
-        if (this.settings && this.settings.color) return this.settings.color
-        else return "#000"
-      },
-      set(color) {
-        if (typeof color !== String) {
-          color = color.hex
-        }
-        this.$store.commit("institutes/updateSuccess", {
-          settings: { ...this.settings, color }
-        })
+        let newSettings = {}
+        if (institute.settings.color) newSettings.color = institute.settings.color
+        if (institute.settings.sections)
+          newSettings.sections = institute.settings.sections.map((section) => {
+            return { ...section }
+          })
+        newSettings.sections = newSettings.sections.concat(newSections)
+        this.settings = newSettings
       }
-    }
+      this.$watch("settings", {
+        deep: true,
+        handler(newValue, oldValue) {
+          let settings = {
+            color: newValue.color.hex ? newValue.color.hex : newValue.color,
+            sections: newValue.sections.map((section) => {
+              return { ...section }
+            })
+          }
+          this.$store.commit("institutes/updateSuccess", { settings })
+        }
+      })
+    })
   }
 }
 </script>

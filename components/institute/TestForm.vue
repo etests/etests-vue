@@ -93,10 +93,10 @@
           text
           @click="
             dialog = false
-            $store.dispatch('tests/clearStatus')
+            $store.commit('tests/clearStatus')
           "
         >
-          Cancel
+          close
         </v-btn>
         <v-btn
           v-if="newTest && !status.creating && !status.created"

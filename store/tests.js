@@ -13,11 +13,6 @@ export const getters = {
   freeTests: (state) => state.free.items
 }
 export const actions = {
-  clearStatus({ state }) {
-    setTimeout((_) => {
-      state.status = {}
-    }, 500)
-  },
   get({ commit }, id) {
     commit("getRequest", id)
 
@@ -133,6 +128,9 @@ export const actions = {
   }
 }
 export const mutations = {
+  clearStatus(state) {
+    state.status = {}
+  },
   getRequest(state) {
     state.status = { loading: true }
   },

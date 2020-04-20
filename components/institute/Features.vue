@@ -91,7 +91,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" text @click="editDialog = falase">
+          <v-btn color="primary" text @click="editDialog = false">
             Cancel
           </v-btn>
           <v-btn color="primary" text @click="save">
