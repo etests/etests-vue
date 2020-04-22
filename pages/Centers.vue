@@ -227,6 +227,7 @@ export default {
     GmapAutocomplete: Autocomplete,
     InstituteLayout
   },
+  middleware: "institute",
   head() {
     return {
       title: "Centers"

@@ -146,6 +146,7 @@
 import StandardLayout from "@/layouts/StandardLayout"
 
 export default {
+  middleware: "public",
   components: {
     StandardLayout
   },

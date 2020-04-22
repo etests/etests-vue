@@ -76,6 +76,7 @@ export default {
     InstituteLayout,
     Sketch
   },
+  middleware: "institute",
   head() {
     return {
       title: "Settings"

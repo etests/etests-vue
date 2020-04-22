@@ -12,7 +12,7 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.state.auth.user
+      return this.$auth.user
     },
     options() {
       return {
@@ -27,7 +27,7 @@ export default {
         },
         prefill: {
           name: this.user.name,
-          contact: this.user.profile.phone,
+          contact: this.user.phone,
           email: this.user.email
         },
         notes: {

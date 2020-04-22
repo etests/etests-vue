@@ -255,6 +255,7 @@ import { testTemplate } from "@/js/test"
 import utils from "@/js/utils"
 
 export default {
+  middleware: "public",
   head() {
     return {
       title: !isNaN(this.selectedSubject)

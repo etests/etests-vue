@@ -1,7 +1,7 @@
 <template>
   <div>
     <slot name="help" />
-    <v-btn v-if="loggedIn" :color="color" class="mx-0" icon @click="$auth.logout()">
+    <v-btn v-if="loggedIn" :color="color" class="mx-0" icon @click="logout">
       <v-icon>mdi-power</v-icon>
     </v-btn>
     <v-btn
@@ -95,7 +95,8 @@ export default {
   },
   methods: {
     logout() {
-      if (this.loggedIn) this.$auth.logout()
+      this.$auth.logout()
+      this.$store.cache.clear()
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <DashboardLayout :controls="controls[$auth.user.scope[0]]" :tab="tab" />
+    <DashboardLayout :controls="controls[$auth.user.scope[0]]" v-if="$auth.user" :tab="tab" />
   </v-app>
 </template>
 
@@ -8,7 +8,7 @@
 import DashboardLayout from "@/layouts/DashboardLayout.vue"
 
 export default {
-  middleware: "auth",
+  middleware: "login",
   components: {
     DashboardLayout
   },

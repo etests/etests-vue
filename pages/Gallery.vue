@@ -225,6 +225,7 @@ export default {
   components: {
     InstituteLayout
   },
+  middleware: "institute",
   head() {
     return {
       title: "Gallery"

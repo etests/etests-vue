@@ -1,5 +1,5 @@
 <template>
-  <v-card :tile="['xs', 'sm'].includes($mq)">
+  <v-card flat outlined :tile="['xs', 'sm'].includes($mq)">
     <v-card-title class="pb-0">
       <v-tabs v-model="tab" class="transparent" slider-color="primary" centered>
         <v-tab active-class="primary--text">
@@ -35,11 +35,8 @@
           </v-card-title>
           <v-card-text>
             <transition name="fade">
-              <form v-if="forgot">
-                <div v-if="status.sending || status.resetting">
-                  <v-progress-circular :size="50" color="primary" indeterminate />
-                </div>
-                <div v-else-if="status.reset" class="text-left">
+              <v-form v-if="forgot" autocomplete="false">
+                <div v-if="status.reset" class="text-left">
                   Password Changed Successfully! <br />
                   <div class="text-left my-1">
                     <nuxt-link to="" @click.native="forgot = false">
@@ -68,7 +65,7 @@
                     @click:append="showPassword = !showPassword"
                   />
                   <div class="text-left my-1">
-                    <nuxt-link to="" @click.native="sendResetCode">
+                    <nuxt-link to="" @click.native="sendResetCode" :loading="loading">
                       Resend Code
                     </nuxt-link>
                     <br />
@@ -76,7 +73,7 @@
                       Back to login
                     </nuxt-link>
                   </div>
-                  <v-btn color="primary" @click="submitResetCode">
+                  <v-btn color="primary" @click="submitResetCode" :loading="loading">
                     Change Password
                   </v-btn>
                 </div>
@@ -88,12 +85,12 @@
                     </nuxt-link>
                   </div>
                   <br />
-                  <v-btn color="primary" @click="sendResetCode">
+                  <v-btn color="primary" @click="sendResetCode" :loading="loading">
                     Send Reset Code
                   </v-btn>
                 </div>
-              </form>
-              <form v-else @keyup.enter="login">
+              </v-form>
+              <v-form v-else @keyup.enter="login">
                 <v-text-field v-model="username" solo-inverted flat label="Email or phone" />
                 <v-text-field
                   v-model="password"
@@ -112,10 +109,10 @@
                   </nuxt-link>
                 </div>
                 <br />
-                <v-btn color="primary" @click="login">
+                <v-btn color="primary" @click="login" :loading="loading">
                   Login
                 </v-btn>
-              </form>
+              </v-form>
             </transition>
           </v-card-text>
         </v-tab-item>
@@ -125,18 +122,18 @@
             Enter the verification code sent to your email.
           </v-card-title>
           <v-card-text>
-            <form v-if="verification">
+            <v-form v-if="verification" autocomplete="false">
               <v-text-field
                 v-model="verificationCode"
                 solo-inverted
                 flat
                 label="Verification Code"
               />
-              <v-btn color="primary" @click="verify">
+              <v-btn color="primary" @click="verify" :loading="loading">
                 Submit
               </v-btn>
-            </form>
-            <form v-else @keyup.enter="register">
+            </v-form>
+            <v-form v-else @keyup.enter="register" autocomplete="false">
               <v-text-field v-model="name" solo-inverted flat label="Name" />
               <v-text-field v-model="email" solo-inverted flat label="Email" />
               <v-text-field v-model="phone" solo-inverted flat label="Phone" />
@@ -151,10 +148,10 @@
                 value=""
                 @click:append="showPassword = !showPassword"
               />
-              <v-btn color="primary" @click="register">
+              <v-btn color="primary" @click="register" :loading="loading">
                 Signup
               </v-btn>
-            </form>
+            </v-form>
           </v-card-text>
         </v-tab-item>
       </v-tabs-items>
@@ -181,7 +178,8 @@ export default {
       email: "",
       phone: "",
       registerPassword: "",
-      showPassword: false
+      showPassword: false,
+      loading: false
     }
   },
   mounted() {
@@ -241,7 +239,15 @@ export default {
           resetCode: this.code,
           newPassword: this.password1
         }
-        this.$store.cache.dispatch("tabs/submitResetCode", data)
+        this.loading = true
+        this.$store.dispatch("tabs/submitResetCode", data).then(
+          (response) => {
+            this.loading = false
+          },
+          (error) => {
+            this.loading = false
+          }
+        )
       }
     },
     sendResetCode(e) {
@@ -250,7 +256,16 @@ export default {
       if (error) this.$toast.info(error)
       else {
         const { email } = this
-        if (email) this.$store.cache.dispatch("tabs/sendResetCode", { email })
+        this.loading = true
+        if (email)
+          this.$store.dispatch("tabs/sendResetCode", { email }).then(
+            (response) => {
+              this.loading = false
+            },
+            (error) => {
+              this.loading = false
+            }
+          )
       }
     },
     login(e) {
@@ -263,6 +278,7 @@ export default {
         let username = this.username,
           password = this.password
         if (username && password) {
+          this.loading = true
           this.$auth
             .loginWith("local", {
               data: { username, password }
@@ -272,9 +288,13 @@ export default {
                 this.$store.commit("tabs/toggleAuthDialog", false)
                 this.$auth.setUser(response.data.user)
                 this.$toast.success("Welcome!")
+                this.loading = false
+                if (this.$route.query.redirect) this.$router.push(this.$route.query.redirect)
+                else if (this.$route.path === "/") this.$router.push("/dashboard")
               },
               (error) => {
                 this.$toast.success(error)
+                this.loading = false
               }
             )
         }
@@ -300,13 +320,15 @@ export default {
           isStudent: true,
           isInstitute: false
         }
-
-        this.$store.cache.dispatch("tabs/register", data).then(
+        this.loading = true
+        this.$store.dispatch("tabs/register", data).then(
           (_) => {
             this.verification = true
+            this.loading = false
           },
           (error) => {
             console.log(error)
+            this.loading = false
           }
         )
       }
@@ -319,6 +341,7 @@ export default {
       const verificationCode = this.verificationCode
       const password = this.registerPassword
 
+      this.loading = true
       if (error) this.$toast.info(error)
       else {
         this.$store
@@ -329,8 +352,11 @@ export default {
           .then(
             (response) => {
               this.login()
+              this.loading = false
             },
-            (error) => {}
+            (error) => {
+              this.loading = false
+            }
           )
       }
     }

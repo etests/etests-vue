@@ -11,7 +11,9 @@
                 <v-expansion-panel
                   v-for="(step, i) in steps"
                   v-show="
-                    step.scope.find((scope) => $auth.hasScope(scope)) || $auth.hasScope('staff')
+                    !$auth.loggedIn ||
+                      step.scope.find((scope) => $auth.hasScope(scope)) ||
+                      $auth.hasScope('staff')
                   "
                   :key="i"
                   class="text-left"
@@ -40,6 +42,7 @@ export default {
   components: {
     StandardLayout
   },
+  middleware: "public",
   head() {
     return {
       title: "Help"

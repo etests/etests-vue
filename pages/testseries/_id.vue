@@ -16,19 +16,31 @@
             {{ testSeries.name }}
             <v-spacer />
             <Payment
-              v-if="paymentDialog && user && user.profile && user.profile.country === 'NP'"
+              v-if="buying && user && user.country === 'NP'"
               :test-series="testSeries"
               @close="paymentDialog = false"
               @submit="testSeries.status = 4"
             />
             <RazorPay
               v-else
-              :dialog="paymentDialog"
+              :dialog="buying"
               :test-series="testSeries"
               @close="paymentDialog = false"
               @submit="testSeries.status = 4"
             />
             <template v-if="testSeries.price === 0" />
+            <v-btn
+              v-if="!$auth.loggedIn || testSeries.status === 0"
+              depressed
+              hover
+              color="primary"
+              @click="
+                if (!$auth.loggedIn) $store.commit('tabs/toggleAuthDialog', true)
+                paymentDialog = true
+              "
+            >
+              buy
+            </v-btn>
             <v-btn
               v-else-if="testSeries.status === 2"
               depressed
@@ -39,10 +51,7 @@
               buy
             </v-btn>
             <v-chip v-else-if="testSeries.status !== 1" label color="grey lighten-5">
-              <template v-if="testSeries.status === 0">
-                Login to Buy
-              </template>
-              <template v-else-if="testSeries.status === 3">
+              <template v-if="testSeries.status === 3">
                 <v-icon color="success" small class="mr-2 mdi-spin">
                   mdi-sync
                 </v-icon>
@@ -138,6 +147,7 @@ export default {
   },
   data() {
     return {
+      id: this.$route.params.id,
       testSeries: null,
       paymentDialog: false,
       syllabus: null,
@@ -146,17 +156,23 @@ export default {
   },
   computed: {
     ...mapState({
-      loggedIn: (state) => state.auth.status.loggedIn,
-      user: (state) => state.users.user
+      loggedIn: (state) => state.auth.loggedIn,
+      user: (state) => state.auth.user
     }),
+    buying() {
+      return this.$auth.loggedIn && this.paymentDialog
+    },
     layout() {
       return this.$handle == "public" ? StandardLayout : InstituteLayout
     }
   },
   created() {
-    this.$store.cache.dispatch("publicTestSeries/get", this.$route.params.id).then((testSeries) => {
-      this.testSeries = testSeries
-    })
+    this.$store.cache.dispatch("publicTestSeries/get", this.id).then(
+      (testSeries) => {
+        this.testSeries = testSeries
+      },
+      (error) => {}
+    )
   },
   methods: {
     formatDate: utils.formatDate,

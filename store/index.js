@@ -2,6 +2,8 @@ import createCache from "vuex-cache"
 
 export const plugins = [createCache()]
 
+export const strict = false
+
 export const state = () => {}
 
 export const mutations = {}

@@ -78,7 +78,7 @@
         </template>
       </template>
       <v-btn
-        v-if="editable || (loggedIn && user && user.type === 'student')"
+        v-if="editable || (loggedIn && $auth.hasScope('student'))"
         :color="color"
         icon
         to="/dashboard/0"

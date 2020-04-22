@@ -235,6 +235,7 @@ export default {
     DropUpload,
     InstituteLayout
   },
+  middleware: "institute",
   head() {
     return {
       title: "Faculty"

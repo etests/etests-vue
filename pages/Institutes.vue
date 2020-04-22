@@ -82,6 +82,7 @@ export default {
   components: {
     StandardLayout
   },
+  middleware: "public",
   head() {
     return {
       title: "Institutes"

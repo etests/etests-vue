@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer v-model="drawer" clipped app floating width="260" :temporary="isTemporary">
-    <v-list>
+    <v-list class="text-left">
       <v-list-item-group color="primary">
         <template v-for="(item, i) in menu">
           <div v-if="!item.requiresLogin || (item.requiresLogin && loggedIn)" :key="i">

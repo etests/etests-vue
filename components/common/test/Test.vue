@@ -352,7 +352,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
 import AnswerField from "./AnswerField"
 import TestLayout from "@/layouts/TestLayout"
 import StandardLayout from "@/layouts/StandardLayout"
@@ -493,7 +492,6 @@ export default {
           return "grey"
       }
     },
-    startTest() {},
     markForReview(i) {
       if (this.isEmpty(this.answers[i].answer)) this.response[i].status = 2
       else this.response[i].status = 4

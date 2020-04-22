@@ -286,6 +286,7 @@ export default {
       title: "Question Bank"
     }
   },
+  middleware: "public",
   data() {
     return {
       drawer: false,
