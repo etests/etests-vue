@@ -1,8 +1,8 @@
 {
   "name": "etests",
   "version": "3.0.0",
-  "description": "eTests",
-  "author": "eTests",
+  "description": "eTests frontend on nuxt framework",
+  "author": "Piyush Maurya",
   "private": true,
   "scripts": {
     "dev": "nuxt",

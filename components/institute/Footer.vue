@@ -9,7 +9,7 @@
         <v-btn
           v-if="contacts.social.facebook"
           :href="contacts.social.facebook"
-          target="blank"
+          target="_blank"
           class="mx-4 white--text"
           icon
         >
@@ -18,7 +18,7 @@
         <v-btn
           v-if="contacts.social.twitter"
           :href="contacts.social.twitter"
-          target="blank"
+          target="_blank"
           class="mx-4 white--text"
           icon
         >
@@ -27,7 +27,7 @@
         <v-btn
           v-if="contacts.social.youtube"
           :href="contacts.social.youtube"
-          target="blank"
+          target="_blank"
           class="mx-4 white--text"
           icon
         >
@@ -36,7 +36,7 @@
         <v-btn
           v-if="contacts.social.linkedin"
           :href="contacts.social.linkedin"
-          target="blank"
+          target="_blank"
           class="mx-4 white--text"
           icon
         >
@@ -45,7 +45,7 @@
         <v-btn
           v-if="contacts.social.instagram"
           :href="contacts.social.instagram"
-          target="blank"
+          target="_blank"
           class="mx-4 white--text"
           icon
         >
@@ -105,12 +105,12 @@
             {{ contacts.phone }}
           </a>
           <br />
-          <a :href="`mailto:${contacts.email}`" :class="$style.animate" target="blank">
+          <a :href="`mailto:${contacts.email}`" :class="$style.animate" target="_blank">
             <v-icon small color="white" class="mr-3">mdi-email</v-icon>
             {{ contacts.email }}
           </a>
           <br />
-          <a :class="$style.animate" target="blank">
+          <a :class="$style.animate" target="_blank">
             <v-icon small color="white" class="mr-3">mdi-map-marker</v-icon>
             {{ contacts.address }}
           </a>
@@ -127,7 +127,7 @@
         Designed and Developed by
       </v-col>
       <v-col class="py-2 px-0" cols="auto">
-        <a href="https://etests.co.in/" target="blank">
+        <a href="https://etests.co.in/" target="_blank">
           <v-img width="15px" style="float:left" :src="require('@/assets/logos/etests.png')" />
           <span :class="[$style.logo, 'chill--text']">
             eTests

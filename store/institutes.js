@@ -14,7 +14,6 @@ export const getters = {
   },
   institutes: (state) => state.items,
   status: (state) => state.status,
-  joinedInstitutes: (state) => state.joined,
   editable: (state, getters, rootState, rootGetters) => {
     return (
       rootGetters.loggedIn &&
@@ -38,17 +37,17 @@ export const actions = {
       }
     )
   },
-  getJoined({ commit }) {
-    commit("getJoinedRequest")
-    return this.$axios.get("/institutes/joined/").then(
+  join({ commit }, data) {
+    commit("joinRequest")
+    return this.$axios.post(`/institutes/join/${data.id}/`, data).then(
       (response) => {
-        commit("getJoinedSuccess", response.data)
+        commit("joinSuccess", response.data)
+        this.$toast.success("Joined Successfuly")
         return response.data
       },
       (error) => {
-        commit("getJoinedFailure", error.message)
+        commit("joinFailure", error.message)
         this.$toast.error(error.message)
-        throw error
       }
     )
   },
@@ -130,14 +129,14 @@ export const mutations = {
   listFailure(state, error) {
     state.status = { error }
   },
-  getJoinedRequest(state) {
+  joinRequest(state) {
     state.status = { loading: true }
   },
-  getJoinedSuccess(state, institutes) {
-    state.joined = institutes
+  joinSuccess(state, data) {
+    if (data.id) this.commit("joinInstitute", data.id)
     state.status = { loading: false }
   },
-  getJoinedFailure(state, error) {
+  joinFailure(state, error) {
     state.status = { error }
   },
   contactRequest(state) {

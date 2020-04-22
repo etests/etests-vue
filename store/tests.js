@@ -50,11 +50,7 @@ export const actions = {
     return this.$axios.patch(`/tests/${data.id}/`, data).then(
       (response) => {
         commit("updateSuccess", data)
-        setTimeout(() => {
-          this.$toast.success("Test updated successfully!", {
-            root: true
-          })
-        })
+        this.$toast.success("Test updated successfully!")
         return response.data
       },
       (error) => {
@@ -70,11 +66,7 @@ export const actions = {
     return this.$axios.delete(`/tests/${id}/`).then(
       (_) => {
         commit("removeSuccess", id)
-        setTimeout(() => {
-          this.$toast.success("Test deleted successfully!", {
-            root: true
-          })
-        })
+        this.$toast.success("Test deleted successfully!")
       },
       (error) => {
         commit("removeFailure", error.message)

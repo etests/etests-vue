@@ -113,7 +113,7 @@
             <template #selection="{ attrs, item, select, selected }">
               <v-chip
                 :href="item"
-                target="blank"
+                target="_blank"
                 v-bind="attrs"
                 :input-value="selected"
                 close

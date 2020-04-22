@@ -11,7 +11,7 @@
                   dark
                   small
                   :href="page.href"
-                  target="blank"
+                  target="_blank"
                   :color="page.color"
                   v-on="on"
                 >

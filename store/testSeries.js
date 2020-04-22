@@ -30,11 +30,7 @@ export const actions = {
     this.$axios.post("/testseries/user/", data).then(
       (response) => {
         commit("createSuccess", response.data)
-        setTimeout(() => {
-          this.$toast.success("Test Series created successfully!", {
-            root: true
-          })
-        })
+        this.$toast.success("Test Series created successfully!")
       },
       (error) => {
         commit("createFailure", error.message)
@@ -48,11 +44,7 @@ export const actions = {
     this.$axios.patch(`/testseries/user/${data.id}/`, data).then(
       (_) => {
         commit("updateSuccess", data)
-        setTimeout(() => {
-          this.$toast.success("Test Series updated successfully!", {
-            root: true
-          })
-        })
+        this.$toast.success("Test Series updated successfully!")
       },
       (error) => {
         commit("updateFailure", error.message)
@@ -66,11 +58,7 @@ export const actions = {
     this.$axios.delete(`/testseries/user/${id}/`, id).then(
       (_) => {
         commit("removeSuccess", id)
-        setTimeout(() => {
-          this.$toast.success("Test Series removed successfully!", {
-            root: true
-          })
-        })
+        this.$toast.success("Test Series removed successfully!")
       },
       (error) => {
         commit("removeFailure", error.message)

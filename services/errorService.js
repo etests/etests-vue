@@ -19,7 +19,7 @@ function mergeErrors(data) {
   let messages = []
   if (isObject(data)) {
     for (let key in data) {
-      if ([("error", "detail")].some((label) => key.toLowerCase().includes(label)))
+      if (["error", "detail"].some((label) => key.toLowerCase().includes(label)))
         messages.push("<b>" + mergeErrors(data[key]) + "</b>")
       else messages.push("<b>" + formatFieldName(key) + ": " + mergeErrors(data[key]) + "</b>")
     }

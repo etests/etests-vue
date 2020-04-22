@@ -42,7 +42,7 @@
             {{ formatDate(item.date, false) }}
           </template>
           <template #item.link="{ item }">
-            <v-btn icon large color="success" :href="item.link" target="blank">
+            <v-btn icon large color="success" :href="item.link" target="_blank">
               <v-icon>mdi-cloud-download</v-icon>
             </v-btn>
             <v-btn v-if="editable" icon @click="editItem(item)">

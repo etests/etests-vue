@@ -27,7 +27,7 @@
             flat
             hover
             :href="feature.link"
-            target="blank"
+            target="_blank"
             height="100%"
           >
             <v-img :src="feature.image" height="200" class="mx-auto">

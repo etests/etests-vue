@@ -184,7 +184,7 @@
                   mdi-dns
                 </v-icon>
               </v-btn>
-              <v-btn rounded icon small color="info" :to="`/edit/${item.id}`" target="blank">
+              <v-btn rounded icon small color="info" :to="`/edit/${item.id}`" target="_blank">
                 <v-icon small>
                   mdi-pencil
                 </v-icon>

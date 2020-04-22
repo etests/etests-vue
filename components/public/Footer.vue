@@ -13,7 +13,7 @@
           icon
           large
           :href="page.href"
-          target="blank"
+          target="_blank"
         >
           <v-icon size="20px">
             {{ page.icon }}

@@ -74,6 +74,7 @@
             height="0"
             class="mt-0 mb-1"
             :disabled="disabled"
+            @change="$emit('change')"
           />
         </v-col>
       </v-row>
