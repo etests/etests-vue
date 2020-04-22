@@ -284,7 +284,7 @@ export default {
   },
   computed: {
     tab() {
-      return this.$route.params.tab
+      return this.$route.query.tab
     },
     institute() {
       return this.$store.getters["institutes/institute"]

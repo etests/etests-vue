@@ -81,7 +81,7 @@
         v-if="editable || (loggedIn && $auth.hasScope('student'))"
         :color="color"
         icon
-        to="/dashboard/0"
+        to="/dashboard?tab=0"
       >
         <v-icon>mdi-account-circle</v-icon>
       </v-btn>

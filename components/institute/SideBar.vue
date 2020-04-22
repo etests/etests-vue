@@ -88,7 +88,7 @@ export default {
         {
           title: "Tests",
           icon: "mdi-note",
-          link: { path: "/dashboard/0" },
+          link: { path: "/dashboard?tab=0" },
           requiresLogin: true
         },
         {

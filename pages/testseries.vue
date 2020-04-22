@@ -37,7 +37,7 @@
               class="object"
               hover
               :min-width="['lg', 'xl'].includes($mq) ? '240px' : ''"
-              :to="`/testseries/${testSeries.id}`"
+              :to="`/tests?testseries=${testSeries.id}`"
             >
               <v-img
                 :src="require('@/assets/images/bg/circle.svg')"

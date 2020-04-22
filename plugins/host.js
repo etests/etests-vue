@@ -1,15 +1,11 @@
-export default ({ req, env }, inject) => {
+export default ({ env }, inject) => {
   let ourDomain
   let handle
   let host
 
   ourDomain = env.DOMAIN
 
-  if (process.server) {
-    host = req.headers.host.split(":")[0]
-  } else {
-    host = window.location.host.split(":")[0]
-  }
+  host = window.location.host.split(":")[0]
 
   const parts = host.split("." + ourDomain)
   let customDomain = !host.endsWith(ourDomain) && !/^([\d\.]+)$/.test(host)

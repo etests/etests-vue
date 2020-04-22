@@ -41,7 +41,7 @@
 <script>
 import { mapState } from "vuex"
 import EditTest from "@/components/common/test/EditTest"
-import Review from "@/pages/review/_id/index"
+import Review from "@/components/common/test/Review"
 import Marks from "@/components/common/test/Marks"
 import Analysis from "@/components/common/test/Analysis"
 import InstituteLayout from "@/layouts/InstituteLayout"
@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       demo: !!this.$route.query.demo,
-      id: parseInt(this.$route.params.id) || 10000000000,
+      id: parseInt(this.$route.query.id) || 10000000000,
       test: null,
       started: false,
       loading: false,
@@ -116,7 +116,7 @@ export default {
       const session = demoTests.newSession(this.test)
       session.testId = this.id
       if (process.client) localStorage.setItem("session", JSON.stringify(session))
-      this.$router.push(`/demo/${this.id}`)
+      this.$router.push({ path: "test", query: { id: this.id, demo: 1 } })
     },
     deleteTest() {
       if (process.client) localStorage.removeItem("session")

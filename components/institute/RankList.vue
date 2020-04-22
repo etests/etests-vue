@@ -5,7 +5,7 @@
       <strong v-else class="success--text">{{ item.rank }}</strong>
     </template>
     <template #item.actions="{ item }">
-      <v-btn rounded color="success" @click="$router.new(`/result/${item.id}`)">
+      <v-btn rounded color="success" :to="`/result?id=${item.id}`" target="_blank">
         <v-icon>mdi-file-chart</v-icon> &nbsp; Analysis
       </v-btn>
     </template>

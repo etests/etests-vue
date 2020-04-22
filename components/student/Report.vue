@@ -20,7 +20,7 @@
           {{ formatDate(item["time"]) }}
         </template>
         <template #item.actions="{ item }">
-          <v-btn dark small color="primary" @click="$router.push(`/result/${item.id}`)">
+          <v-btn dark small color="primary" :to="`/result?id=${item.id}`">
             Result
           </v-btn>
         </template>

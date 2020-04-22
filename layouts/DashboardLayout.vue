@@ -19,7 +19,7 @@
                 :class="$style.icon"
                 :color="hover || tab === i ? control.color : 'white'"
                 :dark="hover || tab === i"
-                :to="control.link ? control.link.path : `/dashboard/${i}`"
+                :to="control.link ? control.link.path : `/dashboard?tab=${i}`"
               >
                 <transition appear enter-active-class="animated zoomIn">
                   <v-icon :color="hover || tab === i ? '' : control.color" style="font-size: 60px">
@@ -49,7 +49,10 @@
                       :class="[$style.tab, ['xs', 'sm'].includes($mq) ? 'mx-4' : '']"
                       :color="hover || tab == i ? control.color : 'white'"
                       :dark="hover || tab == i"
-                      :to="control.link ? control.link.path : `/dashboard/${i}`"
+                      :to="
+                        control.link ? control.link.path : { path: 'dashboard', query: { tab: i } }
+                      "
+                      exact
                       v-on="on"
                     >
                       <v-icon :color="hover || tab == i ? '' : control.color" large>

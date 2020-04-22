@@ -28,7 +28,7 @@
           <ol>
             <li>
               You can start adding questions in
-              <nuxt-link :to="`/test/${status.test.id}/edit`"> Test Editor </nuxt-link>or
+              <nuxt-link :to="`/edit?id=${status.test.id}`"> Test Editor </nuxt-link>or
             </li>
             <li>
               <a href="https://forms.gle/qvqtmpXo38xqWpq29" target="_blank"

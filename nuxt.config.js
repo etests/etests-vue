@@ -27,7 +27,7 @@ export default {
   css: ["@/sass/main.sass"],
 
   plugins: [
-    "@/plugins/host",
+    { src: "@/plugins/host", mode: "client" },
     "@/plugins/maps",
     "@/plugins/axios",
     { src: "@/plugins/shortkey", mode: "client" }
@@ -43,6 +43,12 @@ export default {
     "@nuxtjs/toast",
     "nuxt-mq"
   ],
+
+  generate: {
+    fallback: true,
+    interval: 100,
+    subFolders: false
+  },
 
   mq: {
     defaultBreakpoint: "default",

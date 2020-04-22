@@ -69,18 +69,14 @@
                     <v-btn
                       v-if="!item.sessions.length && item.status === 1"
                       color="success"
-                      @click="$router.push(`/test/${item.id}`)"
+                      :to="`/test?id=${item.id}`"
                     >
                       Start this test
                     </v-btn>
                     <v-btn disabled v-else-if="item.sessions.length && item.status === 1">
                       Attempted
                     </v-btn>
-                    <v-btn
-                      v-else-if="item.status > 1"
-                      color="info"
-                      @click="$router.push(`/test/${item.id}`)"
-                    >
+                    <v-btn v-else-if="item.status > 1" color="info" :to="`/test?id=${item.id}`">
                       Practice Attempt
                     </v-btn>
                   </v-col>
@@ -99,7 +95,7 @@
                       icon
                       text
                       color="info"
-                      @click="$router.push(`/test/${item.id}`)"
+                      :to="`/test?id=${item.id}`"
                     >
                       <v-icon>mdi-play-pause</v-icon>
                     </v-btn>
@@ -108,7 +104,7 @@
                       icon
                       text
                       color="success"
-                      @click="$router.push(`/result/${session.id}`)"
+                      :to="`/result?id=${session.id}`"
                     >
                       <v-icon>mdi-file-chart</v-icon>
                     </v-btn>
@@ -120,7 +116,7 @@
                       @click="
                         $router.push({
                           path: '/result',
-                          params: { id: session.id, review: true }
+                          query: { id: session.id, review: true }
                         })
                       "
                     >
@@ -143,7 +139,7 @@
               v-for="(test, i) in tests.slice(0, 5)"
               :key="i"
               dense
-              :to="`/test/${test.id}`"
+              :to="`/test?id=${test.id}`"
               target="_blank"
             >
               <v-list-item-content>

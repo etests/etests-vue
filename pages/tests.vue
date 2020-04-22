@@ -85,7 +85,7 @@
               <v-list-item
                 v-for="(test, i) in testSeries.tests"
                 :key="i"
-                @click="$router.push(`/test/${test.id}`)"
+                :to="`/test?id=${test.id}`"
               >
                 <v-list-item-icon class="ml-4">
                   <span v-if="test.status === 0" class="grey--text">
@@ -132,7 +132,7 @@ import Payment from "@/components/common/Payment"
 import StandardLayout from "@/layouts/StandardLayout"
 import InstituteLayout from "@/layouts/InstituteLayout"
 import utils from "@/js/utils"
-import { testTemplate } from "../../js/test"
+import { testTemplate } from "@/js/test"
 
 export default {
   components: {
@@ -147,7 +147,7 @@ export default {
   },
   data() {
     return {
-      id: this.$route.params.id,
+      id: this.$route.query.testseries,
       testSeries: null,
       paymentDialog: false,
       syllabus: null,

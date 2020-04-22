@@ -184,7 +184,7 @@
                   mdi-dns
                 </v-icon>
               </v-btn>
-              <v-btn rounded icon small color="info" :to="`/edit/${item.id}`" target="_blank">
+              <v-btn rounded icon small color="info" :to="`/edit?id=${item.id}`" target="_blank">
                 <v-icon small>
                   mdi-pencil
                 </v-icon>
@@ -241,7 +241,7 @@
               v-for="(test, i) in tests.slice(0, 5)"
               :key="i"
               dense
-              :to="`/edit/${test.id}`"
+              :to="`/edit?id=${test.id}`"
               target="_blank"
             >
               <v-list-item-content>

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import Review from "@/pages/review/_id/index"
+import Review from "@/components/common/test/Review"
 import Analysis from "@/components/common/test/Analysis"
 import Marks from "@/components/common/test/Marks"
 import InstituteLayout from "@/layouts/InstituteLayout"
@@ -51,7 +51,7 @@ export default {
   },
   data() {
     return {
-      id: parseInt(this.$route.params.id),
+      id: parseInt(this.$route.query.id),
       reviewing: this.review
     }
   },

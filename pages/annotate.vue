@@ -266,7 +266,7 @@ export default {
   data() {
     return {
       drawer: false,
-      selectedSubject: this.$route.params.subject,
+      selectedSubject: this.$route.query.subject,
       subjectChoices: [
         { value: 1, text: "Physics", icon: "mdi-lightbulb-on" },
         { value: 2, text: "Mathematics", icon: "mdi-math-compass" },
@@ -345,7 +345,7 @@ export default {
   },
   watch: {
     $route(newValue, oldValue) {
-      this.selectedSubject = newValue.params.subject
+      this.selectedSubject = newValue.query.subject
       if (this.selectedSubject) this.find()
     }
   },

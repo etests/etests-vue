@@ -55,7 +55,7 @@
 import { mapState } from "vuex"
 import Instructions from "@/components/common/test/Instructions"
 import Test from "@/components/common/test/Test"
-import Review from "@/pages/review/_id/index"
+import Review from "@/components/common/test/Review"
 import Marks from "@/components/common/test/Marks"
 import Analysis from "@/components/common/test/Analysis"
 import InstituteLayout from "@/layouts/InstituteLayout"
@@ -71,7 +71,7 @@ export default {
   data() {
     return {
       demo: !!this.$route.query.demo,
-      id: parseInt(this.$route.params.id),
+      id: parseInt(this.$route.query.id),
       session: null,
       started: false,
       loading: false,
@@ -95,6 +95,10 @@ export default {
   },
   methods: {
     resumeTest() {
+      if (!this.id) {
+        this.id = 0
+        this.demo = true
+      }
       if (process.client && localStorage.getItem("session")) {
         const session = JSON.parse(localStorage.getItem("session"))
         if (session && this.demo === session.isDemo && session.testId === this.id) {

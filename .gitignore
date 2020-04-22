@@ -89,5 +89,8 @@ sw.*
 # Vim swap files
 *.swp
 
-.env.local
-.env.*.local
+.env*
+
+#Deploy
+deploy.sh
+.awspublish*
