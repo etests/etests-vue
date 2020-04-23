@@ -17,8 +17,9 @@
     <v-dialog
       v-model="showLoginDialog"
       :fullscreen="['xs', 'sm'].includes($mq)"
-      max-width="600px"
+      :persistent="['xs', 'sm'].includes($mq)"
       :retain-focus="false"
+      max-width="600px"
     >
       <Login @close="showLoginDialog = false" />
     </v-dialog>

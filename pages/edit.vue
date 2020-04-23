@@ -52,7 +52,19 @@ import { demoTests } from "@/js/demoTests"
 export default {
   head() {
     return {
-      title: this.test ? this.test.name : "Edit Test"
+      title: this.test ? this.test.name : "Edit Test",
+      meta: [
+        {
+          name: "viewport",
+          content:
+            "width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=yes, minimal-ui"
+        },
+        {
+          hid: "description",
+          name: "description",
+          content: "Test editor by eTests"
+        }
+      ]
     }
   },
   data() {

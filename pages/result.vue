@@ -46,7 +46,14 @@ export default {
   },
   head() {
     return {
-      title: this.report ? "Result - " + this.report.test.name : "Result"
+      title: this.report ? "Result - " + this.report.test.name : "Result",
+      meta: [
+        {
+          name: "viewport",
+          content:
+            "width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=yes, minimal-ui"
+        }
+      ]
     }
   },
   data() {
