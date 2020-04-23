@@ -1,6 +1,6 @@
 export const state = () => ({
   institute: null,
-  status: { loading: false },
+  status: { loading: true },
   joined: [],
   items: []
 })

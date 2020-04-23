@@ -20,6 +20,7 @@
     "@nuxtjs/toast": "^3.3.0",
     "ckeditor5-build-advanced": "^12.4.2",
     "nuxt": "^2.12.2",
+    "nuxt-compress": "^1.1.0",
     "nuxt-mq": "^2.0.1",
     "vue-color": "^2.7.1",
     "vue-google-charts": "^0.3.2",

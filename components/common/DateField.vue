@@ -23,7 +23,7 @@
     <v-date-picker :value="value" scrollable @input="handleInput">
       <template>
         <v-spacer />
-        <v-btn text color="chill" @click="menu = false">
+        <v-btn text color="primary" @click="menu = false">
           OK
         </v-btn>
       </template>

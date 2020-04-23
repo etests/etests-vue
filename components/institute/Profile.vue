@@ -95,8 +95,13 @@ export default {
     }
   },
   computed: {
-    profile() {
-      return { ...this.$auth.user }
+    profile: {
+      get() {
+        return this.$auth.user
+      },
+      set(value) {
+        this.$store.commit("profile/updateSuccess", value)
+      }
     }
   },
   methods: {
@@ -112,19 +117,7 @@ export default {
         error = "About cannot be more than 250 words."
 
       if (error) this.$toast.info(error)
-      else {
-        const data = {
-          name: this.profile.name,
-          phone: this.profile.phone,
-          pincode: this.profile.pincode,
-          city: this.profile.city,
-          state: this.profile.state,
-          about: this.profile.about,
-          image: this.profile.image
-        }
-
-        this.$store.cache.dispatch("profile/updateProfile", data)
-      }
+      else this.$store.cache.dispatch("profile/updateProfile", this.profile)
     }
   }
 }

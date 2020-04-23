@@ -1,5 +1,5 @@
 export const state = () => ({
-  status: { loading: false },
+  status: { loading: true },
   items: []
 })
 

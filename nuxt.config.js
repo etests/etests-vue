@@ -1,3 +1,11 @@
+let envFileName
+
+if (process.env.NODE_ENV === "production") {
+  envFileName = ".env.production"
+} else {
+  envFileName = ".env.local"
+}
+
 export default {
   mode: "universal",
 
@@ -6,7 +14,9 @@ export default {
     title: "Home",
     meta: [
       { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      {
+        name: "width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui"
+      },
       {
         hid: "description",
         name: "description",
@@ -14,7 +24,18 @@ export default {
           "eTests is the new standard in online testing solutions. Attempt free tests of various competitive exams."
       }
     ],
-    link: [{ rel: "icon", type: "image/png", href: "/favicon.png" }]
+    link: [
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
+      {
+        rel: "stylesheet",
+        href: "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
+      },
+      {
+        rel: "stylesheet",
+        href:
+          "https://fonts.googleapis.com/css?family=Montserrat|Open+Sans:400,600&display=swap&subset=latin-ext"
+      }
+    ]
   },
 
   loading: {
@@ -41,8 +62,22 @@ export default {
     "@nuxtjs/pwa",
     "@nuxtjs/dotenv",
     "@nuxtjs/toast",
-    "nuxt-mq"
+    "nuxt-mq",
+    "nuxt-compress"
   ],
+
+  "nuxt-compress": {
+    gzip: {
+      cache: true
+    },
+    brotli: {
+      threshold: 10240
+    }
+  },
+
+  dotenv: {
+    filename: envFileName
+  },
 
   generate: {
     fallback: true,

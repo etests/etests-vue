@@ -32,6 +32,7 @@
             sm="6"
             md="4"
             lg="auto"
+            v-show="!status.loading"
           >
             <v-card
               class="object"

@@ -85,7 +85,13 @@
               <v-list-item
                 v-for="(test, i) in testSeries.tests"
                 :key="i"
-                :to="`/test?id=${test.id}`"
+                :to="$auth.loggedIn && $auth.hasScope('student') ? `/test?id=${test.id}` : ''"
+                @click="
+                  if (!$auth.loggedIn) {
+                    $store.commit('tabs/toggleAuthDialog', true)
+                    $route.query.redirect = `/test?id=${test.id}`
+                  }
+                "
               >
                 <v-list-item-icon class="ml-4">
                   <span v-if="test.status === 0" class="grey--text">
