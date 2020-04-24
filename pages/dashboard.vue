@@ -76,12 +76,28 @@ export default {
             ]
           },
           {
-            name: "Links",
-            color: "warning",
-            icon: "mdi-link",
+            name: "Online Class",
+            color: "error",
+            icon: "mdi-video",
+            institute: true,
             cards: [
               {
-                component: () => import("@/components/institute/Links"),
+                component: () => import("@/components/institute/Lectures"),
+                cols: {
+                  sm: 12,
+                  md: 12
+                }
+              }
+            ]
+          },
+          {
+            name: "Assignments",
+            color: "warning",
+            icon: "mdi-paperclip",
+            institute: true,
+            cards: [
+              {
+                component: () => import("@/components/institute/Assignments"),
                 cols: {
                   sm: 12,
                   md: 12
@@ -143,7 +159,7 @@ export default {
         student: [
           {
             name: "Tests",
-            color: "cool",
+            color: "hot",
             icon: "mdi-file-document",
             cards: [
               {
@@ -171,7 +187,7 @@ export default {
           },
           {
             name: "My Test Series",
-            color: "hot",
+            color: "cool",
             icon: "mdi-book-minus",
             cards: [
               {
@@ -184,13 +200,28 @@ export default {
             ]
           },
           {
-            name: "Links",
-            color: "warning",
-            icon: "mdi-link",
+            name: "Online Class",
+            color: "error",
+            icon: "mdi-video",
             institute: true,
             cards: [
               {
-                component: () => import("@/components/institute/Links"),
+                component: () => import("@/components/institute/Lectures"),
+                cols: {
+                  sm: 12,
+                  md: 12
+                }
+              }
+            ]
+          },
+          {
+            name: "Assignments",
+            color: "warning",
+            icon: "mdi-paperclip",
+            institute: true,
+            cards: [
+              {
+                component: () => import("@/components/institute/Assignments"),
                 cols: {
                   sm: 12,
                   md: 12

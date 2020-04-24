@@ -10,6 +10,9 @@
           cols="6"
           md="3"
           class="text-center pa-auto"
+          v-show="
+            !control.institute || (control.institute && $handle.length && $handle !== 'public')
+          "
         >
           <v-col cols="12">
             <v-hover #default="{ hover }">
@@ -40,7 +43,15 @@
       <v-row v-else class="text-center">
         <v-col cols="12" md="1">
           <v-row justify="center" align="center">
-            <v-col v-for="(control, i) in controls" :key="i" cols="auto" md="12">
+            <v-col
+              v-for="(control, i) in controls"
+              :key="i"
+              cols="auto"
+              md="12"
+              v-show="
+                !control.institute || (control.institute && $handle.length && $handle !== 'public')
+              "
+            >
               <v-tooltip right>
                 <template #activator="{ on }">
                   <v-hover #default="{ hover }">

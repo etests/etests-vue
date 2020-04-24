@@ -1,11 +1,11 @@
 <template>
   <v-card class="page my-10" min-height="300">
     <v-card-title>
-      Links
+      Online Class
       <v-spacer />
       <v-btn
         v-if="editable"
-        v-show="links && links.length"
+        v-show="links && links.filter((link) => link.type == 'lecture').length"
         color="primary"
         @click="updateDialog = true"
       >
@@ -14,19 +14,28 @@
     </v-card-title>
     <v-divider />
     <v-card-text class="px-0">
-      <v-row v-if="links && !links.length" justify="center" align="center">
+      <v-row
+        v-if="links && !links.filter((link) => link.type == 'lecture').length"
+        justify="center"
+        align="center"
+      >
         <v-btn v-if="editable" color="primary" x-large @click="addDialog = true">
           add link
           <v-icon>mdi-plus</v-icon>
         </v-btn>
         <template v-else> No links </template>
       </v-row>
-      <v-list v-if="links && links.length">
+      <v-list v-if="links && links.filter((link) => link.type == 'lecture').length">
         <v-list-item-group color="primary">
-          <v-list-item v-for="(item, i) in links" :key="i" :href="item.link" target="_blank">
+          <v-list-item
+            v-for="(item, i) in links.filter((link) => link.type == 'lecture')"
+            :key="i"
+            :href="item.link"
+            target="_blank"
+          >
             <v-list-item-icon>
-              <v-icon>
-                mdi-link
+              <v-icon color="error">
+                mdi-play-circle
               </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
@@ -43,14 +52,18 @@
     <v-dialog v-model="updateDialog" width="500">
       <v-card tile>
         <v-card-title>
-          link
+          Online Class
           <v-spacer />
           <v-btn color="primary" @click="addDialog = true">
             Add link
           </v-btn>
         </v-card-title>
         <v-divider />
-        <v-data-table :headers="headers" :items="links" :items-per-page="5">
+        <v-data-table
+          :headers="headers"
+          :items="links.filter((link) => link.type == 'lecture')"
+          :items-per-page="5"
+        >
           <template #item.actions="{ item }">
             <v-btn icon @click="editItem(item)">
               <v-icon small color="success">
@@ -123,12 +136,14 @@ export default {
       editedItem: {
         title: "",
         description: "",
-        link: ""
+        link: "",
+        type: "lecture"
       },
       defaultItem: {
         title: "",
         description: "",
-        link: ""
+        link: "",
+        type: "lecture"
       }
     }
   },
@@ -139,7 +154,6 @@ export default {
       this.addDialog = true
     },
     save() {
-      this.editedItem.date = new Date()
       if (this.editIndex > -1)
         this.links = [
           ...this.links.slice(0, this.editIndex),
@@ -169,16 +183,12 @@ export default {
       status: "institutes/status"
     }),
     formTitle() {
-      return this.editIndex === -1
-        ? "New " + this.title
-        : "Edit " + this.links[this.editIndex].title
+      return this.editIndex === -1 ? "New Link" : "Edit " + this.links[this.editIndex].title
     },
     links: {
       get() {
         if (this.institute) {
-          return []
-            .concat(this.institute.links)
-            .sort((item1, item2) => new Date(item2.date) - new Date(item1.date))
+          return [].concat(this.institute.links)
         } else return []
       },
       set(links) {
