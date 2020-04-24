@@ -76,6 +76,20 @@ export default {
             ]
           },
           {
+            name: "Links",
+            color: "warning",
+            icon: "mdi-link",
+            cards: [
+              {
+                component: () => import("@/components/institute/Links"),
+                cols: {
+                  sm: 12,
+                  md: 12
+                }
+              }
+            ]
+          },
+          {
             name: "Students",
             color: "warm",
             icon: "mdi-account-multiple",
@@ -165,6 +179,21 @@ export default {
                 cols: {
                   sm: 12,
                   md: 8
+                }
+              }
+            ]
+          },
+          {
+            name: "Links",
+            color: "warning",
+            icon: "mdi-link",
+            institute: true,
+            cards: [
+              {
+                component: () => import("@/components/institute/Links"),
+                cols: {
+                  sm: 12,
+                  md: 12
                 }
               }
             ]
