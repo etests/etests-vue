@@ -342,8 +342,12 @@ export default {
       const password = this.registerPassword
 
       this.loading = true
+      console.log(email, verificationCode)
       if (error) this.$toast.info(error)
       else {
+        this.username = email
+        this.password = password
+
         this.$store
           .dispatch("tabs/verify", {
             email,

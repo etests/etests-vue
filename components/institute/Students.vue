@@ -14,23 +14,35 @@
           <v-row justify="center" align="start">
             <v-col cols="12" md="7" :class="!['xs', 'sm'].includes($mq) ? 'pr-0' : ''">
               <v-list>
-                <v-list-item-group>
-                  <v-list-item v-if="students.length === 0" disabled>
-                    <v-list-item-content> No Students </v-list-item-content>
-                  </v-list-item>
-                  <v-list-item
-                    v-for="(student, i) in students.slice(offset, offset + pageSize)"
-                    :key="i"
-                    dense
-                  >
-                    <v-list-item-icon>
-                      <v-icon color="primary">
-                        mdi-account
-                      </v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content> {{ student }} </v-list-item-content>
-                  </v-list-item>
-                </v-list-item-group>
+                <v-list-item v-if="students.length === 0" disabled>
+                  <v-list-item-content> No Students </v-list-item-content>
+                </v-list-item>
+                <v-list-item
+                  v-for="(student, i) in students.slice(offset, offset + pageSize)"
+                  :key="i"
+                  dense
+                >
+                  <v-list-item-avatar>
+                    <v-img :src="student.image" v-if="student.image" />
+                    <v-icon color="primary" v-else>
+                      mdi-account
+                    </v-icon>
+                  </v-list-item-avatar>
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      {{ student.name }}
+                    </v-list-item-title>
+                    <v-subheader class="ma-0 pa-0" style="line-height: 20px">
+                      {{ student.phone }} <br />
+                      {{ student.email }}
+                    </v-subheader>
+                  </v-list-item-content>
+                  <v-list-item-action>
+                    <v-btn icon color="primary" @click="remove(student)">
+                      <v-icon>mdi-close-circle</v-icon>
+                    </v-btn>
+                  </v-list-item-action>
+                </v-list-item>
               </v-list>
 
               <v-divider />
@@ -118,8 +130,13 @@ export default {
   },
   created() {
     this.$store.cache.dispatch("students/list")
+    this.$store.cache.dispatch("students/key")
   },
   methods: {
+    remove(student) {
+      confirm(`Do you want to remove ${student.name}`) &&
+        this.$store.dispatch("students/remove", student.id)
+    },
     save() {
       if (this.updateKey == null || this.updateKey.length == 0) this.updateKey = this.joiningKey
       this.$store.dispatch("students/update", { joiningKey: this.updateKey })
