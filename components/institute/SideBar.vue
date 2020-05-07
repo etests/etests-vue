@@ -86,8 +86,8 @@ export default {
       return [
         { title: "Home", icon: "mdi-home", link: "/" },
         {
-          title: "Tests",
-          icon: "mdi-note",
+          title: "Dashboard",
+          icon: "mdi-account-circle",
           link: { path: "/dashboard?tab=0" },
           requiresLogin: true
         },
@@ -112,6 +112,12 @@ export default {
           title: "Downloads",
           icon: "mdi-download",
           link: { path: "/downloads" }
+        },
+
+        {
+          title: "Forms",
+          icon: "mdi-table-edit",
+          link: "/forms"
         },
 
         {

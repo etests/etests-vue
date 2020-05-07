@@ -1,12 +1,12 @@
 <template>
-  <v-card class="page">
-    <v-card-title>
-      Profile
-    </v-card-title>
-    <v-divider />
-    <v-card-text>
-      <v-row justify="space-around">
-        <v-col cols="12" lg="3">
+  <v-row justify="space-around">
+    <v-col cols="12" lg="7">
+      <v-card class="page">
+        <v-card-title>
+          Profile
+        </v-card-title>
+        <v-divider />
+        <v-card-text>
           <v-img
             class="ma-auto mb-10"
             max-width="200px"
@@ -26,8 +26,6 @@
               <v-skeleton-loader type="image" height="250px" />
             </template>
           </v-img>
-        </v-col>
-        <v-col cols="12" lg="7">
           <v-text-field
             v-model="profile.name"
             solo-inverted
@@ -43,43 +41,31 @@
             label="Phone"
           />
           <DateField v-model="profile.birthDate" label="Birth Date" />
-          <v-autocomplete
-            v-model="profile.state"
-            outlined
-            :items="states"
-            prepend-inner-icon="mdi-map-marker"
-            label="State"
-          />
-          <v-text-field
-            v-model="profile.city"
-            solo-inverted
-            flat
-            prepend-inner-icon="mdi-city"
-            label="City"
-          />
+          <AddressInput v-model="profile.address" placeholder="Address" icon="mdi-map-marker" />
           <v-btn color="primary" @click="save">
             Save
           </v-btn>
-        </v-col>
-      </v-row>
-    </v-card-text>
-  </v-card>
+        </v-card-text>
+      </v-card>
+    </v-col>
+    <v-col cols="12" lg="5">
+      <ChangePassword />
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 import DateField from "@/components/common/DateField"
-import { states } from "@/js/states"
 import DropUpload from "@/components/common/DropUpload"
+import AddressInput from "@/components/common/AddressInput"
+import ChangePassword from "@/components/common/ChangePassword"
 
 export default {
   components: {
     DropUpload,
-    DateField
-  },
-  data() {
-    return {
-      states
-    }
+    DateField,
+    AddressInput,
+    ChangePassword
   },
   computed: {
     profile: {
@@ -98,9 +84,6 @@ export default {
       else if (this.profile.name.length > 100) error = "Your name is too long!"
       else if (!this.profile.phone) error = "Enter your phone number."
       else if (!this.profile.birthDate) error = "Enter your birth date"
-      else if (!this.profile.state) error = "Select your state."
-      else if (!this.profile.city) error = "Select your city."
-
       if (error) this.$toast.info(error)
       else this.$store.cache.dispatch("profile/updateProfile", this.profile)
     }

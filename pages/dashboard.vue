@@ -144,13 +144,6 @@ export default {
                   sm: 12,
                   md: 12
                 }
-              },
-              {
-                component: () => import("@/components/common/ChangePassword"),
-                cols: {
-                  sm: 12,
-                  md: 4
-                }
               }
             ]
           }
@@ -254,13 +247,6 @@ export default {
                   sm: 12,
                   md: 12
                 }
-              },
-              {
-                component: () => import("@/components/common/ChangePassword"),
-                cols: {
-                  sm: 12,
-                  md: 6
-                }
               }
             ]
           }
@@ -306,13 +292,6 @@ export default {
                 cols: {
                   sm: 12,
                   md: 12
-                }
-              },
-              {
-                component: () => import("@/components/common/ChangePassword"),
-                cols: {
-                  sm: 12,
-                  md: 4
                 }
               }
             ]

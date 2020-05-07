@@ -1,37 +1,12 @@
 <template>
-  <v-card class="page">
-    <v-card-title>
-      Profile
-    </v-card-title>
-    <v-divider />
-    <v-card-text>
-      <v-row justify="center">
-        <v-col cols="12" lg="7">
-          <v-text-field v-model="profile.id" solo-inverted flat prefix="Institute Id: " disabled />
-          <v-text-field
-            v-model="profile.name"
-            solo-inverted
-            flat
-            prepend-inner-icon="mdi-rename-box"
-            label="Name"
-          />
-          <v-text-field
-            v-model="profile.phone"
-            solo-inverted
-            flat
-            prepend-inner-icon="mdi-phone"
-            label="Phone"
-          />
-          <v-textarea
-            v-model="profile.about"
-            solo-inverted
-            flat
-            prepend-inner-icon="mdi-information"
-            placeholder="Write something about your institute"
-            height="250px"
-          />
-        </v-col>
-        <v-col cols="12" lg="4">
+  <v-row justify="center">
+    <v-col cols="12" lg="7">
+      <v-card class="page">
+        <v-card-title>
+          Profile
+        </v-card-title>
+        <v-divider />
+        <v-card-text>
           <v-img
             class="ma-auto mb-10"
             max-width="200px"
@@ -51,48 +26,53 @@
               <v-skeleton-loader type="image" height="250px" />
             </template>
           </v-img>
-          <v-autocomplete
-            v-model="profile.state"
-            outlined
-            :items="states"
-            prepend-inner-icon="mdi-map-marker"
-            label="State"
-          />
+          <v-text-field v-model="profile.id" solo-inverted flat prefix="Institute Id: " disabled />
           <v-text-field
-            v-model="profile.city"
+            v-model="profile.name"
             solo-inverted
             flat
-            prepend-inner-icon="mdi-city"
-            label="City"
+            prepend-inner-icon="mdi-rename-box"
+            label="Name"
           />
           <v-text-field
-            v-model="profile.pincode"
+            v-model="profile.phone"
             solo-inverted
             flat
-            prepend-inner-icon="mdi-textbox-password"
-            label="Pincode"
+            prepend-inner-icon="mdi-phone"
+            label="Phone"
           />
+          <v-text-field
+            v-model="profile.about"
+            solo-inverted
+            flat
+            prepend-inner-icon="mdi-information"
+            placeholder="Write a tagline for your institute"
+          />
+
+          <AddressInput v-model="profile.address" placeholder="Address" icon="mdi-map-marker" />
+
           <v-btn color="primary" @click="save">
             Save
           </v-btn>
-        </v-col>
-      </v-row>
-    </v-card-text>
-  </v-card>
+        </v-card-text>
+      </v-card>
+    </v-col>
+    <v-col cols="12" lg="5">
+      <ChangePassword />
+    </v-col>
+  </v-row>
 </template>
 
 <script>
-import { states } from "@/js/states"
 import DropUpload from "@/components/common/DropUpload"
+import ChangePassword from "@/components/common/ChangePassword"
+import AddressInput from "@/components/common/AddressInput"
 
 export default {
   components: {
-    DropUpload
-  },
-  data() {
-    return {
-      states
-    }
+    DropUpload,
+    ChangePassword,
+    AddressInput
   },
   computed: {
     profile: {
@@ -110,9 +90,6 @@ export default {
       if (!this.profile.name) error = "Enter your name."
       else if (this.profile.name.length > 100) error = "Your name is too long!"
       else if (!this.profile.phone) error = "Enter your phone number."
-      else if (!this.profile.pincode) error = "Enter your pincode."
-      else if (!this.profile.state) error = "Select your state."
-      else if (!this.profile.city) error = "Select your city."
       else if (this.profile.about && this.profile.about.length > 250)
         error = "About cannot be more than 250 words."
 

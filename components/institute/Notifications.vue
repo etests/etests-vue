@@ -1,5 +1,5 @@
 <template>
-  <v-card class="page my-10" min-height="300">
+  <v-card class="page" style="margin: 100px auto" min-height="300">
     <v-card-title>
       {{ title }}s
       <v-spacer />
@@ -56,10 +56,21 @@
 
     <v-dialog v-if="notifications && notifications.length" v-model="viewDialog" width="500">
       <v-card>
-        <v-card-title>
+        <v-card-title class="primary white--text">
           {{ notifications[viewIndex].title }}
+          <v-spacer />
+          <v-btn
+            v-if="notifications[viewIndex].link"
+            icon
+            large
+            dark
+            :href="notifications[viewIndex].link"
+            target="_blank"
+          >
+            <v-icon>mdi-open-in-new</v-icon>
+          </v-btn>
         </v-card-title>
-        <v-card-subtitle>
+        <v-card-subtitle class="primary white--text">
           {{ formatDate(notifications[viewIndex].date, false) }}
         </v-card-subtitle>
         <v-divider />
@@ -130,6 +141,7 @@
         <v-divider />
         <v-card-text class="pa-4">
           <v-text-field v-model="editedItem.title" solo-inverted flat label="Title" />
+          <v-text-field v-model="editedItem.link" solo-inverted flat label="Link" />
           <v-textarea
             v-model="editedItem.description"
             solo-inverted
@@ -168,9 +180,9 @@ export default {
       viewIndex: 0,
 
       headers: [
-        { text: "Title", value: "title" },
-        { text: "Date", value: "date" },
-        { text: "Action ", value: "actions" }
+        { text: "Title", value: "title", align: "left" },
+        { text: "Date", value: "date", align: "left" },
+        { text: "Action ", value: "actions", align: "left" }
       ],
 
       editIndex: -1,
@@ -181,12 +193,14 @@ export default {
       editedItem: {
         title: "",
         date: "",
-        description: ""
+        description: "",
+        link: ""
       },
       defaultItem: {
         title: "",
         date: "",
-        description: ""
+        description: "",
+        link: ""
       }
     }
   },

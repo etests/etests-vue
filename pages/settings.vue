@@ -94,6 +94,7 @@ export default {
           { component: "Contact", name: "", show: true },
           { component: "Test Series", name: "", show: true },
           { component: "Downloads", name: "", show: true },
+          { component: "Forms", name: "", show: true },
           { component: "Questions", name: "", show: true },
           { component: "Gallery", name: "", show: true },
           { component: "Faculty", name: "", show: true },

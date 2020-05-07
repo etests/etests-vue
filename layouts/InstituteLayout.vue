@@ -5,7 +5,8 @@
       <v-content app class="pt-12 px-0">
         <v-row>
           <v-col cols="12">
-            <slot />
+            <v-skeleton-loader type="persistent" width="64" v-show="loading" />
+            <slot v-show="!loading" />
           </v-col>
         </v-row>
       </v-content>
@@ -21,6 +22,10 @@ export default {
     Header
   },
   computed: {
+    loading() {
+      if (!this.$handle) return true
+      else return false
+    },
     theme() {
       return this.$store.getters["institutes/theme"]
     }
@@ -31,7 +36,8 @@ export default {
     }
   },
   mounted() {
-    this.$store.cache.dispatch("institutes/get", this.$handle)
+    if (this.$handle === "public") this.$router.push("/404")
+    else this.$store.cache.dispatch("institutes/get", this.$handle)
   }
 }
 </script>

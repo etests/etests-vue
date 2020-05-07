@@ -6,7 +6,7 @@
     </v-container>
     <v-content v-if="institute" app class="pa-0">
       <SectionLayout v-for="(section, i) in sections" :key="i">
-        <v-container>
+        <v-container style="min-height: 100vh">
           <component :is="section.component" :title="section.title" />
         </v-container>
       </SectionLayout>

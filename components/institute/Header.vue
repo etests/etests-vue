@@ -129,6 +129,10 @@ export default {
           link: "/downloads"
         },
         {
+          title: "Forms",
+          link: "/forms"
+        },
+        {
           title: "Questions",
           link: "/questions"
         },

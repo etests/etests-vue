@@ -67,7 +67,7 @@ export default {
         return this.$store.state.auth.dialog.tab
       },
       set(value) {
-        this.$store.cache.dispatch("auth/changeAuthTab", value)
+        this.$store.cache.dispatch("tabs/changeAuthTab", value)
       }
     }
   },

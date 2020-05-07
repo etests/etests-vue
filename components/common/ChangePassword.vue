@@ -45,11 +45,17 @@ export default {
   },
   methods: {
     submit() {
-      const data = {
-        oldPassword: this.oldPassword,
-        newPassword: this.newPassword
+      let error = null
+      if (!this.oldPassword) error = "Enter your current password."
+      else if (!this.newPassword) error = "Enter new password."
+      if (error) this.$toast.info(error)
+      else {
+        const data = {
+          oldPassword: this.oldPassword,
+          newPassword: this.newPassword
+        }
+        this.$store.cache.dispatch("tabs/changePassword", data)
       }
-      this.$store.cache.dispatch("auth/changePassword", data)
     }
   }
 }

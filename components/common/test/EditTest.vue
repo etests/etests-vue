@@ -626,7 +626,7 @@ export default {
         height: 400,
         ckfinder: {
           openerMethod: "popup",
-          uploadUrl: `${process.env.VUE_APP_API_URL}/questions/images/`,
+          uploadUrl: `${process.env.API_URL}/questions/images/`,
           options: {
             resourceType: "Images"
           },
