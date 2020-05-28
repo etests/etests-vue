@@ -18,7 +18,10 @@
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/toast": "^3.3.0",
+    "@zoomus/websdk": "^1.7.6",
     "ckeditor5-build-advanced": "^12.4.2",
+    "install": "^0.13.0",
+    "npm": "^6.14.5",
     "nuxt": "^2.12.2",
     "nuxt-compress": "^1.1.0",
     "nuxt-mq": "^2.0.1",
@@ -27,7 +30,8 @@
     "vue-notification": "^1.3.20",
     "vue-progressbar": "^0.7.5",
     "vue-shortkey": "^3.1.7",
-    "vue2-google-maps": "^0.10.7"
+    "vue2-google-maps": "^0.10.7",
+    "zoomus-jssdk": "^1.7.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",
