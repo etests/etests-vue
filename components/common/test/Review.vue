@@ -206,7 +206,7 @@ export default {
   },
   data() {
     return {
-      id: parseInt(this.$route.params.id),
+      id: parseInt(this.$route.query.id),
       session: this.report,
       panel: null,
       questionTypes: [

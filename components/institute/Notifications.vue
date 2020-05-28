@@ -75,6 +75,14 @@
         </v-card-subtitle>
         <v-divider />
         <v-card-text class="py-4">
+          <a
+            v-if="notifications[viewIndex].link"
+            :href="notifications[viewIndex].link"
+            target="_blank"
+          >
+            {{ notifications[viewIndex].link }}
+            <br />
+          </a>
           {{ notifications[viewIndex].description }}
         </v-card-text>
         <v-card-actions>

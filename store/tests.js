@@ -204,7 +204,7 @@ export const mutations = {
     state.status = { loading: true }
   },
   getRankListSuccess(state, data) {
-    state.status = { loaded: true }
+    state.status = { ranksFetched: true }
     if (state.rankLists.findIndex((rankList) => rankList.id === data.id) === -1) {
       state.rankLists.push(data)
     }
