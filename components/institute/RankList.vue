@@ -5,8 +5,11 @@
       <strong v-else class="success--text">{{ item.rank }}</strong>
     </template>
     <template #item.actions="{ item }">
-      <v-btn rounded color="success" :to="`/result?id=${item.id}`" target="_blank">
-        <v-icon>mdi-file-chart</v-icon> &nbsp; Analysis
+      <v-btn dark small color="primary" :to="`/result?id=${item.id}`" target="_blank">
+        Result
+      </v-btn>
+      <v-btn dark small color="primary" :to="`/review?id=${item.id}`" target="_blank">
+        Review
       </v-btn>
     </template>
   </v-data-table>
@@ -23,11 +26,6 @@ export default {
           text: "Rank",
           value: "rank"
         },
-        {
-          align: "center",
-          text: "Roll Number",
-          value: "roll_number"
-        },
         { align: "center", text: "Name", value: "name" },
         { align: "center", text: "Marks", value: "marks" },
         { align: "center", text: "Detailed result", value: "actions", sortable: false }
@@ -40,7 +38,6 @@ export default {
         return {
           id: session.id,
           rank: session.ranks.overall,
-          roll_number: session.roll_number,
           name: session.name,
           marks: session.marks.total,
           practice: session.practice

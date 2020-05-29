@@ -341,10 +341,9 @@ export default {
       const verificationCode = this.verificationCode
       const password = this.registerPassword
 
-      this.loading = true
-      console.log(email, verificationCode)
       if (error) this.$toast.info(error)
       else {
+        this.loading = true
         this.username = email
         this.password = password
 

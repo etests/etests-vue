@@ -105,6 +105,7 @@
                       text
                       color="success"
                       :to="`/result?id=${session.id}`"
+                      target="_blank"
                     >
                       <v-icon>mdi-file-chart</v-icon>
                     </v-btn>
@@ -113,12 +114,8 @@
                       icon
                       text
                       color="warning"
-                      @click="
-                        $router.push({
-                          path: '/result',
-                          query: { id: session.id, review: true }
-                        })
-                      "
+                      :to="`/review?id=${session.id}`"
+                      target="_blank"
                     >
                       <v-icon>mdi-file-find</v-icon>
                     </v-btn>

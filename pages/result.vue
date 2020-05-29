@@ -13,7 +13,7 @@
       </v-card>
     </v-col>
     <v-col v-else cols="12" align="center">
-      <v-col cols="12">
+      <v-col v-show="status.error" cols="12">
         <v-card :class="[$style.card, $style.message]">
           You cannot access this result.
         </v-card>

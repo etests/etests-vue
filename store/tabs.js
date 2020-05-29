@@ -121,6 +121,15 @@ export const mutations = {
   changePasswordFailure(state, error) {
     state.status.error = error
   },
+  registerRequest(state) {
+    state.status = { registering: true }
+  },
+  registerSuccess(state, message) {
+    state.status = { registered: true, message }
+  },
+  registerFailure(state, error) {
+    state.status = { error }
+  },
   verifyRequest(state) {
     state.status = { verifying: true }
   },

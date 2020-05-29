@@ -11,9 +11,9 @@
           </v-toolbar>
           <v-row>
             <v-card class="page" max-width="90%" style="margin-top: -64px;">
-              <v-card-title v-show="status.loaded"> {{ test.name }} Ranks </v-card-title>
-              <v-skeleton-loader v-show="status.loading" type="card" />
-              <RankList v-show="status.loaded" :rank-list="rankList(test.id)" />
+              <v-card-title v-if="status.loaded"> {{ test.name }} Ranks </v-card-title>
+              <v-skeleton-loader v-if="status.loading" v-show="status.loading" type="card" />
+              <RankList v-else-if="status.ranksFetched" :rank-list="rankList(test.id)" />
             </v-card>
           </v-row>
         </v-card>
@@ -426,9 +426,6 @@ export default {
   },
   watch: {
     declareDialog(newValue, oldValue) {
-      if (!newValue) this.$store.commit("tests/clearStatus")
-    },
-    rankDialog(newValue, oldValue) {
       if (!newValue) this.$store.commit("tests/clearStatus")
     }
   },
