@@ -17,10 +17,9 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <Review v-if="reviewing" :report="report" :demo="demo" @close="reviewing = false" />
-      <component :is="layout" v-else-if="!started || completed">
+      <component :is="layout" v-if="!started || completed">
         <v-col v-if="completed && report !== null" cols="12">
-          <Marks :report="report" :demo="demo" @review="reviewing = true" />
+          <Marks :report="report" :demo="demo" />
           <Analysis v-if="report && report.result" :report="report" />
           <v-card v-else :class="[$style.card, $style.message]">
             Analysis of your test is not generated yet.
@@ -55,7 +54,6 @@
 import { mapState } from "vuex"
 import Instructions from "@/components/common/test/Instructions"
 import Test from "@/components/common/test/Test"
-import Review from "@/components/common/test/Review"
 import Marks from "@/components/common/test/Marks"
 import Analysis from "@/components/common/test/Analysis"
 import InstituteLayout from "@/layouts/InstituteLayout"
@@ -200,7 +198,6 @@ export default {
     StandardLayout,
     Instructions,
     Test,
-    Review,
     Marks,
     Analysis
   }

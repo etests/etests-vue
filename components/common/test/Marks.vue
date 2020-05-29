@@ -3,7 +3,11 @@
     <v-card-title>
       {{ testName.toUpperCase() }}
       <v-spacer />
-      <v-btn v-if="report.result && report.test.answers" color="primary" @click="$emit('review')">
+      <v-btn
+        v-if="report.result && report.test.answers"
+        color="primary"
+        :to="{ path: 'review', query: { id: report.id, demo: demo ? 1 : undefined } }"
+      >
         review &amp; solution
       </v-btn>
       <v-btn v-else disabled>

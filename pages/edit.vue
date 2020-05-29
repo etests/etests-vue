@@ -41,9 +41,6 @@
 <script>
 import { mapState } from "vuex"
 import EditTest from "@/components/common/test/EditTest"
-import Review from "@/components/common/test/Review"
-import Marks from "@/components/common/test/Marks"
-import Analysis from "@/components/common/test/Analysis"
 import InstituteLayout from "@/layouts/InstituteLayout"
 import StandardLayout from "@/layouts/StandardLayout"
 import { testTemplate } from "@/js/test"

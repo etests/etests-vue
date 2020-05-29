@@ -1,8 +1,7 @@
 <template>
-  <Review v-if="report && report.result && reviewing" :report="report" @close="reviewing = false" />
-  <component :is="layout" v-else>
+  <component :is="layout">
     <v-col v-if="report" cols="12" align="center">
-      <Marks :report="report" @review="reviewing = true" />
+      <Marks :report="report" />
       <Analysis v-if="report && report.result" :report="report" />
       <v-card v-else :class="[$style.card, $style.message]">
         Analysis of your test is not generated yet.
@@ -24,7 +23,6 @@
 </template>
 
 <script>
-import Review from "@/components/common/test/Review"
 import Analysis from "@/components/common/test/Analysis"
 import Marks from "@/components/common/test/Marks"
 import InstituteLayout from "@/layouts/InstituteLayout"
@@ -33,7 +31,6 @@ import StandardLayout from "@/layouts/StandardLayout"
 export default {
   components: {
     StandardLayout,
-    Review,
     Analysis,
     Marks
   },
