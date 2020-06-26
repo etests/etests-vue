@@ -42,6 +42,17 @@
           />
           <DateField v-model="profile.birthDate" label="Birth Date" />
           <AddressInput v-model="profile.address" placeholder="Address" icon="mdi-map-marker" />
+          <v-select
+            v-model="profile.batch"
+            solo-inverted
+            flat
+            :items="
+              batches.map((batch, i) => {
+                return { text: batch.name, value: batch.id }
+              })
+            "
+            label="Select batch"
+          />
           <v-btn color="primary" @click="save">
             Save
           </v-btn>
@@ -67,6 +78,11 @@ export default {
     AddressInput,
     ChangePassword
   },
+  created() {
+    var params = {}
+    if (this.$handle !== "public") params = { institute__handle: this.$handle }
+    this.$store.cache.dispatch("batches/list", params)
+  },
   computed: {
     profile: {
       get() {
@@ -75,6 +91,9 @@ export default {
       set(value) {
         this.$store.commit("profile/updateSuccess", value)
       }
+    },
+    batches() {
+      return this.$store.state.batches.items
     }
   },
   methods: {

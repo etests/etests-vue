@@ -33,8 +33,8 @@
                       {{ student.name }}
                     </v-list-item-title>
                     <v-subheader class="ma-0 pa-0" style="line-height: 20px">
-                      {{ student.phone }} <br />
-                      {{ student.email }}
+                      {{ student.batch }}<br />
+                      {{ student.email }} <br />
                     </v-subheader>
                   </v-list-item-content>
                   <v-list-item-action>
