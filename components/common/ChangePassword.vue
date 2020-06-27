@@ -26,10 +26,13 @@
         class="input-group--focused"
         @click:append="showNewPassword = !showNewPassword"
       />
+    </v-card-text>
+    <v-card-actions>
+      <v-spacer />
       <v-btn v-shortkey="['enter']" color="primary" @shortkey="submit" @click="submit">
         Submit
       </v-btn>
-    </v-card-text>
+    </v-card-actions>
   </v-card>
 </template>
 

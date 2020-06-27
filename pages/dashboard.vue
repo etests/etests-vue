@@ -10,7 +10,19 @@
             <v-card-title> Join {{ institute.user.name }} </v-card-title>
             <v-divider />
             <v-card-text>
-              <v-text-field solo-inverted flat label="Enter Joining Key" v-model="joiningKey" />
+              <v-select
+                v-model="batch"
+                solo-inverted
+                flat
+                :items="
+                  batches.map((batch, i) => {
+                    return { text: batch.name, value: batch.id }
+                  })
+                "
+                label="Select batch"
+              />
+              <v-text-field solo-inverted flat label="Roll Number" v-model="rollNumber" />
+              <v-text-field solo-inverted flat label="Joining Key" v-model="joiningKey" />
             </v-card-text>
             <v-card-actions>
               <v-spacer />
@@ -41,6 +53,8 @@ export default {
   },
   data() {
     return {
+      batch: null,
+      rollNumber: "",
       joiningKey: "",
       joinLoading: false,
       loading: true,
@@ -306,8 +320,9 @@ export default {
       else {
         this.joinLoading = true
         this.$store
-          .dispatch("institutes/join", {
-            id: this.institute.id,
+          .dispatch("enrollments/create", {
+            batch: this.batch,
+            rollNumber: this.rollNumber,
             joiningKey: this.joiningKey
           })
           .then(
@@ -319,6 +334,12 @@ export default {
             }
           )
       }
+    }
+  },
+  created() {
+    if (this.$handle !== "public" && this.$auth.loggedIn && this.$auth.hasScope("student")) {
+      var params = { institute__handle: this.$handle }
+      this.$store.cache.dispatch("batches/listSimple", params)
     }
   },
   computed: {
@@ -335,6 +356,9 @@ export default {
         this.$auth.hasScope("student") &&
         (!this.$auth.user.joined || !this.$auth.user.joined.includes(this.institute.id))
       )
+    },
+    batches() {
+      return this.$store.state.batches.items
     }
   },
   mounted() {

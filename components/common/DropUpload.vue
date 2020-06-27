@@ -4,7 +4,7 @@
       :class="$style.dropzone"
       dropzone
       tile
-      height="200px"
+      :height="height"
       @drop.prevent="drop"
       @dragover.prevent
       @click="$refs.import.click()"
@@ -37,6 +37,10 @@ export default {
     small: {
       type: Boolean,
       default: false
+    },
+    height: {
+      type: String,
+      default: "200px"
     },
     saveOnServer: {
       type: Boolean,

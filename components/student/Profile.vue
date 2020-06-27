@@ -1,7 +1,7 @@
 <template>
   <v-row justify="space-around">
     <v-col cols="12" lg="7">
-      <v-card class="page">
+      <v-card class="page" height="100%">
         <v-card-title>
           Profile
         </v-card-title>
@@ -16,6 +16,7 @@
           >
             <DropUpload
               small
+              height="200px"
               @upload="
                 (url) => {
                   this.profile.image = url
@@ -23,7 +24,7 @@
               "
             />
             <template #placeholder>
-              <v-skeleton-loader type="image" height="250px" />
+              <v-skeleton-loader type="image" height="200px" />
             </template>
           </v-img>
           <v-text-field
@@ -42,25 +43,24 @@
           />
           <DateField v-model="profile.birthDate" label="Birth Date" />
           <AddressInput v-model="profile.address" placeholder="Address" icon="mdi-map-marker" />
-          <v-select
-            v-model="profile.batch"
-            solo-inverted
-            flat
-            :items="
-              batches.map((batch, i) => {
-                return { text: batch.name, value: batch.id }
-              })
-            "
-            label="Select batch"
-          />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
           <v-btn color="primary" @click="save">
             Save
           </v-btn>
-        </v-card-text>
+        </v-card-actions>
       </v-card>
     </v-col>
     <v-col cols="12" lg="5">
-      <ChangePassword />
+      <v-row>
+        <v-col cols="12">
+          <Batches />
+        </v-col>
+        <v-col cols="12">
+          <ChangePassword />
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
@@ -70,18 +70,15 @@ import DateField from "@/components/common/DateField"
 import DropUpload from "@/components/common/DropUpload"
 import AddressInput from "@/components/common/AddressInput"
 import ChangePassword from "@/components/common/ChangePassword"
+import Batches from "./Batches"
 
 export default {
   components: {
     DropUpload,
     DateField,
     AddressInput,
-    ChangePassword
-  },
-  created() {
-    var params = {}
-    if (this.$handle !== "public") params = { institute__handle: this.$handle }
-    this.$store.cache.dispatch("batches/list", params)
+    ChangePassword,
+    Batches
   },
   computed: {
     profile: {
@@ -91,9 +88,6 @@ export default {
       set(value) {
         this.$store.commit("profile/updateSuccess", value)
       }
-    },
-    batches() {
-      return this.$store.state.batches.items
     }
   },
   methods: {
