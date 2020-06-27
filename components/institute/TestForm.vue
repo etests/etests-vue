@@ -71,6 +71,18 @@
             "
             label="Exam pattern"
           />
+          <v-select
+            outlined
+            v-if="aits == null"
+            multiple
+            v-model="test.registeredBatches"
+            :items="
+              batches.map((batch) => {
+                return { text: batch.name, value: batch.id }
+              })
+            "
+            label="Eligible batches"
+          />
           <v-switch
             v-if="aits !== null"
             v-model="test.free"
@@ -140,6 +152,7 @@ export default {
           closingDate: utils.getDateAfterDays(7),
           closingTime: "16:00",
           duration: "03:00:00",
+          registeredBatches: [],
           exam: null,
           free: false,
           syllabus: null
@@ -181,11 +194,13 @@ export default {
     }
   },
   created() {
+    this.$store.cache.dispatch("batches/list")
     this.$store.cache.dispatch("exams/list")
   },
   computed: {
     ...mapState({
       status: (state) => state.tests.status,
+      batches: (state) => state.batches.items,
       exams: (state) => state.exams.items
     }),
     dialog: {
@@ -223,6 +238,8 @@ export default {
       )
         error =
           "The gap between activation time and closing time must be greater than or equal to the duration"
+      else if (this.aits == null && this.test.registeredBatches.length == 0)
+        error = "Select batches"
       if (error) {
         this.$toast.info(error)
         return false
@@ -237,6 +254,7 @@ export default {
         closingDate: test.closingTime.split("T")[0],
         closingTime: test.closingTime.split("T")[1].split("+")[0],
         duration: test.timeAlotted,
+        registeredBatches: test.registeredBatches,
         free: test.free,
         syllabus: test.syllabus
       }
@@ -248,6 +266,8 @@ export default {
         closingTime: test.closingDate + " " + test.closingTime,
         timeAlotted: this.formatDuration(test.duration),
         exam: test.exam,
+        syllabus: test.syllabus,
+        registeredBatches: test.registeredBatches,
         syllabus: test.syllabus
       }
     },

@@ -1,5 +1,5 @@
 <template>
-  <v-card flat outlined :tile="['xs', 'sm'].includes($mq)">
+  <v-card flat outlined :tile="['xs', 'sm'].includes($mq)" max-width="800" class="mx-auto">
     <v-card-title class="pb-0">
       <v-tabs v-model="tab" class="transparent" slider-color="primary" centered>
         <v-tab active-class="primary--text">

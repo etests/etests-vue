@@ -5,15 +5,18 @@
         <v-card flat>
           <v-toolbar class="primary" dark extended flat>
             <v-spacer />
-            <v-btn icon @click="rankDialog = false">
+            <v-btn icon x-large @click="rankDialog = false">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-toolbar>
           <v-row>
             <v-card class="page" max-width="90%" style="margin-top: -64px;">
-              <v-card-title v-if="status.loaded"> {{ test.name }} Ranks </v-card-title>
-              <v-skeleton-loader v-if="status.loading" v-show="status.loading" type="card" />
-              <RankList v-else-if="status.ranksFetched" :rank-list="rankList(test.id)" />
+              <v-card-title> {{ test.name }} Result </v-card-title>
+              <v-divider />
+              <v-card-text class="px-0">
+                <v-skeleton-loader v-if="status.loading" v-show="status.loading" type="card" />
+                <RankList v-else-if="status.ranksFetched" :rank-list="rankList(test.id)" />
+              </v-card-text>
             </v-card>
           </v-row>
         </v-card>

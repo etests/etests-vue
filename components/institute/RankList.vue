@@ -37,7 +37,7 @@ export default {
       return this.rankList.ranks.map((session) => {
         return {
           id: session.id,
-          rank: session.ranks.overall,
+          rank: session.ranks ? session.ranks.overall : session.practice ? "Practice" : "NA",
           name: session.name,
           marks: session.marks.total,
           practice: session.practice
