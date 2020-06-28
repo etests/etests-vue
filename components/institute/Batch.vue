@@ -3,11 +3,8 @@
     <v-card-title>
       {{ batch.name }}
       <v-spacer />
-      <v-btn icon @click="download">
-        <v-icon>mdi-download</v-icon>
-      </v-btn>
       <v-btn icon @click="download(false)">
-        <v-icon>mdi-email</v-icon>
+        <v-icon>mdi-download</v-icon>
       </v-btn>
     </v-card-title>
     <v-divider />
@@ -192,16 +189,19 @@ export default {
       a.style = "display: none"
       let data
       if (full) data = JSON.stringify(this.batch, null, 2)
-      else
-        data = this.batch.enrollments
-          .map((enrollment) => enrollment.student.email.trim())
-          .join("\n")
+      else {
+        data = "Name,Phone,Email"
+        this.batch.enrollments.forEach((enrollment) => {
+          data += `\n${enrollment.student.name.trim()},${enrollment.student.phone.trim()},${enrollment.student.email.trim()}`
+        })
+      }
+
       let blob = new Blob([data], { type: "octet/stream" })
       let url = window.URL.createObjectURL(blob)
       a.href = url
       let fileName
       if (full) fileName = `${this.batch.name}.json`
-      else fileName = `${this.batch.name}.txt`
+      else fileName = `${this.batch.name}.csv`
       a.download = fileName
       a.click()
       window.URL.revokeObjectURL(url)
