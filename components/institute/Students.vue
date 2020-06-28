@@ -15,56 +15,6 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-dialog v-model="updateEnrollmentDialog" v-if="selectedEnrollment" max-width="400">
-        <v-card flat>
-          <v-card-title> Update Student </v-card-title>
-          <v-divider />
-          <v-card-text class="pt-5">
-            <v-row class="text-center">
-              <v-col cols="12">
-                <v-avatar size="120">
-                  <v-img
-                    :src="selectedEnrollment.student.image"
-                    v-if="selectedEnrollment.student.image"
-                  />
-                  <v-img v-else :src="require('@/assets/images/icons/profile.png')" />
-                </v-avatar>
-              </v-col>
-              <v-col cols="12" class="title">
-                {{ selectedEnrollment.student.name }}
-              </v-col>
-              <v-col>
-                <v-text-field
-                  solo-inverted
-                  flat
-                  label="Roll number"
-                  v-model="selectedEnrollment.rollNumber"
-                />
-                <v-select
-                  v-model="selectedEnrollment.batch"
-                  solo-inverted
-                  flat
-                  :items="
-                    batches.map((batch, i) => {
-                      return { text: batch.name, value: batch.id }
-                    })
-                  "
-                  label="Select batch"
-                />
-              </v-col>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn
-              color="primary"
-              :loading="enrollmentStatus.updating"
-              @click="updateEnrollment(selectedEnrollment)"
-              >Update</v-btn
-            >
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
       <v-col cols="12" md="auto" class="display-2">
         Batches
       </v-col>
@@ -77,131 +27,32 @@
       <v-col cols="12">
         <v-divider />
       </v-col>
-      <v-col v-if="batches && !batches.length" cols="12" justify="center" align="center">
-        <template v-if="status.loading"> Loading... <br /> </template>
+      <v-col v-if="status.loading" cols="12" justify="center" align="center">
+        <v-card class="page">
+          <v-card-title>
+            <v-skeleton-loader type="text" />
+          </v-card-title>
+          <v-divider />
+          <v-card-text class="px-0">
+            <v-skeleton-loader v-for="i in 4" :key="i" type="list-item-avatar-three-line" />
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" v-else-if="!batches || !batches.length">
         <v-btn color="primary" large @click="newBatchDialog = true">
           add batch
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </v-col>
       <v-col cols="12" v-for="(batch, i) in batches" :key="i">
-        <v-card class="page mb-8">
-          <v-card-title>
-            {{ batch.name }}
-            <v-spacer />
-          </v-card-title>
-          <v-divider />
-          <v-card-text class="pa-0">
-            <template v-if="status.loading">
-              <v-skeleton-loader v-for="i in 4" :key="i" type="list-item" />
-            </template>
-            <template v-else>
-              <v-row justify="center" align="start">
-                <v-col cols="12" md="7" :class="!['xs', 'sm'].includes($mq) ? 'pr-0' : ''">
-                  <v-list>
-                    <v-list-item v-if="batch.enrollments.length === 0" disabled>
-                      <v-list-item-content> No Students </v-list-item-content>
-                    </v-list-item>
-                    <v-list-item
-                      v-for="(enrollment, i) in batch.enrollments.slice(offset, offset + pageSize)"
-                      :key="i"
-                      dense
-                      @click="
-                        selectedEnrollment = enrollment
-                        updateEnrollmentDialog = true
-                      "
-                    >
-                      <v-list-item-avatar>
-                        <v-img :src="enrollment.student.image" v-if="enrollment.student.image" />
-                        <v-icon color="primary" v-else>
-                          mdi-account
-                        </v-icon>
-                      </v-list-item-avatar>
-                      <v-list-item-content>
-                        <v-list-item-title>
-                          {{ enrollment.student.name }}
-                        </v-list-item-title>
-                        <v-subheader class="ma-0 pa-0" style="line-height: 20px">
-                          {{ enrollment.student.phone }}<br />
-                          {{ enrollment.student.email }} <br />
-                        </v-subheader>
-                      </v-list-item-content>
-                      <v-list-item-action>
-                        <v-btn icon color="primary" @click.stop="remove(enrollment)">
-                          <v-icon>mdi-close-circle</v-icon>
-                        </v-btn>
-                      </v-list-item-action>
-                    </v-list-item>
-                  </v-list>
-
-                  <v-divider />
-                  <v-card-actions v-if="batch.enrollments && batch.enrollments.length" class="pa-1">
-                    <v-spacer />
-                    <v-sheet max-width="100">
-                      <v-select
-                        v-model="pageSize"
-                        solo
-                        flat
-                        :items="[5, 10, 20]"
-                        label="Rows per page"
-                        dense
-                        class="mb-n6"
-                      />
-                    </v-sheet>
-                    <v-btn
-                      text
-                      icon
-                      :disabled="offset === 0"
-                      @click="offset = Math.max(0, offset - pageSize)"
-                    >
-                      <v-icon>mdi-chevron-left</v-icon>
-                    </v-btn>
-                    <v-sheet min-width="100">
-                      {{ offset + 1 }} -
-                      {{ Math.min(batch.enrollments.length, offset + pageSize) }} of
-                      {{ batch.enrollments.length }}
-                    </v-sheet>
-                    <v-btn
-                      text
-                      icon
-                      :disabled="offset + pageSize > batch.enrollments.length - 1"
-                      @click="
-                        offset = Math.min(
-                          Math.max(0, batch.enrollments.length - 1),
-                          offset + pageSize
-                        )
-                      "
-                    >
-                      <v-icon>mdi-chevron-right</v-icon>
-                    </v-btn>
-                  </v-card-actions>
-                </v-col>
-                <v-divider vertical class="ma-0 pa-0 hidden-sm-and-down" />
-                <v-col cols="12" md="4" class="text-center mx-auto">
-                  <v-form>
-                    <v-card class="ma-auto" flat>
-                      <v-card-subtitle>Change Joining Key </v-card-subtitle>
-                      <v-card-text>
-                        <v-text-field
-                          solo-inverted
-                          flat
-                          label="Enter Joining Key"
-                          v-model="batch.joiningKey"
-                        />
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-spacer />
-                        <v-btn color="primary" @click="updateKey(batch)" :loading="status.updating"
-                          >Submit</v-btn
-                        >
-                      </v-card-actions>
-                    </v-card>
-                  </v-form>
-                </v-col>
-              </v-row>
-            </template>
-          </v-card-text>
-        </v-card>
+        <Batch
+          :batches="
+            batches.map((batch, i) => {
+              return { text: batch.name, value: batch.id }
+            })
+          "
+          :batch="batch"
+        />
       </v-col>
     </v-row>
   </client-only>
@@ -209,16 +60,15 @@
 
 <script>
 import { mapGetters } from "vuex"
+import Batch from "./Batch"
 
 export default {
+  components: {
+    Batch
+  },
   data() {
     return {
-      dialog: false,
-      offset: 0,
-      pageSize: 5,
       newBatchDialog: false,
-      updateEnrollmentDialog: false,
-      selectedEnrollment: null,
       newBatch: {
         name: "",
         joiningKey: ""
@@ -228,7 +78,6 @@ export default {
   computed: {
     ...mapGetters({
       status: "batches/status",
-      enrollmentStatus: "enrollments/status",
       batches: "batches/items"
     })
   },
@@ -236,20 +85,9 @@ export default {
     this.$store.cache.dispatch("batches/list")
   },
   methods: {
-    remove(enrollment) {
-      confirm(`Do you want to remove ${enrollment.student.name}`) &&
-        this.$store.dispatch("enrollments/remove", enrollment.id)
-    },
-    updateKey(batch) {
-      this.$store.dispatch("batches/update", { id: batch.id, joiningKey: batch.joiningKey })
-    },
     addNewBatch() {
       this.$store.dispatch("batches/create", this.newBatch)
       this.newBatchDialog = false
-    },
-    updateEnrollment(enrollment) {
-      this.$store.dispatch("enrollments/update", enrollment)
-      this.updateEnrollmentDialog = false
     }
   }
 }

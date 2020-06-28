@@ -1,17 +1,24 @@
 <template>
   <div :class="$style.chartBox">
     <SectionLayout v-if="report.test.stats" heading="Comparison">
-      <v-col cols="12" lg="8">
+      <v-col cols="12" lg="8" class="mx-auto">
         <GChart
           :class="$style.chart"
           type="ColumnChart"
           :data="comparisonData"
-          :options="chartOptions.chart"
+          :options="{
+            chart: {
+              title: 'Comparison'
+            }
+          }"
           :resize-debounce="500"
         />
       </v-col>
     </SectionLayout>
-    <SectionLayout heading="Topicwise score">
+    <SectionLayout
+      heading="Topicwise score"
+      v-if="report.result.topicWiseMarks.find((section) => Object.keys(section).length > 1)"
+    >
       <v-col v-for="(performanceData, i) in topicwisePerformance" :key="i" cols="12" md="6" lg="4">
         <GChart
           :class="$style.chart"
@@ -22,7 +29,10 @@
         />
       </v-col>
     </SectionLayout>
-    <SectionLayout heading="Topicwise proportion of score">
+    <SectionLayout
+      heading="Topicwise proportion of score"
+      v-if="report.result.topicWiseMarks.find((section) => Object.keys(section).length > 1)"
+    >
       <v-col cols="12" class="text-left px-3 pb-3">
         Note: Topicwise proportion can be shown only for topics having a positive score.
       </v-col>
@@ -37,7 +47,10 @@
         />
       </v-col>
     </SectionLayout>
-    <SectionLayout heading="Weightage of topics">
+    <SectionLayout
+      heading="Weightage of topics"
+      v-if="report.result.topicWiseMarks.find((section) => Object.keys(section).length > 1)"
+    >
       <v-col v-for="(sectionData, i) in this.topicWiseWeightage" :key="i" cols="12" md="6" lg="4">
         <GChart
           v-if="sectionData.length > 1"
@@ -111,18 +124,6 @@ export default {
       ])
       return data
     },
-    topicWiseScoreBarData() {
-      let data = new Array(this.report.test.sections.length)
-      this.report.result.topicWiseMarks.forEach((section, i) => {
-        data[i] = []
-        data[i].push(["Topic", "Marks"])
-        this.sectionWiseNegativeMarks.push([])
-        for (let prop in section) {
-          data[i].push([this.topics[prop], section[prop]])
-        }
-      })
-      return data
-    },
     topicWiseScore() {
       let data = new Array(this.report.test.sections.length)
       let questions = this.report.test.questions
@@ -156,8 +157,10 @@ export default {
         let weightage = {}
         for (let j = section.start; j <= section.end; j++) {
           let topic = questions[j].topic
-          if (weightage.hasOwnProperty(topic)) weightage[topic] += questions[j].correctMarks
-          else weightage[topic] = questions[j].correctMarks
+          let correctMarks = questions[j].correctMarks
+          if (questions[j].type == 3) correctMarks *= 4
+          if (weightage.hasOwnProperty(topic)) weightage[topic] += correctMarks
+          else weightage[topic] = correctMarks
         }
         for (let prop in weightage) {
           data[i].push([this.topics[prop], weightage[prop]])
@@ -185,7 +188,12 @@ export default {
     getOptions(i) {
       return {
         title: this.subjects[this.report.test.sections[i].subject],
-        legend: "none"
+        vAxis: {
+          viewWindowMode: "explicit",
+          viewWindow: {
+            min: 0
+          }
+        }
       }
     },
     isNotEmpty(data) {
@@ -211,6 +219,7 @@ export default {
 <style module lang="scss">
 @import "~@/sass/colors";
 .chartBox {
+  text-align: center;
   width: 100%;
   margin: 50px auto;
 }

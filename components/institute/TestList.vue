@@ -4,7 +4,6 @@
       <v-dialog v-if="test" v-model="rankDialog" fullscreen hide-overlay>
         <v-card flat>
           <v-toolbar dark extended flat>
-            Ranklist
             <v-spacer />
             <v-btn icon @click="rankDialog = false">
               <v-icon>mdi-close</v-icon>
