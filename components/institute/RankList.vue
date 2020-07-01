@@ -2,6 +2,11 @@
   <v-card class="page" max-width="90%" style="margin-top: -64px;">
     <v-card-title>
       {{ title }} Result
+      <v-btn @click="download" icon x-large>
+        <v-icon>
+          mdi-download
+        </v-icon>
+      </v-btn>
       <v-spacer />
       <v-text-field
         solo-inverted
@@ -59,15 +64,43 @@ export default {
   },
   computed: {
     ranks() {
-      return this.rankList.ranks.map((session) => {
-        return {
+      var ranklist = this.rankList.ranks.map((session) => {
+        var ranks = {
           id: session.id,
           rank: session.ranks ? session.ranks.overall : session.practice ? "Practice" : "NA",
           name: session.name,
           marks: session.marks.total,
           practice: session.practice
         }
+        session.subjects.forEach((subject, i) => {
+          ranks[subject] = session.marks.sectionWise[i] + "/" + session.marks.maxMarks[i]
+        })
+        ranks["Overall"] = session.marks.total + "/" + session.marks.maxMarks.slice(-1)[0]
+        return ranks
       })
+      ranklist.sort((a, b) => (isNaN(a.rank) || a.rank > b.rank ? 1 : -1))
+      return ranklist
+    }
+  },
+  methods: {
+    download() {
+      let a = document.createElement("a")
+      document.body.appendChild(a)
+      a.style = "display: none"
+      if (this.ranks.length == 0) return
+      var { id, marks, practice, ...keys } = this.ranks[0]
+      let data = Object.keys(keys).join(",")
+      this.ranks.forEach((rank, i) => {
+        var { id, marks, practice, ...rank } = rank
+        data += "\n" + Object.values(rank).join(",")
+      })
+      let blob = new Blob([data], { type: "octet/stream" })
+      let url = window.URL.createObjectURL(blob)
+      a.href = url
+      let fileName = `${this.title} Ranklist.csv`
+      a.download = fileName
+      a.click()
+      window.URL.revokeObjectURL(url)
     }
   }
 }
