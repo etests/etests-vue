@@ -170,31 +170,37 @@
               flat
               label="Event name"
             />
-            <v-combobox
-              v-model="newGallery.images"
-              solo-inverted
-              flat
-              append-icon=""
+            <DropUpload
+              @upload="
+                (url) => {
+                  newGallery.images.push(url)
+                }
+              "
               height="200px"
-              chips
-              clearable
-              label="Image URLs (Press enter after typing each URL)"
-              multiple
-            >
-              <template #selection="{ attrs, item, select, selected }">
-                <v-chip
-                  :href="item"
-                  target="_blank"
-                  v-bind="attrs"
-                  :input-value="selected"
-                  close
-                  @click="select"
-                  @click:close="newGallery.images.splice(newGallery.images.indexOf(item), 1)"
-                >
-                  <strong class="text-truncate">{{ item }}</strong>
-                </v-chip>
-              </template>
-            </v-combobox>
+            />
+
+            <v-row v-if="newGallery.images && newGallery.images.length">
+              <v-col v-for="(image, i) in newGallery.images" :key="i" cols="3">
+                <v-card>
+                  <v-hover>
+                    <template v-slot:default="{ hover }">
+                      <v-img :src="image" aspect-ratio="1" class="text-center">
+                        <v-overlay absolute color="#000" v-if="hover">
+                          <v-btn x-large icon color="white" @click="newGallery.images.splice(i, 1)">
+                            <v-icon>
+                              mdi-close
+                            </v-icon>
+                          </v-btn>
+                        </v-overlay>
+                        <template #placeholder>
+                          <v-skeleton-loader type="image" />
+                        </template>
+                      </v-img>
+                    </template>
+                  </v-hover>
+                </v-card>
+              </v-col>
+            </v-row>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
@@ -220,10 +226,12 @@
 <script>
 import { mapGetters } from "vuex"
 import InstituteLayout from "@/layouts/InstituteLayout"
+import DropUpload from "@/components/common/DropUpload"
 
 export default {
   components: {
-    InstituteLayout
+    InstituteLayout,
+    DropUpload
   },
   middleware: "institute",
   head() {

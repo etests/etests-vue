@@ -99,31 +99,37 @@
         </v-card-title>
         <v-divider />
         <v-card-text class="py-8">
-          <v-combobox
-            v-model="newImages"
-            append-icon=""
+          <DropUpload
+            @upload="
+              (url) => {
+                newImages.push(url)
+              }
+            "
             height="200px"
-            chips
-            clearable
-            label="Image URLs (Press enter after typing each URL)"
-            multiple
-            solo-inverted
-            flat
-          >
-            <template #selection="{ attrs, item, select, selected }">
-              <v-chip
-                :href="item"
-                target="_blank"
-                v-bind="attrs"
-                :input-value="selected"
-                close
-                @click="select"
-                @click:close="newImages.splice(newImages.indexOf(item), 1)"
-              >
-                <strong class="text-truncate">{{ item }}</strong>
-              </v-chip>
-            </template>
-          </v-combobox>
+          />
+
+          <v-row v-if="newImages && newImages.length">
+            <v-col v-for="(image, i) in newImages" :key="i" cols="3">
+              <v-card>
+                <v-hover>
+                  <template v-slot:default="{ hover }">
+                    <v-img :src="image" aspect-ratio="1" class="text-center">
+                      <v-overlay absolute color="#000" v-if="hover">
+                        <v-btn x-large icon color="white" @click="newImages.splice(i, 1)">
+                          <v-icon>
+                            mdi-close
+                          </v-icon>
+                        </v-btn>
+                      </v-overlay>
+                      <template #placeholder>
+                        <v-skeleton-loader type="image" />
+                      </template>
+                    </v-img>
+                  </template>
+                </v-hover>
+              </v-card>
+            </v-col>
+          </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -141,8 +147,12 @@
 
 <script>
 import { mapGetters } from "vuex"
+import DropUpload from "@/components/common/DropUpload"
 
 export default {
+  components: {
+    DropUpload
+  },
   data() {
     return {
       selected: [],
@@ -177,6 +187,7 @@ export default {
           })
         )
       }
+      this.newImages = []
       this.newDialog = false
     }
   },

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :style="{ height }">
     <v-card
       :class="$style.dropzone"
       dropzone

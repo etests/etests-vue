@@ -1,6 +1,8 @@
 <template>
-  <v-row class="section">
-    <slot />
+  <v-row justify="center" align="center" class="section">
+    <v-col cols="12">
+      <slot />
+    </v-col>
   </v-row>
 </template>
 

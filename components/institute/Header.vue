@@ -125,6 +125,10 @@ export default {
           link: this.institute ? `/testseries?institute=${this.institute.id}` : ""
         },
         {
+          title: "About Us",
+          link: "/aboutus"
+        },
+        {
           title: "Downloads",
           link: "/downloads"
         },
