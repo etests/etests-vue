@@ -3,8 +3,9 @@ export default ({ env }, inject) => {
   let handle
   let host
 
-  ourDomain = env.DOMAIN
+  console.log(env)
 
+  ourDomain = env.DOMAIN
   host = window.location.host.split(":")[0]
 
   const parts = host.split("." + ourDomain)
