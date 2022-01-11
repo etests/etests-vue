@@ -70,6 +70,12 @@
         </v-row>
       </v-card>
     </v-col>
+    <v-sheet
+      v-show="!status.loading && filteredInstitutes.length === 0"
+      class="text-center title chill--text ma-auto pa-12"
+    >
+      Oops! Nothing Found
+    </v-sheet>
   </StandardLayout>
 </template>
 

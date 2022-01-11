@@ -42,6 +42,12 @@
         </v-col>
       </v-row>
     </v-col>
+    <v-sheet
+      v-show="!status.loading && filteredExams.length === 0"
+      class="text-center title chill--text ma-auto pa-12"
+    >
+      Oops! Nothing Found
+    </v-sheet>
   </StandardLayout>
 </template>
 

@@ -6,7 +6,7 @@
           <slot name="search" />
         </template>
       </Header>
-      <v-main app class="pt-12 px-0">
+      <v-main app class="pt-12 mt-12 px-0">
         <v-row>
           <slot />
         </v-row>
@@ -20,11 +20,11 @@ import Header from "@/components/public/Header.vue"
 
 export default {
   components: {
-    Header
+    Header,
   },
   data() {
     return {}
-  }
+  },
 }
 </script>
 

@@ -31,7 +31,7 @@ export default {
   },
 
   publicRuntimeConfig: {
-    apiURL: process.env.BASE_URL,
+    apiURL: process.env.API_URL,
     domain: process.env.DOMAIN,
   },
 

@@ -10,7 +10,6 @@ import HeroLayout from "@/layouts/HeroLayout.vue"
 import SectionLayout from "@/components/public/homepage/SectionLayout.vue"
 import Hero from "@/components/public/homepage/Hero.vue"
 import TestDisplay from "@/components/public/homepage/TestDisplay.vue"
-import Welcome from "@/components/public/homepage/Welcome.vue"
 import QuickStart from "@/components/public/homepage/QuickStart.vue"
 import Footer from "@/components/public/homepage/Footer.vue"
 
@@ -22,14 +21,13 @@ export default {
     Social,
     HeroLayout,
     TestDisplay,
-    Welcome,
     QuickStart,
     SectionLayout,
-    Footer
+    Footer,
   },
   data() {
     return {
-      sections: ["Hero", "Welcome", "TestDisplay", "QuickStart", "Footer"],
+      sections: ["Hero", "TestDisplay", "QuickStart", "Footer"],
       options: {
         licenseKey: null,
         scrollingSpeed: 500,
@@ -37,8 +35,8 @@ export default {
         verticalCentered: true,
         menu: "#menu",
         controlArrows: true,
-        scrollBar: true
-      }
+        scrollBar: true,
+      },
     }
   },
   computed: {
@@ -47,8 +45,8 @@ export default {
     },
     user() {
       return this.$store.state.auth.user
-    }
-  }
+    },
+  },
 }
 </script>
 

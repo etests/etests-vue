@@ -57,37 +57,37 @@ export default {
           src: require("@/assets/images/features/useful.png"),
           btn: {
             icon: "mdi-account-plus",
-            title: "signup now"
+            title: "signup now",
           },
-          color: "info"
+          color: "info",
         },
         {
           title: "Useful analytics",
           src: require("@/assets/images/features/analytics.png"),
           btn: {
             icon: "mdi-youtube",
-            title: "watch a demo"
+            title: "watch a demo",
           },
-          color: "success"
+          color: "success",
         },
         {
           title: "Free upto December",
           src: require("@/assets/images/features/money.png"),
           btn: {
             icon: "mdi-currency-usd",
-            title: "Try now"
+            title: "Try now",
           },
-          color: "orange"
-        }
-      ]
+          color: "orange",
+        },
+      ],
     }
   },
   methods: {
     showRegisterDialog() {
       this.$store.commit("tabs/changeAuthTab", 1)
       this.$store.commit("tabs/toggleAuthDialog", true)
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -98,9 +98,8 @@ export default {
   background-color: #fff;
   text-align: center;
   margin: auto;
-  padding: 25vh 0;
+  padding: 20vh 0;
   width: 100%;
-  min-height: 100vh;
 
   .heading {
     color: $primary;

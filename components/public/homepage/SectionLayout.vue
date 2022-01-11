@@ -20,9 +20,9 @@
 export default {
   data() {
     return {
-      isSmallScreen: this.$vuetify.breakpoint.smAndDown
+      isSmallScreen: this.$vuetify.breakpoint.smAndDown,
     }
-  }
+  },
 }
 </script>
 <style module lang="scss">
@@ -39,6 +39,7 @@ export default {
     font-weight: 800;
     font-size: 2.1rem;
     color: #555;
+    padding: 0 0 20px;
   }
   .subheading {
     font-family: "Montserrat", Arial, Helvetica, sans-serif;
@@ -57,7 +58,7 @@ export default {
   z-index: 0;
 }
 
-.section:nth-child(odd) {
+.section:nth-child(even) {
   background-color: #f8f8f8;
 }
 </style>
