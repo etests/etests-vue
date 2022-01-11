@@ -132,6 +132,8 @@ export default {
     }
   },
 
+  target: "static",
+
   toast: {
     position: "top-right",
     duration: 2000
