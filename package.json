@@ -17,8 +17,11 @@
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.9.7",
     "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "@nuxtjs/eslint-config": "^8.0.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@nuxtjs/toast": "^3.3.0",
+    "@nuxtjs/vuetify": "^1.11.0",
     "@zoomus/websdk": "^1.7.6",
     "axios": "^0.24.0",
     "ckeditor5-build-advanced": "^12.4.0",
@@ -33,13 +36,11 @@
     "vue-progressbar": "^0.7.5",
     "vue-shortkey": "^3.1.7",
     "vue2-google-maps": "^0.10.7",
+    "vuex-cache": "^3.1.1",
     "zoomus-jssdk": "^1.7.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.5",
-    "@nuxtjs/eslint-config": "^8.0.0",
-    "@nuxtjs/eslint-module": "^3.0.2",
-    "@nuxtjs/vuetify": "^1.11.0",
     "concurrent-transform": "^1.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-nuxt": "^3.1.0",
@@ -50,7 +51,6 @@
     "gulp-cloudfront-invalidate-aws-publish": "^1.0.0",
     "prettier": "^2.0.0",
     "sass": "^1.47.0",
-    "sass-loader": "^10.1.1",
-    "vuex-cache": "^3.1.1"
+    "sass-loader": "^10.1.1"
   }
 }
