@@ -259,7 +259,7 @@ export default {
       locationImages: [],
       mapTitle: "",
       currentPlace: null,
-      uploadUrl: `${process.env.API_URL}/images/`,
+      uploadUrl: `${this.apiURL}/images/`,
       loading: false,
     }
   },

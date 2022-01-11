@@ -1,15 +1,13 @@
-export default ({ env }, inject) => {
+export default ({ $config }, inject) => {
   let ourDomain
   let handle
   let host
 
-  console.log(env)
-
-  ourDomain = env.DOMAIN
+  ourDomain = $config.domain
   host = window.location.host.split(":")[0]
 
   const parts = host.split("." + ourDomain)
-  let customDomain = !host.endsWith(ourDomain) && !/^([\d\.]+)$/.test(host)
+  const customDomain = !host.endsWith(ourDomain) && !/^([\d\.]+)$/.test(host)
   if (customDomain || (parts.length === 2 && parts[0] !== "www")) {
     if (customDomain) handle = host
     else handle = parts[0]

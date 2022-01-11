@@ -1,11 +1,3 @@
-let envFileName
-
-if (process.env.NODE_ENV === "production") {
-  envFileName = ".env.production"
-} else {
-  envFileName = ".env.local"
-}
-
 export default {
   head: {
     titleTemplate: "%s",
@@ -15,34 +7,41 @@ export default {
       {
         name: "viewport",
         content:
-          "width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui"
+          "width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui",
       },
       {
         hid: "description",
         name: "description",
         content:
-          "eTests is the new standard in online testing solutions. Attempt free tests of various competitive exams."
-      }
+          "eTests is the new standard in online testing solutions. Attempt free tests of various competitive exams.",
+      },
     ],
     link: [
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       {
         rel: "stylesheet",
-        href: "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
+        href: "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css",
       },
       {
         rel: "stylesheet",
         href:
-          "https://fonts.googleapis.com/css?family=Montserrat|Open+Sans:400,600&display=swap&subset=latin-ext"
-      }
-    ]
+          "https://fonts.googleapis.com/css?family=Montserrat|Open+Sans:400,600&display=swap&subset=latin-ext",
+      },
+    ],
   },
+
+  publicRuntimeConfig: {
+    apiURL: process.env.BASE_URL,
+    domain: process.env.DOMAIN,
+  },
+
+  privateRuntimeConfig: {},
 
   loading: {
     name: "chasing-dots",
     color: "#2cce74",
     background: "white",
-    height: "4px"
+    height: "4px",
   },
 
   css: ["@/sass/main.sass"],
@@ -51,38 +50,33 @@ export default {
     { src: "@/plugins/host", mode: "client" },
     "@/plugins/maps",
     "@/plugins/axios",
-    { src: "@/plugins/shortkey", mode: "client" }
+    { src: "@/plugins/shortkey", mode: "client" },
   ],
 
-  buildModules: ["@nuxtjs/eslint-module", "@nuxtjs/vuetify"],
+  buildModules: ["@nuxtjs/vuetify"],
 
   modules: [
     "@nuxtjs/axios",
     "@nuxtjs/auth",
     "@nuxtjs/pwa",
-    "@nuxtjs/dotenv",
     "@nuxtjs/toast",
     "nuxt-mq",
-    "nuxt-compress"
+    "nuxt-compress",
   ],
 
   "nuxt-compress": {
     gzip: {
-      cache: true
+      cache: true,
     },
     brotli: {
-      threshold: 10240
-    }
-  },
-
-  dotenv: {
-    filename: envFileName
+      threshold: 10240,
+    },
   },
 
   generate: {
     fallback: true,
     interval: 100,
-    subFolders: false
+    subFolders: false,
   },
 
   mq: {
@@ -92,8 +86,8 @@ export default {
       sm: 960,
       md: 1264,
       lg: 1904,
-      xl: Infinity
-    }
+      xl: Infinity,
+    },
   },
 
   auth: {
@@ -101,11 +95,11 @@ export default {
       local: {
         scheme: "refresh",
         token: {
-          property: "access"
+          property: "access",
         },
         refreshToken: {
           property: "refresh",
-          data: "refresh"
+          data: "refresh",
         },
         grantType: false,
         clientId: false,
@@ -115,38 +109,38 @@ export default {
           login: { url: "login/", method: "post" },
           refresh: { url: "refresh/", method: "post" },
           logout: { url: "logout/", method: "post" },
-          user: { url: "profile/", method: "get" }
+          user: { url: "profile/", method: "get" },
         },
         tokenRequired: true,
         tokenType: "Bearer",
         autoRefresh: {
-          enable: true
+          enable: true,
         },
-        autoLogout: true
-      }
+        autoLogout: true,
+      },
     },
     redirect: {
       login: "/login",
       logout: "/",
-      home: false
-    }
+      home: false,
+    },
   },
 
   target: "static",
 
   toast: {
     position: "top-right",
-    duration: 2000
+    duration: 2000,
   },
 
   vuetify: {
     customVariables: ["@/assets/variables.scss"],
     icons: {
-      iconfont: "mdi"
+      iconfont: "mdi",
     },
     theme: {
       options: {
-        customProperties: true
+        customProperties: true,
       },
       light: true,
       themes: {
@@ -157,14 +151,14 @@ export default {
           error: "#ff4444",
           info: "#33b5e5",
           success: "#00C851",
-          warning: "#ffbb33"
-        }
-      }
-    }
+          warning: "#ffbb33",
+        },
+      },
+    },
   },
 
   build: {
     extend(config, ctx) {},
-    transpile: [/^vue2-google-maps($|\/)/]
-  }
+    transpile: [/^vue2-google-maps($|\/)/],
+  },
 }

@@ -36,22 +36,22 @@ export default {
   props: {
     small: {
       type: Boolean,
-      default: false
+      default: false,
     },
     height: {
       type: String,
-      default: "200px"
+      default: "200px",
     },
     saveOnServer: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       uploadPercentage: 0,
       loading: false,
-      uploadUrl: `${process.env.API_URL}/images/`
+      uploadUrl: `${this.$config.apiURL}/images/`,
     }
   },
   methods: {
@@ -64,7 +64,7 @@ export default {
         if (!url || url.length < 1) return
         else url = url[1]
         const vm = this
-        this.checkImage(url, function(valid) {
+        this.checkImage(url, function (valid) {
           if (valid) {
             vm.$emit("upload", url)
             if (vm.saveOnServer) {
@@ -98,11 +98,11 @@ export default {
       this.$axios
         .post(this.uploadUrl, formData, {
           headers: {
-            "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW"
+            "Content-Type": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
           },
-          onUploadProgress: function(event) {
+          onUploadProgress: function (event) {
             this.uploadPercentage = parseInt(Math.round((event.loaded / event.total) * 100))
-          }.bind(this)
+          }.bind(this),
         })
         .then(this.afterUpload, (error) => {
           this.$emit("upload", "")
@@ -123,15 +123,15 @@ export default {
     },
     checkImage(url, callback) {
       const image = new Image()
-      image.onload = function() {
+      image.onload = function () {
         callback(true)
       }
-      image.onerror = function() {
+      image.onerror = function () {
         callback(false)
       }
       image.src = url
-    }
-  }
+    },
+  },
 }
 </script>
 <style module lang="scss">
