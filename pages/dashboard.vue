@@ -44,11 +44,11 @@ export default {
   middleware: "login",
   components: {
     DashboardLayout,
-    InstituteLayout
+    InstituteLayout,
   },
   head() {
     return {
-      title: this.$auth.user ? this.$auth.user.name + " - Dashboard" : "Dashboard"
+      title: this.$auth.user ? this.$auth.user.name + " - Dashboard" : "Dashboard",
     }
   },
   data() {
@@ -70,10 +70,10 @@ export default {
                 component: () => import("@/components/institute/Tests"),
                 cols: {
                   sm: 12,
-                  md: 8
-                }
-              }
-            ]
+                  md: 8,
+                },
+              },
+            ],
           },
           {
             name: "Test Series",
@@ -84,10 +84,10 @@ export default {
                 component: () => import("@/components/institute/TestSeries"),
                 cols: {
                   sm: 12,
-                  md: 8
-                }
-              }
-            ]
+                  md: 8,
+                },
+              },
+            ],
           },
           {
             name: "Online Class",
@@ -99,10 +99,10 @@ export default {
                 component: () => import("@/components/institute/Lectures"),
                 cols: {
                   sm: 12,
-                  md: 12
-                }
-              }
-            ]
+                  md: 12,
+                },
+              },
+            ],
           },
           {
             name: "Assignments",
@@ -114,10 +114,10 @@ export default {
                 component: () => import("@/components/institute/Assignments"),
                 cols: {
                   sm: 12,
-                  md: 12
-                }
-              }
-            ]
+                  md: 12,
+                },
+              },
+            ],
           },
           {
             name: "Students",
@@ -128,10 +128,10 @@ export default {
                 component: () => import("@/components/institute/Students"),
                 cols: {
                   sm: 12,
-                  md: 8
-                }
-              }
-            ]
+                  md: 8,
+                },
+              },
+            ],
           },
           {
             name: "Transactions",
@@ -142,10 +142,10 @@ export default {
                 component: () => import("@/components/institute/Transactions"),
                 cols: {
                   sm: 12,
-                  md: 12
-                }
-              }
-            ]
+                  md: 12,
+                },
+              },
+            ],
           },
           {
             name: "Profile",
@@ -156,11 +156,11 @@ export default {
                 component: () => import("@/components/institute/Profile"),
                 cols: {
                   sm: 12,
-                  md: 12
-                }
-              }
-            ]
-          }
+                  md: 12,
+                },
+              },
+            ],
+          },
         ],
 
         student: [
@@ -173,10 +173,10 @@ export default {
                 component: () => import("@/components/student/Tests"),
                 cols: {
                   sm: 12,
-                  md: 8
-                }
-              }
-            ]
+                  md: 8,
+                },
+              },
+            ],
           },
           {
             name: "Free Tests",
@@ -187,10 +187,10 @@ export default {
                 component: () => import("@/components/student/FreeTests"),
                 cols: {
                   sm: 12,
-                  md: 8
-                }
-              }
-            ]
+                  md: 8,
+                },
+              },
+            ],
           },
           {
             name: "My Test Series",
@@ -201,10 +201,10 @@ export default {
                 component: () => import("@/components/student/TestSeries"),
                 cols: {
                   sm: 12,
-                  md: 8
-                }
-              }
-            ]
+                  md: 8,
+                },
+              },
+            ],
           },
           {
             name: "Online Class",
@@ -216,10 +216,10 @@ export default {
                 component: () => import("@/components/institute/Lectures"),
                 cols: {
                   sm: 12,
-                  md: 12
-                }
-              }
-            ]
+                  md: 12,
+                },
+              },
+            ],
           },
           {
             name: "Assignments",
@@ -231,10 +231,10 @@ export default {
                 component: () => import("@/components/institute/Assignments"),
                 cols: {
                   sm: 12,
-                  md: 12
-                }
-              }
-            ]
+                  md: 12,
+                },
+              },
+            ],
           },
           {
             name: "Report",
@@ -245,10 +245,10 @@ export default {
                 component: () => import("@/components/student/Report"),
                 cols: {
                   sm: 12,
-                  md: 12
-                }
-              }
-            ]
+                  md: 12,
+                },
+              },
+            ],
           },
           {
             name: "Profile",
@@ -259,11 +259,11 @@ export default {
                 component: () => import("@/components/student/Profile"),
                 cols: {
                   sm: 12,
-                  md: 12
-                }
-              }
-            ]
-          }
+                  md: 12,
+                },
+              },
+            ],
+          },
         ],
 
         staff: [
@@ -276,24 +276,24 @@ export default {
                 component: () => import("@/components/staff/Tests"),
                 cols: {
                   sm: 12,
-                  md: 8
-                }
-              }
-            ]
+                  md: 8,
+                },
+              },
+            ],
           },
           {
             name: "Question Bank",
             icon: "mdi-book-multiple",
             color: "chill",
             link: { path: "/questionbank" },
-            cards: []
+            cards: [],
           },
           {
             name: "Annotate",
             icon: "mdi-pencil-box-outline",
             color: "warm",
             link: { path: "/annotate" },
-            cards: []
+            cards: [],
           },
 
           {
@@ -305,13 +305,13 @@ export default {
                 component: () => import("@/components/staff/Profile"),
                 cols: {
                   sm: 12,
-                  md: 12
-                }
-              }
-            ]
-          }
-        ]
-      }
+                  md: 12,
+                },
+              },
+            ],
+          },
+        ],
+      },
     }
   },
   methods: {
@@ -323,7 +323,7 @@ export default {
           .dispatch("enrollments/create", {
             batch: this.batch,
             rollNumber: this.rollNumber,
-            joiningKey: this.joiningKey
+            joiningKey: this.joiningKey,
           })
           .then(
             (response) => {
@@ -334,7 +334,7 @@ export default {
             }
           )
       }
-    }
+    },
   },
   created() {
     if (this.$handle !== "public" && this.$auth.loggedIn && this.$auth.hasScope("student")) {
@@ -359,7 +359,7 @@ export default {
     },
     batches() {
       return this.$store.state.batches.items
-    }
+    },
   },
   mounted() {
     if (this.$handle && this.$handle !== "public") {
@@ -372,6 +372,6 @@ export default {
         }
       )
     } else this.loading = false
-  }
+  },
 }
 </script>

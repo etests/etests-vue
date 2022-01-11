@@ -6,7 +6,7 @@
           <v-card-title>
             You tried to exit the test.
           </v-card-title>
-          <v-card-text style="text-align:left">
+          <v-card-text style="text-align: left;">
             The test was submitted automatically.
           </v-card-text>
           <v-card-actions>
@@ -68,9 +68,9 @@ export default {
         {
           name: "viewport",
           content:
-            "width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=yes, minimal-ui"
-        }
-      ]
+            "width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=yes, minimal-ui",
+        },
+      ],
     }
   },
   data() {
@@ -84,16 +84,16 @@ export default {
       reviewing: false,
       error: null,
       report: null,
-      exitDialog: false
+      exitDialog: false,
     }
   },
   computed: {
     ...mapState({
-      status: (state) => state.sessions.status
+      status: (state) => state.sessions.status,
     }),
     layout() {
       return this.$handle == "public" ? StandardLayout : InstituteLayout
-    }
+    },
   },
   created() {
     if (process.client) this.resumeTest()
@@ -192,15 +192,15 @@ export default {
           this.submitTest()
         }
       }
-    }
+    },
   },
   components: {
     StandardLayout,
     Instructions,
     Test,
     Marks,
-    Analysis
-  }
+    Analysis,
+  },
 }
 </script>
 

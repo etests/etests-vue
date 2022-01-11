@@ -2,7 +2,7 @@
   <v-container fluid class="grey lighten-5" style="height: 100%;">
     <v-overlay v-model="searchDialog" />
     <component :is="header" />
-    <v-content app class="mx-0">
+    <v-main app class="mx-0">
       <v-row v-if="isNaN(tab)" justify="start">
         <v-col
           v-for="(control, i) in controls"
@@ -90,7 +90,7 @@
           </v-row>
         </v-col>
       </v-row>
-    </v-content>
+    </v-main>
   </v-container>
 </template>
 

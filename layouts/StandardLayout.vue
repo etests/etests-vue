@@ -6,11 +6,11 @@
           <slot name="search" />
         </template>
       </Header>
-      <v-content app class="pt-12 px-0">
+      <v-main app class="pt-12 px-0">
         <v-row>
           <slot />
         </v-row>
-      </v-content>
+      </v-main>
     </v-container>
   </v-app>
 </template>

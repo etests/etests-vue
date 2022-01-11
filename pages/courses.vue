@@ -115,12 +115,12 @@ import InstituteLayout from "@/layouts/InstituteLayout"
 
 export default {
   components: {
-    InstituteLayout
+    InstituteLayout,
   },
   middleware: "institute",
   head() {
     return {
-      title: "Courses"
+      title: "Courses",
     }
   },
   data() {
@@ -133,29 +133,29 @@ export default {
         details: [
           {
             title: "Preparation for",
-            value: ""
+            value: "",
           },
           {
             title: "Course Duration",
-            value: ""
+            value: "",
           },
           {
             title: "Weekly Schedule",
-            value: ""
+            value: "",
           },
           {
             title: "Medium Of Instructions",
-            value: ""
+            value: "",
           },
           {
             title: "Medium of Study Material",
-            value: ""
+            value: "",
           },
           {
             title: "Mode of Admission",
-            value: ""
-          }
-        ]
+            value: "",
+          },
+        ],
       },
       defaultItem: {
         name: "",
@@ -163,30 +163,30 @@ export default {
         details: [
           {
             title: "Preparation for",
-            value: ""
+            value: "",
           },
           {
             title: "Course Duration",
-            value: ""
+            value: "",
           },
           {
             title: "Weekly Schedule",
-            value: ""
+            value: "",
           },
           {
             title: "Medium Of Instructions",
-            value: ""
+            value: "",
           },
           {
             title: "Medium of Study Material",
-            value: ""
+            value: "",
           },
           {
             title: "Mode of Admission",
-            value: ""
-          }
-        ]
-      }
+            value: "",
+          },
+        ],
+      },
     }
   },
   methods: {
@@ -201,7 +201,7 @@ export default {
         this.courses = [
           ...this.courses.slice(0, this.editIndex),
           this.editedItem,
-          ...this.courses.slice(this.editIndex + 1)
+          ...this.courses.slice(this.editIndex + 1),
         ]
       else this.courses = this.courses.concat(this.editedItem)
       this.editDialog = false
@@ -215,13 +215,13 @@ export default {
       this.editIndex = -1
       this.editedItem = { ...this.defaultItem }
       this.editDialog = true
-    }
+    },
   },
   computed: {
     ...mapGetters({
       institute: "institutes/institute",
       editable: "institutes/editable",
-      status: "institutes/status"
+      status: "institutes/status",
     }),
     title() {
       const defaultTitle = "Our Courses"
@@ -244,10 +244,10 @@ export default {
       set(courses) {
         this.$store.cache.dispatch("institutes/update", {
           courses,
-          handle: this.$handle
+          handle: this.$handle,
         })
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>

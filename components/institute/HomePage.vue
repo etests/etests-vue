@@ -4,13 +4,13 @@
       <Header :dark="true" />
       <Carousel />
     </v-container>
-    <v-content v-if="institute" app class="pa-0">
+    <v-main v-if="institute" app class="pa-0">
       <SectionLayout v-for="(section, i) in sections" :key="i" style="min-height: 100vh">
         <v-container>
           <component :is="section.component" :title="section.title" />
         </v-container>
       </SectionLayout>
-    </v-content>
+    </v-main>
     <Footer v-if="institute" />
     <v-dialog> </v-dialog>
     <v-dialog v-if="banner" v-model="bannerDialog" width="500">

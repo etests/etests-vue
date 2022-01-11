@@ -54,14 +54,14 @@ export default {
         {
           name: "viewport",
           content:
-            "width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=yes, minimal-ui"
+            "width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=yes, minimal-ui",
         },
         {
           hid: "description",
           name: "description",
-          content: "Test editor by eTests"
-        }
-      ]
+          content: "Test editor by eTests",
+        },
+      ],
     }
   },
   data() {
@@ -72,17 +72,17 @@ export default {
       started: false,
       loading: false,
       completed: false,
-      error: null
+      error: null,
     }
   },
   computed: {
     ...mapState({
       storedTest: (state) => state.tests.test,
-      status: (state) => state.tests.status
+      status: (state) => state.tests.status,
     }),
     layout() {
       return this.$handle == "public" ? StandardLayout : InstituteLayout
-    }
+    },
   },
   created() {
     this.startEdit()
@@ -130,12 +130,12 @@ export default {
     deleteTest() {
       if (process.client) localStorage.removeItem("session")
       location.reload()
-    }
+    },
   },
   components: {
     StandardLayout,
-    EditTest
-  }
+    EditTest,
+  },
 }
 </script>
 

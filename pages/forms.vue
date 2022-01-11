@@ -140,19 +140,19 @@ import utils from "@/js/utils"
 
 export default {
   components: {
-    InstituteLayout
+    InstituteLayout,
   },
   middleware: "institute",
   head() {
     return {
-      title: "Forms"
+      title: "Forms",
     }
   },
   props: {
     title: {
       type: String,
-      default: "Form"
-    }
+      default: "Form",
+    },
   },
   data() {
     return {
@@ -160,7 +160,7 @@ export default {
 
       headers: [
         { text: "Title", value: "title", align: "left" },
-        { text: "Action ", value: "actions", align: "left" }
+        { text: "Action ", value: "actions", align: "left" },
       ],
 
       editIndex: -1,
@@ -171,13 +171,13 @@ export default {
       editedItem: {
         title: "",
         description: "",
-        link: ""
+        link: "",
       },
       defaultItem: {
         title: "",
         description: "",
-        link: ""
-      }
+        link: "",
+      },
     }
   },
   methods: {
@@ -191,7 +191,7 @@ export default {
         this.forms = [
           ...this.forms.slice(0, this.editIndex),
           this.editedItem,
-          ...this.forms.slice(this.editIndex + 1)
+          ...this.forms.slice(this.editIndex + 1),
         ]
       else this.forms = this.forms.concat(this.editedItem)
       this.close()
@@ -207,13 +207,13 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editIndex = -1
       }, 300)
-    }
+    },
   },
   computed: {
     ...mapGetters({
       institute: "institutes/institute",
       editable: "institutes/editable",
-      status: "institutes/status"
+      status: "institutes/status",
     }),
     formTitle() {
       return this.editIndex === -1
@@ -229,10 +229,10 @@ export default {
       set(forms) {
         this.$store.cache.dispatch("institutes/update", {
           forms,
-          handle: this.institute.handle
+          handle: this.institute.handle,
         })
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>

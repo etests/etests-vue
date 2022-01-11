@@ -66,11 +66,11 @@ import StandardLayout from "@/layouts/StandardLayout"
 
 export default {
   components: {
-    StandardLayout
+    StandardLayout,
   },
   head() {
     return {
-      title: "Careers"
+      title: "Careers",
     }
   },
   data() {
@@ -90,8 +90,8 @@ export default {
 
             "Aspirants of Engineering, Medical, Bank PO, SSC, Law or other types of entrance exams.",
 
-            "People who want to learn and test their knowledge in their interested fields."
-          ]
+            "People who want to learn and test their knowledge in their interested fields.",
+          ],
         },
         {
           color: "warning",
@@ -106,11 +106,11 @@ export default {
 
             "Help the institutes in creation and conduction of tests hazzle free.",
 
-            "Get a very good incentive from us for each institute you get to us."
-          ]
-        }
-      ]
+            "Get a very good incentive from us for each institute you get to us.",
+          ],
+        },
+      ],
     }
-  }
+  },
 }
 </script>

@@ -109,12 +109,12 @@ import InstituteLayout from "@/layouts/InstituteLayout"
 
 export default {
   components: {
-    InstituteLayout
+    InstituteLayout,
   },
   middleware: "institute",
   head() {
     return {
-      title: "FAQ"
+      title: "FAQ",
     }
   },
   data() {
@@ -124,12 +124,12 @@ export default {
       editIndex: -1,
       editedItem: {
         question: "",
-        answer: ""
+        answer: "",
       },
       defaultItem: {
         question: "",
-        answer: ""
-      }
+        answer: "",
+      },
     }
   },
   methods: {
@@ -143,7 +143,7 @@ export default {
         this.faqs = [
           ...this.faqs.slice(0, this.editIndex),
           this.editedItem,
-          ...this.faqs.slice(this.editIndex + 1)
+          ...this.faqs.slice(this.editIndex + 1),
         ]
       else this.faqs = this.faqs.concat(this.editedItem)
       this.close()
@@ -158,13 +158,13 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editIndex = -1
       }, 300)
-    }
+    },
   },
   computed: {
     ...mapGetters({
       institute: "institutes/institute",
       editable: "institutes/editable",
-      status: "institutes/status"
+      status: "institutes/status",
     }),
     title() {
       const defaultTitle = "Frequently Asked Questions"
@@ -187,10 +187,10 @@ export default {
       set(faqs) {
         this.$store.cache.dispatch("institutes/update", {
           faqs,
-          handle: this.$handle
+          handle: this.$handle,
         })
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>

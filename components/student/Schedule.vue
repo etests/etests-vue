@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <Header :disable-drawer-close="true" />
-    <v-content app>
+    <v-main app>
       <v-row>
         <v-col>
           <v-card height="450" class="mx-4 pb-2">
@@ -49,7 +49,7 @@
         </v-col>
       </v-row>
       <Footer />
-    </v-content>
+    </v-main>
   </v-container>
 </template>
 

@@ -144,11 +144,11 @@ export default {
   components: {
     StandardLayout,
     Payment,
-    RazorPay
+    RazorPay,
   },
   head() {
     return {
-      title: this.testSeries ? this.testSeries.name : "Tests"
+      title: this.testSeries ? this.testSeries.name : "Tests",
     }
   },
   data() {
@@ -157,20 +157,20 @@ export default {
       testSeries: null,
       paymentDialog: false,
       syllabus: null,
-      syllabusDialog: false
+      syllabusDialog: false,
     }
   },
   computed: {
     ...mapState({
       loggedIn: (state) => state.auth.loggedIn,
-      user: (state) => state.auth.user
+      user: (state) => state.auth.user,
     }),
     buying() {
       return this.$auth.loggedIn && this.paymentDialog
     },
     layout() {
       return this.$handle == "public" ? StandardLayout : InstituteLayout
-    }
+    },
   },
   created() {
     this.$store.cache.dispatch("publicTestSeries/get", this.id).then(
@@ -185,7 +185,7 @@ export default {
     showSyllabus(syllabus) {
       this.syllabus = syllabus
       this.syllabusDialog = true
-    }
-  }
+    },
+  },
 }
 </script>

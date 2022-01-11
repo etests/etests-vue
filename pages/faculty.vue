@@ -28,9 +28,9 @@
           v-if="editable"
           v-show="
             faculty &&
-              faculty.length &&
-              faculty[subjectIndex].members &&
-              faculty[subjectIndex].members.length
+            faculty.length &&
+            faculty[subjectIndex].members &&
+            faculty[subjectIndex].members.length
           "
           color="primary"
           @click="edit"
@@ -43,9 +43,9 @@
           v-if="editable"
           v-show="
             faculty &&
-              faculty.length &&
-              faculty[subjectIndex].members &&
-              faculty[subjectIndex].members.length
+            faculty.length &&
+            faculty[subjectIndex].members &&
+            faculty[subjectIndex].members.length
           "
           text
           color="primary"
@@ -65,9 +65,9 @@
       <v-row
         v-if="
           faculty &&
-            (faculty.length === 0 ||
-              !faculty[subjectIndex].members ||
-              faculty[subjectIndex].members.length === 0)
+          (faculty.length === 0 ||
+            !faculty[subjectIndex].members ||
+            faculty[subjectIndex].members.length === 0)
         "
         justify="center"
         align="center"
@@ -77,8 +77,8 @@
           v-if="editable"
           v-show="
             faculty.length === 0 ||
-              !faculty[subjectIndex].members ||
-              faculty[subjectIndex].members.length === 0
+            !faculty[subjectIndex].members ||
+            faculty[subjectIndex].members.length === 0
           "
           x-large
           color="primary"
@@ -190,7 +190,7 @@
               { text: 'New Subject', value: -1 },
               ...faculty.map((subject, index) => {
                 return { text: subject.subject, value: index }
-              })
+              }),
             ]"
             label="Select Subject"
           />
@@ -233,12 +233,12 @@ import DropUpload from "@/components/common/DropUpload"
 export default {
   components: {
     DropUpload,
-    InstituteLayout
+    InstituteLayout,
   },
   middleware: "institute",
   head() {
     return {
-      title: "Faculty"
+      title: "Faculty",
     }
   },
   data() {
@@ -254,8 +254,8 @@ export default {
         member: {
           name: "",
           description: "",
-          image: ""
-        }
+          image: "",
+        },
       },
       newFaculty: {
         subjectIndex: -1,
@@ -264,9 +264,9 @@ export default {
         member: {
           name: "",
           description: "",
-          image: ""
-        }
-      }
+          image: "",
+        },
+      },
     }
   },
   methods: {
@@ -288,9 +288,9 @@ export default {
           ...this.faculty.slice(0, this.subjectIndex),
           {
             subject: this.faculty[this.subjectIndex].subject,
-            members
+            members,
           },
-          ...this.faculty.slice(this.subjectIndex + 1)
+          ...this.faculty.slice(this.subjectIndex + 1),
         ]
         this.deleteDialog = false
       }
@@ -299,7 +299,7 @@ export default {
       this.newFaculty = {
         subject: "",
         subjectIndex: -1,
-        member: { ...this.defaultFaculty.member }
+        member: { ...this.defaultFaculty.member },
       }
       if (this.faculty && this.faculty.length && this.subjectIndex > -1)
         this.newFaculty.subjectIndex = this.subjectIndex
@@ -331,13 +331,13 @@ export default {
       if (subjectIndex === -1) {
         this.faculty = this.faculty.concat({
           subject: this.newFaculty.subject,
-          members: [this.newFaculty.member]
+          members: [this.newFaculty.member],
         })
       } else {
         let members = []
         if (this.newFaculty.memberIndex > -1) {
           this.faculty[subjectIndex].members[memberIndex] = {
-            ...this.newFaculty.member
+            ...this.newFaculty.member,
           }
           members = this.faculty[subjectIndex].members
         } else members = this.faculty[subjectIndex].members.concat([this.newFaculty.member])
@@ -345,19 +345,19 @@ export default {
           ...this.faculty.slice(0, subjectIndex),
           {
             subject: this.faculty[subjectIndex].subject,
-            members
+            members,
           },
-          ...this.faculty.slice(subjectIndex + 1)
+          ...this.faculty.slice(subjectIndex + 1),
         ]
       }
       this.editDialog = false
-    }
+    },
   },
   computed: {
     ...mapGetters({
       institute: "institutes/institute",
       editable: "institutes/editable",
-      status: "institutes/status"
+      status: "institutes/status",
     }),
     title() {
       const defaultTitle = "Our Faculty"
@@ -377,10 +377,10 @@ export default {
       set(faculty) {
         this.$store.cache.dispatch("institutes/update", {
           faculty,
-          handle: this.institute.handle
+          handle: this.institute.handle,
         })
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>

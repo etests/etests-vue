@@ -79,7 +79,7 @@
                 </v-col>
               </v-row>
             </v-card-text>
-            <v-card-actions class="text-center " />
+            <v-card-actions class="text-center" />
           </v-card>
         </v-col>
       </v-row>
@@ -93,16 +93,16 @@ import StandardLayout from "@/layouts/StandardLayout"
 export default {
   name: "Plan",
   components: {
-    StandardLayout
+    StandardLayout,
   },
   filters: {
     currency(value) {
       return " ₹" + value
-    }
+    },
   },
   head() {
     return {
-      title: "Plans"
+      title: "Plans",
     }
   },
   data() {
@@ -118,7 +118,7 @@ export default {
             "Hosting included",
             "Admin Dashboard",
             "Conduct online tests",
-            "24*7 support "
+            "24*7 support ",
           ],
           billing: [
             {
@@ -126,23 +126,23 @@ export default {
               cycle: "month",
               price: "600",
               extras: "7 per student for each test",
-              feature: ""
+              feature: "",
             },
             {
               name: "half-yearly",
               cycle: "6 months",
               price: "3000",
               extras: "7 per student for each test",
-              feature: ""
+              feature: "",
             },
             {
               name: "yearly",
               cycle: "year",
               price: "5000",
               extras: "7 per student for each test",
-              feature: ""
-            }
-          ]
+              feature: "",
+            },
+          ],
         },
         {
           name: "Standard",
@@ -154,7 +154,7 @@ export default {
             "Hosting included",
             "Admin Dashboard",
             "Conduct online tests",
-            "24*7 support "
+            "24*7 support ",
           ],
           billing: [
             {
@@ -162,23 +162,23 @@ export default {
               cycle: "month",
               price: "1000",
               extras: "",
-              feature: "2 online tests"
+              feature: "2 online tests",
             },
             {
               name: "half-yearly",
               cycle: "6 months",
               price: "5000",
               extras: "",
-              feature: "15 online tests"
+              feature: "15 online tests",
             },
             {
               name: "yearly",
               cycle: "year",
               price: "10000",
               extras: "",
-              feature: "50 online tests"
-            }
-          ]
+              feature: "50 online tests",
+            },
+          ],
         },
         {
           name: "Enterprise",
@@ -190,7 +190,7 @@ export default {
             "Hosting included",
             "Admin Dashboard",
             "Conduct online tests",
-            "24*7 support "
+            "24*7 support ",
           ],
           billing: [
             {
@@ -198,31 +198,31 @@ export default {
               cycle: "month",
               price: "2000",
               extras: "",
-              feature: "Unlimited online tests"
+              feature: "Unlimited online tests",
             },
             {
               name: "half-yearly",
               cycle: "6 months",
               price: "10000",
               extras: "",
-              feature: "Unlimited online tests"
+              feature: "Unlimited online tests",
             },
             {
               name: "yearly",
               cycle: "year",
               price: "15000",
               extras: "",
-              feature: "Unlimited online tests"
-            }
-          ]
-        }
-      ]
+              feature: "Unlimited online tests",
+            },
+          ],
+        },
+      ],
     }
   },
   methods: {
     viewPlans(item) {
       this.plans = item.billing
-    }
-  }
+    },
+  },
 }
 </script>

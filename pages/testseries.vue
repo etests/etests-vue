@@ -88,9 +88,9 @@
                 <v-icon
                   v-if="
                     loggedIn &&
-                      $auth.hasScope('student') &&
-                      testSeries.price !== 0 &&
-                      testSeries.status < 4
+                    $auth.hasScope('student') &&
+                    testSeries.price !== 0 &&
+                    testSeries.status < 4
                   "
                   color="warning"
                 >
@@ -121,13 +121,13 @@ import utils from "@/js/utils"
 export default {
   head() {
     return {
-      title: "Test Series"
+      title: "Test Series",
     }
   },
   data() {
     return {
       searchTestSeries: "",
-      selectedTestSeries: {}
+      selectedTestSeries: {},
     }
   },
   watch: {
@@ -135,7 +135,7 @@ export default {
       if (to.query !== from.query) {
         location.reload()
       }
-    }
+    },
   },
   created() {
     const params = this.$route.query
@@ -146,7 +146,7 @@ export default {
       status: "publicTestSeries/status",
       testSeriesList: "publicTestSeries/allTestSeries",
       loggedIn: "loggedIn",
-      user: "user"
+      user: "user",
     }),
     filteredTestSeries() {
       return this.testSeriesList.filter((testSeries) =>
@@ -155,8 +155,8 @@ export default {
     },
     layout() {
       return this.$handle == "public" ? StandardLayout : InstituteLayout
-    }
-  }
+    },
+  },
 }
 </script>
 

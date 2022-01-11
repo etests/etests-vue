@@ -56,7 +56,7 @@
               <Sketch
                 v-model="settings.color"
                 class="ma-auto"
-                style="width:100%; box-shadow:none; padding: 0; margin: 0"
+                style="width: 100%; box-shadow: none; padding: 0; margin: 0;"
               />
             </client-only>
           </v-card-text>
@@ -74,12 +74,12 @@ import InstituteLayout from "@/layouts/InstituteLayout"
 export default {
   components: {
     InstituteLayout,
-    Sketch
+    Sketch,
   },
   middleware: "institute",
   head() {
     return {
-      title: "Settings"
+      title: "Settings",
     }
   },
   data() {
@@ -100,9 +100,9 @@ export default {
           { component: "Faculty", name: "", show: true },
           { component: "Centers", name: "", show: true },
           { component: "Courses", name: "", show: true },
-          { component: "FAQ", name: "", show: true }
-        ]
-      }
+          { component: "FAQ", name: "", show: true },
+        ],
+      },
     }
   },
   methods: {
@@ -110,18 +110,18 @@ export default {
       this.$store.cache.dispatch("institutes/update", {
         settings: {
           color: this.settings.color.hex ? this.settings.color.hex : this.settings.color,
-          sections: this.settings.sections
+          sections: this.settings.sections,
         },
-        handle: this.$handle
+        handle: this.$handle,
       })
-    }
+    },
   },
   computed: {
     ...mapGetters({
       institute: "institutes/institute",
       editable: "institutes/editable",
-      status: "institutes/status"
-    })
+      status: "institutes/status",
+    }),
   },
   mounted() {
     this.$store.cache.dispatch("institutes/get", this.$handle).then((institute) => {
@@ -147,12 +147,12 @@ export default {
             color: newValue.color.hex ? newValue.color.hex : newValue.color,
             sections: newValue.sections.map((section) => {
               return { ...section }
-            })
+            }),
           }
           this.$store.commit("institutes/updateSuccess", { settings })
-        }
+        },
       })
     })
-  }
+  },
 }
 </script>

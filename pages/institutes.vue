@@ -80,12 +80,12 @@ import utils from "@/js/utils"
 
 export default {
   components: {
-    StandardLayout
+    StandardLayout,
   },
   middleware: "public",
   head() {
     return {
-      title: "Institutes"
+      title: "Institutes",
     }
   },
   data() {
@@ -94,7 +94,7 @@ export default {
       rollNumber: "",
       joiningKey: "",
       searchInstitute: "",
-      selectedTestSeries: {}
+      selectedTestSeries: {},
     }
   },
   created() {
@@ -106,7 +106,7 @@ export default {
       status: "institutes/status",
       batchStatus: "batches/sttus",
       loggedIn: "loggedIn",
-      user: "user"
+      user: "user",
     }),
     filteredInstitutes() {
       return this.institutes.filter((institute) =>
@@ -123,7 +123,7 @@ export default {
           )
         else return false
       },
-      set() {}
+      set() {},
     },
     joinDialog: {
       get() {
@@ -135,8 +135,8 @@ export default {
           )
         else return false
       },
-      set() {}
-    }
+      set() {},
+    },
   },
   mounted() {},
   methods: {
@@ -146,7 +146,7 @@ export default {
     join() {
       const data = {
         rollNumber: this.rollNumber,
-        joiningKey: this.joiningKey
+        joiningKey: this.joiningKey,
       }
       this.$store.cache.dispatch("batches/join", { id: this.batchId, data })
     },
@@ -160,8 +160,8 @@ export default {
       )
         return true
       else return false
-    }
-  }
+    },
+  },
 }
 </script>
 

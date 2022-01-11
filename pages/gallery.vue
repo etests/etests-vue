@@ -64,9 +64,7 @@
           <v-row
             v-if="
               gallery &&
-                (gallery.length === 0 ||
-                  !gallery[event].images ||
-                  gallery[event].images.length === 0)
+              (gallery.length === 0 || !gallery[event].images || gallery[event].images.length === 0)
             "
             justify="center"
             align="center"
@@ -159,7 +157,7 @@
                 { text: 'New Event', value: -1 },
                 ...gallery.map((event, index) => {
                   return { text: event.name, value: index }
-                })
+                }),
               ]"
               label="Select Event"
             />
@@ -231,12 +229,12 @@ import DropUpload from "@/components/common/DropUpload"
 export default {
   components: {
     InstituteLayout,
-    DropUpload
+    DropUpload,
   },
   middleware: "institute",
   head() {
     return {
-      title: "Gallery"
+      title: "Gallery",
     }
   },
   data() {
@@ -248,13 +246,13 @@ export default {
       defaultGallery: {
         event: -1,
         name: "",
-        images: []
+        images: [],
       },
       newGallery: {
         event: -1,
         name: "",
-        images: []
-      }
+        images: [],
+      },
     }
   },
   methods: {
@@ -276,9 +274,9 @@ export default {
           ...this.gallery.slice(0, this.event),
           {
             name: this.gallery[this.event].name,
-            images
+            images,
           },
-          ...this.gallery.slice(this.event + 1)
+          ...this.gallery.slice(this.event + 1),
         ]
         this.deleteDialog = false
       }
@@ -287,7 +285,7 @@ export default {
       if (this.newGallery.event === -1) {
         this.gallery = this.gallery.concat({
           name: this.newGallery.name,
-          images: this.newGallery.images
+          images: this.newGallery.images,
         })
       } else {
         const images = this.gallery[this.newGallery.event].images.concat(this.newGallery.images)
@@ -295,20 +293,20 @@ export default {
           ...this.gallery.slice(0, this.event),
           {
             name: this.gallery[this.newGallery.event].name,
-            images
+            images,
           },
-          ...this.gallery.slice(this.event + 1)
+          ...this.gallery.slice(this.event + 1),
         ]
       }
       this.newGallery = { ...this.defaultGallery }
       this.newDialog = false
-    }
+    },
   },
   computed: {
     ...mapGetters({
       institute: "institutes/institute",
       editable: "institutes/editable",
-      status: "institutes/status"
+      status: "institutes/status",
     }),
     title() {
       const defaultTitle = "Gallery"
@@ -328,10 +326,10 @@ export default {
       set(gallery) {
         this.$store.cache.dispatch("institutes/update", {
           gallery,
-          handle: this.institute.handle
+          handle: this.institute.handle,
         })
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>

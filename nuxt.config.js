@@ -7,8 +7,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 export default {
-  mode: "universal",
-
   head: {
     titleTemplate: "%s",
     title: "Home",
@@ -101,7 +99,7 @@ export default {
   auth: {
     strategies: {
       local: {
-        _scheme: "refresh",
+        scheme: "refresh",
         token: {
           property: "access"
         },

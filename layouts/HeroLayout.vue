@@ -1,6 +1,6 @@
 <template>
   <v-app class="text-center">
-    <v-content app class="ma-0 pa-0">
+    <v-main app class="ma-0 pa-0">
       <Header
         :temporary-drawer="true"
         :disable-drawer-close="true"
@@ -9,7 +9,7 @@
         :show-logo="false"
       />
       <slot />
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 

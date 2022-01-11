@@ -52,7 +52,7 @@
         <v-chip color="grey darken-2" class="my-1" outlined small>
           <strong>
             Q{{ questionIndex + 1 }} &nbsp;
-            <span style="text-transform: uppercase" v-if="topics">
+            <span style="text-transform: uppercase;" v-if="topics">
               {{ topics[currentQuestion.topic] }}
             </span>
           </strong>
@@ -98,7 +98,7 @@
               :class="$style.question"
               min-height="200px"
               max-height="400px"
-              style="overflow:scroll"
+              style="overflow: scroll;"
               v-html="answer.solution"
             />
           </template>
@@ -193,11 +193,11 @@ import { testTemplate } from "@/js/test"
 export default {
   components: {
     TestLayout,
-    AnswerField
+    AnswerField,
   },
   head() {
     return {
-      title: this.test ? "Review - " + this.test.name : "Review"
+      title: this.test ? "Review - " + this.test.name : "Review",
     }
   },
   data() {
@@ -211,16 +211,16 @@ export default {
         { value: 2, text: "Numerical" },
         { value: 3, text: "Matrix Match" },
         { value: 4, text: "One Word Answer" },
-        { value: 5, text: "Subjective" }
+        { value: 5, text: "Subjective" },
       ],
       labels: {
         options: ["A", "B", "C", "D"],
-        answers: ["P", "Q", "R", "S", "T"]
+        answers: ["P", "Q", "R", "S", "T"],
       },
       sectionIndex: 0,
       questionIndex: 0,
       solutionDialog: false,
-      subjectTopics: []
+      subjectTopics: [],
     }
   },
   methods: {
@@ -326,12 +326,12 @@ export default {
     },
     getMinutes(time) {
       return Math.floor(time / 60) + "m " + (time % 60) + "s"
-    }
+    },
   },
   computed: {
     ...mapState({
       status: (state) => state.results.status,
-      session: (state) => state.results.result
+      session: (state) => state.results.result,
     }),
     small() {
       return ["xs", "sm"].includes(this.$mq)
@@ -394,14 +394,14 @@ export default {
     currentResult() {
       if (this.session) return this.session.result.questionWiseMarks[this.questionIndex]
       else return {}
-    }
+    },
   },
   created() {
     this.$store.cache.dispatch("subjects/list").then((subjects) => {
       this.subjectTopics = subjects
     })
     this.$store.cache.dispatch("results/get", this.id)
-  }
+  },
 }
 </script>
 

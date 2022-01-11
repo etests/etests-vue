@@ -102,7 +102,7 @@
         </v-btn>
       </v-toolbar>
       <v-card>
-        <gmap-map :center="location" :zoom="16" style="width:100%;  height: 100vh;">
+        <gmap-map :center="location" :zoom="16" style="width: 100%; height: 100vh;">
           <gmap-marker :position="location" />
         </gmap-map>
       </v-card>
@@ -151,7 +151,7 @@
                 <gmap-map
                   :center="editedItem.location"
                   :zoom="16"
-                  style="width:100%; height:200px"
+                  style="width: 100%; height: 200px;"
                   :draggable="false"
                 >
                   <gmap-marker :position="editedItem.location" />
@@ -164,7 +164,7 @@
                       uploadImage(
                         image.getUrl({
                           maxWidth: 600,
-                          maxHeight: 400
+                          maxHeight: 400,
                         })
                       )
                     "
@@ -225,12 +225,12 @@ export default {
     GmapMap: Map,
     GmapMarker: Marker,
     GmapAutocomplete: Autocomplete,
-    InstituteLayout
+    InstituteLayout,
   },
   middleware: "institute",
   head() {
     return {
-      title: "Centers"
+      title: "Centers",
     }
   },
   data() {
@@ -243,7 +243,7 @@ export default {
         phone: "",
         image: "",
         address: "",
-        location: ""
+        location: "",
       },
       defaultItem: {
         name: "",
@@ -251,7 +251,7 @@ export default {
         phone: "",
         image: "",
         address: "",
-        location: ""
+        location: "",
       },
       mapDialog: false,
       location: {},
@@ -260,14 +260,14 @@ export default {
       mapTitle: "",
       currentPlace: null,
       uploadUrl: `${process.env.API_URL}/images/`,
-      loading: false
+      loading: false,
     }
   },
   methods: {
     setCoords(place) {
       const marker = {
         lat: place.geometry.location.lat(),
-        lng: place.geometry.location.lng()
+        lng: place.geometry.location.lng(),
       }
       this.editedItem.location = marker
       this.editedItem.address = place.formatted_address
@@ -310,7 +310,7 @@ export default {
         this.centers = [
           ...this.centers.slice(0, this.editIndex),
           this.editedItem,
-          ...this.centers.slice(this.editIndex + 1)
+          ...this.centers.slice(this.editIndex + 1),
         ]
       else this.centers = this.centers.concat(this.editedItem)
       this.editDialog = false
@@ -324,13 +324,13 @@ export default {
       this.editIndex = -1
       this.editedItem = { ...this.defaultItem }
       this.editDialog = true
-    }
+    },
   },
   computed: {
     ...mapGetters({
       institute: "institutes/institute",
       editable: "institutes/editable",
-      status: "institutes/status"
+      status: "institutes/status",
     }),
     title() {
       const defaultTitle = "Our Centers"
@@ -350,10 +350,10 @@ export default {
       set(centers) {
         this.$store.cache.dispatch("institutes/update", {
           centers,
-          handle: this.$handle
+          handle: this.$handle,
         })
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>

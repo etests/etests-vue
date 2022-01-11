@@ -130,12 +130,12 @@ import DropUpload from "@/components/common/DropUpload"
 export default {
   components: {
     InstituteLayout,
-    DropUpload
+    DropUpload,
   },
   middleware: "institute",
   head() {
     return {
-      title: "About Us"
+      title: "About Us",
     }
   },
   data() {
@@ -145,13 +145,13 @@ export default {
       editItem: {
         title: "",
         img: "",
-        text: ""
+        text: "",
       },
       newItem: {
         title: "",
         img: "",
-        text: ""
-      }
+        text: "",
+      },
     }
   },
   methods: {
@@ -167,9 +167,9 @@ export default {
         this.sections = [
           ...this.sections.slice(0, i),
           {
-            ...this.editItem
+            ...this.editItem,
           },
-          ...this.sections.slice(i + 1)
+          ...this.sections.slice(i + 1),
         ]
       this.editing = null
     },
@@ -180,13 +180,13 @@ export default {
     remove(i) {
       if (confirm("Are you sure you want to delete this section?"))
         this.sections = [...this.sections.slice(0, i), ...this.sections.slice(i + 1)]
-    }
+    },
   },
   computed: {
     ...mapGetters({
       institute: "institutes/institute",
       editable: "institutes/editable",
-      status: "institutes/status"
+      status: "institutes/status",
     }),
     sections: {
       get() {
@@ -199,10 +199,10 @@ export default {
         extras.about = sections
         this.$store.cache.dispatch("institutes/update", {
           extras,
-          handle: this.institute.handle
+          handle: this.institute.handle,
         })
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>

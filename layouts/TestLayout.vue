@@ -71,7 +71,7 @@
             <v-divider />
           </v-sheet>
         </v-app-bar>
-        <v-content class="ma-auto mt-0 text-left" app>
+        <v-main class="ma-auto mt-0 text-left" app>
           <v-sheet class="px-3" height="auto" min-height="450px">
             <v-row justify="center" justify-md="start">
               <slot name="info" />
@@ -85,7 +85,7 @@
 
             <slot name="options" />
           </v-sheet>
-        </v-content>
+        </v-main>
       </v-card>
 
       <v-footer fixed color="white" height="50" app>

@@ -14,7 +14,7 @@
                 <span
                   v-if="
                     subjects.length &&
-                      subjects.find((subject) => subject.value === section.subject) !== undefined
+                    subjects.find((subject) => subject.value === section.subject) !== undefined
                   "
                   class="body-1 primary--text font-weight-bold text-uppercase"
                 >
@@ -59,7 +59,7 @@
         </nuxt-link>
       </v-app-bar>
 
-      <v-content>
+      <v-main>
         <v-row justify="space-around" align="start" align-content="center" class="px-2">
           <v-col cols="12" lg="7">
             <v-skeleton-loader v-if="status.loading" type="paragraph" max-width="50%" />
@@ -67,9 +67,8 @@
               <div
                 v-if="
                   subjects.length &&
-                    subjects.find(
-                      (subject) => subject.value === questions[questionIndex].subject
-                    ) !== undefined
+                  subjects.find((subject) => subject.value === questions[questionIndex].subject) !==
+                    undefined
                 "
               >
                 <span class="primary--text text-uppercase">
@@ -81,9 +80,9 @@
                 <span
                   v-if="
                     questions[questionIndex].topic !== null &&
-                      topics[questions[questionIndex].subject].find(
-                        (topic) => topic.value === questions[questionIndex].topic
-                      ) !== undefined
+                    topics[questions[questionIndex].subject].find(
+                      (topic) => topic.value === questions[questionIndex].topic
+                    ) !== undefined
                   "
                 >
                   {{
@@ -128,7 +127,7 @@
                     <div
                       v-ripple="{ center: true, class: 'success--text' }"
                       :class="$style.question"
-                      style="cursor:pointer"
+                      style="cursor: pointer;"
                       @click="toggleSelected(i)"
                       v-html="question.text"
                     />
@@ -182,7 +181,7 @@
               persistent-hint
               prepend-inner-icon="mdi-book"
               label="Subject"
-              style="max-width:450px"
+              style="max-width: 450px;"
             />
             <v-autocomplete
               v-model="question.topic"
@@ -192,7 +191,7 @@
               persistent-hint
               prepend-inner-icon="mdi-file"
               label="Topic"
-              style="max-width:450px"
+              style="max-width: 450px;"
             />
             <v-combobox
               v-model="question.tags"
@@ -202,7 +201,7 @@
               clearable
               label="Tags"
               multiple
-              style="max-width:450px"
+              style="max-width: 450px;"
             >
               <template #selection="{ attrs, item, select, selectedQuestions }">
                 <v-chip
@@ -234,7 +233,7 @@
             </v-row>
           </v-col>
         </v-row>
-      </v-content>
+      </v-main>
       <v-navigation-drawer
         width="250"
         permanent
@@ -283,7 +282,7 @@ import utils from "@/js/utils"
 export default {
   head() {
     return {
-      title: "Question Bank"
+      title: "Question Bank",
     }
   },
   middleware: "public",
@@ -295,18 +294,18 @@ export default {
         { value: 0, text: "Single Correct" },
         { value: 1, text: "Multiple Correct" },
         { value: 2, text: "Numerical" },
-        { value: 3, text: "Matrix Match" }
+        { value: 3, text: "Matrix Match" },
       ],
       difficultyLevels: [
         { value: 0, text: "Very Easy" },
         { value: 1, text: "Easy" },
         { value: 2, text: "Medium" },
         { value: 3, text: "Hard" },
-        { value: 4, text: "Very Hard" }
+        { value: 4, text: "Very Hard" },
       ],
       labels: {
         options: ["A", "B", "C", "D"],
-        answers: ["P", "Q", "R", "S", "T"]
+        answers: ["P", "Q", "R", "S", "T"],
       },
       question: {
         text: "",
@@ -316,13 +315,13 @@ export default {
         difficulty: null,
         topic: null,
         subject: null,
-        tags: []
+        tags: [],
       },
       questions: [],
       questionIndex: -1,
       selectedQuestions: [],
       subjectTopics: [],
-      test: testTemplate
+      test: testTemplate,
     }
   },
   computed: {
@@ -345,7 +344,7 @@ export default {
     },
     currentQuestion() {
       return this.questions[this.questionIndex]
-    }
+    },
   },
   watch: {
     selectedQuestions(newValue, oldValue) {
@@ -368,20 +367,20 @@ export default {
           partialMarks: 0,
           incorrectMarks: 1,
           topic: this.topics[cleanedQuestion.subject][cleanedQuestion.topic],
-          ...cleanedQuestion
+          ...cleanedQuestion,
         }
         questions[i] = cleanedQuestion
         answers.push({
           answer,
-          solution
+          solution,
         })
       })
       const sections = [
         {
           start: 0,
           end: 0,
-          subject: 1
-        }
+          subject: 1,
+        },
       ]
       let currentIndex = 0
       questions.forEach((question, i) => {
@@ -396,7 +395,7 @@ export default {
             sections.push({
               start: i + 1,
               end: i + 1,
-              subject: 1
+              subject: 1,
             })
           delete questions[i].subject
           currentIndex++
@@ -405,7 +404,7 @@ export default {
       this.test.sections = sections
       this.test.questions = questions
       this.test.answers = answers
-    }
+    },
   },
   created() {
     this.$store.cache.dispatch("subjects/list").then((subjects) => {
@@ -499,7 +498,7 @@ export default {
         type: this.question.type,
         difficulty: this.question.difficulty,
         topic: this.question.topic,
-        subject: this.question.subject
+        subject: this.question.subject,
       }
       this.$store.cache.dispatch("questions/list", params).then((questions) => {
         this.questions = questions
@@ -507,8 +506,8 @@ export default {
     },
     exportTest() {
       utils.downloadData(this.test)
-    }
-  }
+    },
+  },
 }
 </script>
 <style module lang="scss">

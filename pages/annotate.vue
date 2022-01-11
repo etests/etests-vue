@@ -14,7 +14,7 @@
         </v-btn>
       </v-app-bar>
 
-      <v-content>
+      <v-main>
         <v-col v-if="isNaN(selectedSubject)" cols="12">
           <v-card class="page" max-width="450">
             <v-card-title>Select a subject</v-card-title>
@@ -184,7 +184,7 @@
             </v-row>
           </v-col>
         </v-row>
-      </v-content>
+      </v-main>
 
       <v-footer v-if="!isNaN(selectedSubject)" fixed app inset>
         <v-row class="text-center">
@@ -260,7 +260,7 @@ export default {
     return {
       title: !isNaN(this.selectedSubject)
         ? "Annotate - " + this.subjectChoices[this.selectedSubject].text
-        : "Annotate"
+        : "Annotate",
     }
   },
   data() {
@@ -271,24 +271,24 @@ export default {
         { value: 1, text: "Physics", icon: "mdi-lightbulb-on" },
         { value: 2, text: "Mathematics", icon: "mdi-math-compass" },
         { value: 3, text: "Chemistry", icon: "mdi-atom" },
-        { value: 21, text: "Biology", icon: "mdi-leaf" }
+        { value: 21, text: "Biology", icon: "mdi-leaf" },
       ],
       questionTypes: [
         { value: 0, text: "Single Correct" },
         { value: 1, text: "Multiple Correct" },
         { value: 2, text: "Numerical" },
-        { value: 3, text: "Matrix Match" }
+        { value: 3, text: "Matrix Match" },
       ],
       difficultyLevels: [
         { value: 0, text: "Very Easy" },
         { value: 1, text: "Easy" },
         { value: 2, text: "Medium" },
         { value: 3, text: "Hard" },
-        { value: 4, text: "Very Hard" }
+        { value: 4, text: "Very Hard" },
       ],
       labels: {
         options: ["A", "B", "C", "D"],
-        answers: ["P", "Q", "R", "S", "T"]
+        answers: ["P", "Q", "R", "S", "T"],
       },
       questionIndex: 0,
       emptyQuestion: {
@@ -298,7 +298,7 @@ export default {
         solution: "",
         type: null,
         difficulty: null,
-        tags: []
+        tags: [],
       },
       questions: [
         {
@@ -307,12 +307,12 @@ export default {
           solution: "",
           type: null,
           difficulty: null,
-          tags: []
-        }
+          tags: [],
+        },
       ],
       selectedQuestions: [],
       subjectTopics: [],
-      test: testTemplate
+      test: testTemplate,
     }
   },
   computed: {
@@ -341,13 +341,13 @@ export default {
     },
     currentQuestion() {
       return this.questions[this.questionIndex]
-    }
+    },
   },
   watch: {
     $route(newValue, oldValue) {
       this.selectedSubject = newValue.query.subject
       if (this.selectedSubject) this.find()
-    }
+    },
   },
   created() {
     this.$store.cache.dispatch("subjects/list").then((subjects) => {
@@ -399,7 +399,7 @@ export default {
       else
         this.$store
           .dispatch("questions/next", {
-            subject: this.subjectChoices[this.selectedSubject].value
+            subject: this.subjectChoices[this.selectedSubject].value,
           })
           .then((questions) => {
             this.questions = this.questions.concat(questions)
@@ -415,7 +415,7 @@ export default {
     find() {
       this.$store
         .dispatch("questions/list", {
-          subject: this.subjectChoices[this.selectedSubject].value
+          subject: this.subjectChoices[this.selectedSubject].value,
         })
         .then((questions) => {
           if (questions && questions.length) this.questions = questions
@@ -428,11 +428,11 @@ export default {
           id: this.currentQuestion.id,
           difficulty: this.changeQuestion.difficulty,
           subject: this.changeQuestion.subject,
-          topic: this.currentQuestion.topic
+          topic: this.currentQuestion.topic,
         })
         .then((_) => this.nextQuestion())
-    }
-  }
+    },
+  },
 }
 </script>
 <style module lang="scss">

@@ -29,14 +29,14 @@ export default {
     return {
       script: [
         {
-          src: "https://code.jquery.com/jquery-3.3.1.min.js"
-        }
-      ]
+          src: "https://code.jquery.com/jquery-3.3.1.min.js",
+        },
+      ],
     }
   },
   components: {
     Zoom,
-    StandardLayout
+    StandardLayout,
   },
   data() {
     return {
@@ -45,17 +45,17 @@ export default {
         name: "Pankaj",
         number: "762-1052-6997",
         password: "6TyHGk",
-        role: 1
+        role: 1,
       },
       roles: [
         { value: 0, text: "Attendee" },
         { value: 1, text: "Host" },
         {
           value: 5,
-          text: "Assistant"
-        }
-      ]
+          text: "Assistant",
+        },
+      ],
     }
-  }
+  },
 }
 </script>

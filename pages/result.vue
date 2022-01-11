@@ -32,14 +32,14 @@ export default {
   components: {
     StandardLayout,
     Analysis,
-    Marks
+    Marks,
   },
   props: {
     review: {
       required: false,
       default: false,
-      type: Boolean
-    }
+      type: Boolean,
+    },
   },
   head() {
     return {
@@ -48,15 +48,15 @@ export default {
         {
           name: "viewport",
           content:
-            "width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=yes, minimal-ui"
-        }
-      ]
+            "width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=yes, minimal-ui",
+        },
+      ],
     }
   },
   data() {
     return {
       id: parseInt(this.$route.query.id),
-      reviewing: this.review
+      reviewing: this.review,
     }
   },
   computed: {
@@ -68,11 +68,11 @@ export default {
     },
     status() {
       return this.$store.state.results.status
-    }
+    },
   },
   created() {
     this.$store.cache.dispatch("results/get", this.id)
-  }
+  },
 }
 </script>
 <style module lang="scss">

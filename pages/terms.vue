@@ -148,12 +148,12 @@ import StandardLayout from "@/layouts/StandardLayout"
 export default {
   middleware: "public",
   components: {
-    StandardLayout
+    StandardLayout,
   },
   head() {
     return {
-      title: "Terms and Conditions"
+      title: "Terms and Conditions",
     }
-  }
+  },
 }
 </script>

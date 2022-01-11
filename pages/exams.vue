@@ -52,18 +52,18 @@ import utils from "@/js/utils"
 
 export default {
   components: {
-    StandardLayout
+    StandardLayout,
   },
   middleware: "public",
   head() {
     return {
-      title: "Exams"
+      title: "Exams",
     }
   },
   data() {
     return {
       searchExam: "",
-      selectedTestSeries: {}
+      selectedTestSeries: {},
     }
   },
   created() {
@@ -72,7 +72,7 @@ export default {
   computed: {
     ...mapGetters({
       status: "exams/status",
-      examList: "exams/exams"
+      examList: "exams/exams",
     }),
     filteredExams() {
       return this.exams.filter((exam) =>
@@ -92,15 +92,15 @@ export default {
           return this.exams.find((exam) => exam.id === this.$route.hash.replace("#", "")) || false
         else return false
       },
-      set() {}
-    }
+      set() {},
+    },
   },
   mounted() {},
   methods: {
     formatDate(dateString) {
       return utils.formatDate(dateString)
-    }
-  }
+    },
+  },
 }
 </script>
 

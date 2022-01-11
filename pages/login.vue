@@ -15,17 +15,17 @@ import Login from "@/components/common/Login"
 
 export default {
   components: {
-    Login
+    Login,
   },
   head() {
     return {
-      title: "Login"
+      title: "Login",
     }
   },
   computed: {
     layout() {
       return this.$handle == "public" ? StandardLayout : InstituteLayout
-    }
-  }
+    },
+  },
 }
 </script>

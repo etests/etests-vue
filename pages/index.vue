@@ -14,7 +14,7 @@ const InstituteHomePage = () => import("@/components/institute/HomePage.vue")
 export default {
   head() {
     return {
-      title: "Home"
+      title: "Home",
     }
   },
   computed: {
@@ -24,8 +24,8 @@ export default {
     },
     component() {
       return this.$handle == "public" ? PublicHomePage : InstituteHomePage
-    }
-  }
+    },
+  },
 }
 </script>
 

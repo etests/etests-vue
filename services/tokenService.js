@@ -2,7 +2,7 @@ export const tokenService = {
   setToken,
   getAccessToken,
   getRefreshToken,
-  clearToken
+  clearToken,
 }
 
 function setToken(token) {

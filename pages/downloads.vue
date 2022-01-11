@@ -100,12 +100,12 @@ import utils from "@/js/utils"
 
 export default {
   components: {
-    InstituteLayout
+    InstituteLayout,
   },
   middleware: "institute",
   head() {
     return {
-      title: "Downloads"
+      title: "Downloads",
     }
   },
   data() {
@@ -121,29 +121,29 @@ export default {
         title: "",
         description: "",
         date: "",
-        link: ""
+        link: "",
       },
       defaultItem: {
         title: "",
         description: "",
         date: "",
-        link: ""
+        link: "",
       },
       downloadHeaders: [
         { text: "Date", value: "date", align: "center" },
         {
           text: "Title ",
-          value: "title"
+          value: "title",
         },
-        { text: "", sortable: false, value: "link", align: "end" }
-      ]
+        { text: "", sortable: false, value: "link", align: "end" },
+      ],
     }
   },
   computed: {
     ...mapGetters({
       institute: "institutes/institute",
       editable: "institutes/editable",
-      status: "institutes/status"
+      status: "institutes/status",
     }),
     title() {
       const defaultTitle = "Downloads"
@@ -168,10 +168,10 @@ export default {
       set(downloads) {
         this.$store.cache.dispatch("institutes/update", {
           downloads,
-          handle: this.$handle
+          handle: this.$handle,
         })
-      }
-    }
+      },
+    },
   },
 
   methods: {
@@ -187,7 +187,7 @@ export default {
         this.downloads = [
           ...this.downloads.slice(0, this.editIndex),
           this.editedItem,
-          ...this.downloads.slice(this.editIndex + 1)
+          ...this.downloads.slice(this.editIndex + 1),
         ]
       else this.downloads = this.downloads.concat(this.editedItem)
       this.close()
@@ -204,7 +204,7 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editIndex = -1
       }, 300)
-    }
-  }
+    },
+  },
 }
 </script>

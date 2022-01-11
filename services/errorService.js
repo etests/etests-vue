@@ -8,7 +8,7 @@ function isArray(value) {
 
 function formatFieldName(title) {
   let formatted = title
-    .replace(/\.?([A-Z])/g, function(_, y) {
+    .replace(/\.?([A-Z])/g, function (_, y) {
       return " " + y
     })
     .replace(/^ /, "")

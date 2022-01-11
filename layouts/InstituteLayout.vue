@@ -2,14 +2,14 @@
   <v-app>
     <v-container>
       <Header />
-      <v-content app class="pt-12 px-0">
+      <v-main app class="pt-12 px-0">
         <v-row>
           <v-col cols="12">
             <v-skeleton-loader type="persistent" width="64" v-show="loading" />
             <slot v-show="!loading" />
           </v-col>
         </v-row>
-      </v-content>
+      </v-main>
     </v-container>
   </v-app>
 </template>
