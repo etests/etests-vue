@@ -2,7 +2,7 @@
   <v-app>
     <v-container>
       <Header />
-      <v-main app class="pt-12 px-0">
+      <v-main app class="mt-12 pt-12 px-0">
         <v-row>
           <v-col cols="12">
             <v-skeleton-loader type="persistent" width="64" v-show="loading" />
@@ -19,7 +19,7 @@ import Header from "@/components/institute/Header"
 
 export default {
   components: {
-    Header
+    Header,
   },
   computed: {
     loading() {
@@ -28,16 +28,16 @@ export default {
     },
     theme() {
       return this.$store.getters["institutes/theme"]
-    }
+    },
   },
   watch: {
     theme(newValue, oldValue) {
       this.$vuetify.theme.themes.light.primary = newValue
-    }
+    },
   },
   mounted() {
     if (this.$handle === "public") this.$router.push("/404")
     else this.$store.cache.dispatch("institutes/get", this.$handle)
-  }
+  },
 }
 </script>

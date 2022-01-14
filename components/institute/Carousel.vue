@@ -1,6 +1,6 @@
 <template>
   <v-row class="v-application">
-    <v-carousel continuous cycle hide-delimiters class="black" style="height:100vh">
+    <v-carousel continuous cycle hide-delimiters class="black" style="height: 100vh;">
       <v-carousel-item v-if="carousel && !carousel.length" :src="defaultImage" class="text-center">
         <v-overlay absolute>
           <v-row justify="center" align="center" class="full-height">
@@ -12,7 +12,7 @@
                 {{ institute.about }}
               </div>
             </v-col>
-            <v-col cols="auto" c-else>
+            <v-col cols="auto" v-else>
               <v-progress-circular size="80" indeterminate color="primary" />
             </v-col>
             <v-btn v-if="editable" x-large color="primary" @click="newDialog = true">
@@ -28,7 +28,7 @@
         :src="item.image"
         class="text-right"
         :transition="false"
-        style="height:100% !important"
+        style="height: 100% !important;"
       >
         <v-overlay absolute :opacity="item.opacity || 0.6">
           <v-row justify="center" align="center" class="full-height">
@@ -151,7 +151,7 @@ import DropUpload from "@/components/common/DropUpload"
 
 export default {
   components: {
-    DropUpload
+    DropUpload,
   },
   data() {
     return {
@@ -160,7 +160,7 @@ export default {
       deleteDialog: false,
       newDialog: false,
       defaultImage:
-        "https://c4.wallpaperflare.com/wallpaper/653/402/499/romain-trystam-digital-art-cityscape-city-lights-wallpaper-preview.jpg"
+        "https://c4.wallpaperflare.com/wallpaper/653/402/499/romain-trystam-digital-art-cityscape-city-lights-wallpaper-preview.jpg",
     }
   },
   methods: {
@@ -189,13 +189,13 @@ export default {
       }
       this.newImages = []
       this.newDialog = false
-    }
+    },
   },
   computed: {
     ...mapGetters({
       institute: "institutes/institute",
       editable: "institutes/editable",
-      status: "institutes/status"
+      status: "institutes/status",
     }),
     carousel: {
       get() {
@@ -205,10 +205,10 @@ export default {
       set(carousel) {
         this.$store.cache.dispatch("institutes/update", {
           carousel,
-          handle: this.institute.handle
+          handle: this.institute.handle,
         })
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>

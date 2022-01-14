@@ -57,7 +57,7 @@ export default {
 
   modules: [
     "@nuxtjs/axios",
-    "@nuxtjs/auth",
+    "@nuxtjs/auth-next",
     "@nuxtjs/pwa",
     "@nuxtjs/toast",
     "nuxt-mq",
@@ -96,23 +96,25 @@ export default {
         scheme: "refresh",
         token: {
           property: "access",
+          maxAge: 60 * 60 * 24,
+          global: true,
+          type: "Bearer",
         },
         refreshToken: {
           property: "refresh",
           data: "refresh",
+          maxAge: 60 * 60 * 24 * 30,
         },
-        grantType: false,
-        clientId: false,
-        autoFetchUser: false,
-        user: false,
+        user: {
+          property: "user",
+          autoFetch: false,
+        },
         endpoints: {
           login: { url: "login/", method: "post" },
           refresh: { url: "refresh/", method: "post" },
           logout: { url: "logout/", method: "post" },
           user: { url: "profile/", method: "get" },
         },
-        tokenRequired: true,
-        tokenType: "Bearer",
         autoRefresh: {
           enable: true,
         },

@@ -2,7 +2,7 @@
   <v-container fluid class="grey lighten-5" style="height: 100%;">
     <v-overlay v-model="searchDialog" />
     <component :is="header" />
-    <v-main app class="mx-0">
+    <v-main app class="mx-0 mt-8">
       <v-row v-if="isNaN(tab)" justify="start">
         <v-col
           v-for="(control, i) in controls"
@@ -25,7 +25,7 @@
                 :to="control.link ? control.link.path : `/dashboard?tab=${i}`"
               >
                 <transition appear enter-active-class="animated zoomIn">
-                  <v-icon :color="hover || tab === i ? '' : control.color" style="font-size: 60px">
+                  <v-icon :color="hover || tab === i ? '' : control.color" style="font-size: 60px;">
                     {{ control.icon }}
                   </v-icon>
                 </transition>
@@ -103,12 +103,12 @@ export default {
   data() {
     return {
       searchDialog: false,
-      defaultExpanded: null
+      defaultExpanded: null,
     }
   },
   head() {
     return {
-      title: !isNaN(this.tab) ? this.controls[this.tab].name : "Dashboard"
+      title: !isNaN(this.tab) ? this.controls[this.tab].name : "Dashboard",
     }
   },
   computed: {
@@ -120,14 +120,14 @@ export default {
     },
     expanded() {
       return this.defaultExpanded === null ? !this.small : this.defaultExpanded
-    }
+    },
   },
   methods: {
     expand() {
       if (this.defaultExpanded === null) this.defaultExpanded = this.small
       else this.defaultExpanded = !this.defaultExpanded
-    }
-  }
+    },
+  },
 }
 </script>
 

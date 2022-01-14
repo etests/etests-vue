@@ -179,7 +179,7 @@ export default {
       phone: "",
       registerPassword: "",
       showPassword: false,
-      loading: false
+      loading: false,
     }
   },
   mounted() {
@@ -187,7 +187,7 @@ export default {
       window.gapi.load("auth2", () => {
         const auth2 = window.gapi.auth2.init({
           client_id: "525257101255-7dv26govso2amp6572enqnl35vh1h6f0.apps.googleusercontent.com",
-          cookiepolicy: "single_host_origin"
+          cookiepolicy: "single_host_origin",
         })
         auth2.attachClickHandler(
           this.$refs.googleLoginBtn,
@@ -201,7 +201,7 @@ export default {
   },
   computed: {
     ...mapState({
-      status: (state) => state.tabs.status
+      status: (state) => state.tabs.status,
     }),
     tab: {
       get() {
@@ -209,8 +209,8 @@ export default {
       },
       set(value) {
         this.$store.commit("tabs/changeAuthTab", value)
-      }
-    }
+      },
+    },
   },
   methods: {
     googleLogin(googleUser) {
@@ -237,7 +237,7 @@ export default {
       else {
         const data = {
           resetCode: this.code,
-          newPassword: this.password1
+          newPassword: this.password1,
         }
         this.loading = true
         this.$store.dispatch("tabs/submitResetCode", data).then(
@@ -281,7 +281,7 @@ export default {
           this.loading = true
           this.$auth
             .loginWith("local", {
-              data: { username, password }
+              data: { username, password },
             })
             .then(
               (response) => {
@@ -318,7 +318,7 @@ export default {
           phone: this.phone,
           password: this.registerPassword,
           isStudent: true,
-          isInstitute: false
+          isInstitute: false,
         }
         this.loading = true
         this.$store.dispatch("tabs/register", data).then(
@@ -350,7 +350,7 @@ export default {
         this.$store
           .dispatch("tabs/verify", {
             email,
-            verificationCode
+            verificationCode,
           })
           .then(
             (response) => {
@@ -362,7 +362,7 @@ export default {
             }
           )
       }
-    }
-  }
+    },
+  },
 }
 </script>
