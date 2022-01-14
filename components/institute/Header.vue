@@ -1,5 +1,5 @@
 <template>
-  <v-row class="v-application">
+  <v-row>
     <SideBar
       :show="drawer"
       :is-temporary="true"
@@ -100,13 +100,13 @@ import DotMenu from "@/components/common/DotMenu"
 export default {
   components: {
     SideBar,
-    DotMenu
+    DotMenu,
   },
   props: ["dark"],
   data() {
     return {
       offsetTop: 0,
-      drawer: null
+      drawer: null,
     }
   },
   computed: {
@@ -116,44 +116,44 @@ export default {
       editable: "institutes/editable",
       status: "institutes/status",
       loggedIn: "loggedIn",
-      user: "user"
+      user: "user",
     }),
     defaultMenu() {
       return [
         {
           title: "Test Series",
-          link: this.institute ? `/testseries?institute=${this.institute.id}` : ""
+          link: this.institute ? `/testseries?institute=${this.institute.id}` : "",
         },
         {
           title: "About Us",
-          link: "/aboutus"
+          link: "/aboutus",
         },
         {
           title: "Downloads",
-          link: "/downloads"
+          link: "/downloads",
         },
         {
           title: "Forms",
-          link: "/forms"
+          link: "/forms",
         },
         {
           title: "Questions",
-          link: "/questions"
+          link: "/questions",
         },
         {
           title: "Gallery",
-          link: "/gallery"
+          link: "/gallery",
         },
         {
           title: "Faculty",
-          link: "/faculty"
+          link: "/faculty",
         },
         {
           title: "Centers",
-          link: "/centers"
+          link: "/centers",
         },
         { title: "Courses", link: "/courses" },
-        { title: "FAQ", link: "/faq" }
+        { title: "FAQ", link: "/faq" },
       ]
     },
     isSmallScreen() {
@@ -179,12 +179,12 @@ export default {
           )
         })
       } else return this.defaultMenu
-    }
+    },
   },
   watch: {
     theme(newValue, oldValue) {
       this.$vuetify.theme.themes.light.primary = newValue
-    }
+    },
   },
   mounted() {
     if (process.client)
@@ -192,7 +192,7 @@ export default {
         this.offsetTop = window.scrollY
       }
     this.$store.cache.dispatch("institutes/get", this.$handle)
-  }
+  },
 }
 </script>
 

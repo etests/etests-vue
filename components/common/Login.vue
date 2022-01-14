@@ -286,7 +286,8 @@ export default {
             .then(
               (response) => {
                 this.$store.commit("tabs/toggleAuthDialog", false)
-                this.$auth.setUser(response.data.user)
+                this.$auth.$storage.setUniversal("user", response.data.user)
+                this.$auth.$storage.setUniversal("loggedIn", true)
                 this.$toast.success("Welcome!")
                 this.loading = false
                 if (this.$route.query.redirect) this.$router.push(this.$route.query.redirect)

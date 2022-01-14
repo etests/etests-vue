@@ -59,7 +59,7 @@
           <slot
             name="page-view-activator"
             :on="{
-              click: () => (pageView = true)
+              click: () => (pageView = true),
             }"
           />
           <v-sheet
@@ -71,7 +71,7 @@
             <v-divider />
           </v-sheet>
         </v-app-bar>
-        <v-main class="ma-auto mt-0 text-left" app>
+        <v-main class="ma-auto mt-4 text-left" app>
           <v-sheet class="px-3" height="auto" min-height="450px">
             <v-row justify="center" justify-md="start">
               <slot name="info" />
@@ -126,8 +126,8 @@ export default {
       fullscreen: false,
       swipeActions: {
         left: () => this.nextQuestion(),
-        right: () => this.previousQuestion()
-      }
+        right: () => this.previousQuestion(),
+      },
     }
   },
   computed: {
@@ -137,11 +137,11 @@ export default {
       },
       set(value) {
         this.$emit("changePanel", value)
-      }
+      },
     },
     sidebar() {
       return this.$handle != "public" ? InstituteSideBar : StandardSideBar
-    }
+    },
   },
   beforeCreate() {
     const viewport = document.querySelector("meta[name=viewport]")
@@ -156,6 +156,6 @@ export default {
         this.windowHeight = window.innerHeight
       })
     })
-  }
+  },
 }
 </script>

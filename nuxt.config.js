@@ -48,9 +48,9 @@ export default {
 
   plugins: [
     { src: "@/plugins/host", mode: "client" },
+    { src: "@/plugins/shortkey", mode: "client" },
     "@/plugins/maps",
     "@/plugins/axios",
-    { src: "@/plugins/shortkey", mode: "client" },
   ],
 
   buildModules: ["@nuxtjs/vuetify"],
@@ -91,6 +91,7 @@ export default {
   },
 
   auth: {
+    plugins: [{ src: "@/plugins/auth", mode: "client" }],
     strategies: {
       local: {
         scheme: "refresh",

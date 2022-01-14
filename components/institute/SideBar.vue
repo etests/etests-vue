@@ -1,13 +1,5 @@
 <template>
-  <v-navigation-drawer
-    v-model="drawer"
-    clipped
-    app
-    floating
-    width="260"
-    :temporary="isTemporary"
-    class="v-application"
-  >
+  <v-navigation-drawer v-model="drawer" clipped app floating width="260" :temporary="isTemporary">
     <v-list>
       <v-list-item-group color="primary">
         <template v-for="(item, i) in menu">
@@ -55,12 +47,12 @@ export default {
   props: {
     show: {
       required: false,
-      default: true
+      default: true,
     },
     isTemporary: {
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {}
@@ -72,7 +64,7 @@ export default {
       },
       set(value) {
         this.$emit("change", value)
-      }
+      },
     },
     ...mapGetters({
       institute: "institutes/institute",
@@ -80,7 +72,7 @@ export default {
       editable: "institutes/editable",
       status: "institutes/status",
       loggedIn: "loggedIn",
-      user: "user"
+      user: "user",
     }),
     defaultMenu() {
       return [
@@ -89,14 +81,14 @@ export default {
           title: "Dashboard",
           icon: "mdi-account-circle",
           link: { path: "/dashboard?tab=0" },
-          requiresLogin: true
+          requiresLogin: true,
         },
         {
           title: "Test Series",
           icon: "mdi-book",
           link: {
-            path: this.institute ? `/testseries?institute=${this.institute.id}` : ""
-          }
+            path: this.institute ? `/testseries?institute=${this.institute.id}` : "",
+          },
         },
 
         { divider: true, requiresLogin: true },
@@ -105,25 +97,25 @@ export default {
           title: "Courses",
           icon: "",
           link: { path: "/courses" },
-          icon: "mdi-book-open-page-variant"
+          icon: "mdi-book-open-page-variant",
         },
 
         {
           title: "Downloads",
           icon: "mdi-download",
-          link: { path: "/downloads" }
+          link: { path: "/downloads" },
         },
 
         {
           title: "Forms",
           icon: "mdi-table-edit",
-          link: "/forms"
+          link: "/forms",
         },
 
         {
           title: "Questions",
           icon: "mdi-comment-question",
-          link: "/questions"
+          link: "/questions",
         },
 
         { divider: true },
@@ -131,18 +123,18 @@ export default {
         {
           title: "Gallery",
           icon: "mdi-image",
-          link: { path: "/gallery" }
+          link: { path: "/gallery" },
         },
 
         {
           title: "Faculty",
           icon: "mdi-account-multiple",
-          link: { path: "/faculty" }
+          link: { path: "/faculty" },
         },
         {
           title: "Centers",
           icon: "mdi-city",
-          link: { path: "/centers" }
+          link: { path: "/centers" },
         },
 
         { divider: true },
@@ -150,8 +142,8 @@ export default {
         {
           title: "FAQ",
           icon: "mdi-help-circle",
-          link: { path: "/faq" }
-        }
+          link: { path: "/faq" },
+        },
       ]
     },
     menu() {
@@ -171,12 +163,12 @@ export default {
           )
         })
       } else return this.defaultMenu
-    }
+    },
   },
   watch: {
     theme(newValue, oldValue) {
       this.setTheme(newValue)
-    }
+    },
   },
   mounted() {
     this.$store.cache.dispatch("institutes/get", this.$handle)
@@ -185,7 +177,7 @@ export default {
   methods: {
     setTheme(color) {
       this.$vuetify.theme.themes.light.primary = color
-    }
-  }
+    },
+  },
 }
 </script>

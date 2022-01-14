@@ -20,10 +20,10 @@ export const mutations = {
     if (state.auth.user && Array.isArray(state.auth.user.joined)) {
       state.auth.user.joined = state.auth.user.joined.filter((i) => i != id)
     }
-  }
+  },
 }
 
 export const getters = {
   loggedIn: (state) => state.auth.loggedIn,
-  user: (state) => state.auth.user
+  user: (state) => state.auth.user,
 }

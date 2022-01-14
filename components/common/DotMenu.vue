@@ -31,23 +31,23 @@ import Login from "./Login"
 
 export default {
   components: {
-    Login
+    Login,
   },
   props: {
     show: {
       required: false,
       default: true,
-      type: Boolean
+      type: Boolean,
     },
     isTemporary: {
       required: false,
       default: false,
-      type: Boolean
+      type: Boolean,
     },
     color: {
       type: String,
-      default: "secondary"
-    }
+      default: "secondary",
+    },
   },
   data() {
     return {
@@ -56,26 +56,26 @@ export default {
           title: "Help",
           icon: "mdi-help-circle-outline",
           link: "/faq",
-          action: (_) => null
+          action: (_) => null,
         },
         {
           title: "Logout",
           icon: "mdi-logout-variant",
           link: "",
-          action: this.logout
-        }
-      ]
+          action: this.logout,
+        },
+      ],
     }
   },
   computed: {
     ...mapGetters(["loggedIn", "user"]),
     showLoginDialog: {
-      get: function() {
+      get: function () {
         return this.$store.getters["tabs/dialog"].show
       },
-      set: function(value) {
+      set: function (value) {
         this.$store.commit("tabs/toggleAuthDialog", value)
-      }
+      },
     },
     drawer: {
       get() {
@@ -83,7 +83,7 @@ export default {
       },
       set(value) {
         this.$emit("change", value)
-      }
+      },
     },
     isStudent() {
       if (!this.loggedIn) return false
@@ -92,14 +92,17 @@ export default {
     isInstitute() {
       if (!this.loggedIn) return false
       else return this.user.type === "institute"
-    }
+    },
   },
   methods: {
     logout() {
-      this.$auth.logout()
+      this.$auth.logout().then((_) => {
+        this.$auth.$storage.setUniversal("loggedIn", false)
+        this.$auth.$storage.setUniversal("user", null)
+      })
       this.$store.cache.clear()
-    }
-  }
+    },
+  },
 }
 </script>
 
