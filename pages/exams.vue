@@ -12,35 +12,37 @@
       class="mt-7 hidden-sm-and-down"
     />
     <v-col cols="12">
-      <v-row>
-        <v-col
-          v-for="i in 3"
-          :key="'loader-' + i"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="auto"
-          v-show="status.loading"
-        >
-          <v-skeleton-loader type="card" min-width="200" />
-        </v-col>
-        <v-col v-for="exam in filteredExams" :key="exam.id" cols="12" sm="6" md="4" lg="auto">
-          <v-card
-            class="object"
-            hover
-            :max-width="['lg', 'xl'].includes($mq) ? '200px' : ''"
-            @click="$router.push(`/testseries?exams=${exam.id}`)"
+      <v-card class="transparent elevation-0">
+        <v-row>
+          <v-col
+            v-for="i in 3"
+            :key="'loader-' + i"
+            cols="12"
+            sm="6"
+            md="4"
+            lg="auto"
+            v-show="status.loading"
           >
-            <v-img width="200px" height="170px" class="mx-auto" :src="exam.image">
-              <template #placeholder>
-                <v-skeleton-loader type="image" min-width="200" />
-              </template>
-            </v-img>
-            <v-divider />
-            <v-card-subtitle>{{ exam.name }}</v-card-subtitle>
-          </v-card>
-        </v-col>
-      </v-row>
+            <v-skeleton-loader type="card" min-width="200" />
+          </v-col>
+          <v-col v-for="exam in filteredExams" :key="exam.id" cols="12" sm="6" md="4" lg="auto">
+            <v-card
+              class="object"
+              hover
+              :max-width="['lg', 'xl'].includes($mq) ? '200px' : ''"
+              @click="$router.push(`/testseries?exams=${exam.id}`)"
+            >
+              <v-img width="200px" height="170px" class="mx-auto" :src="exam.image">
+                <template #placeholder>
+                  <v-skeleton-loader type="image" min-width="200" />
+                </template>
+              </v-img>
+              <v-divider />
+              <v-card-subtitle>{{ exam.name }}</v-card-subtitle>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-card>
     </v-col>
     <v-sheet
       v-show="!status.loading && filteredExams.length === 0"
@@ -111,7 +113,7 @@ export default {
 </script>
 
 <style module lang="scss">
-@import "~@/sass/colors";
+@import "~@/styles/colors";
 .dialog {
   border: 1px solid #dadce0;
   border-radius: 5px;

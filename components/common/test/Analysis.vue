@@ -8,8 +8,8 @@
           :data="comparisonData"
           :options="{
             chart: {
-              title: 'Comparison'
-            }
+              title: 'Comparison',
+            },
           }"
           :resize-debounce="500"
         />
@@ -79,11 +79,11 @@ export default {
       chartOptions: {
         chart: {
           legend: "none",
-          tooltip: { isHtml: true }
-        }
+          tooltip: { isHtml: true },
+        },
       },
       sectionWiseNegativeMarks: [],
-      subjectTopics: []
+      subjectTopics: [],
     }
   },
   computed: {
@@ -113,14 +113,14 @@ export default {
           this.subjects[section.subject],
           this.report.marks.sectionWise[i],
           this.report.test.stats.average.sectionWise[i],
-          this.report.test.stats.highest.sectionWise[i]
+          this.report.test.stats.highest.sectionWise[i],
         ])
       })
       data.push([
         "Overall",
         this.report.marks.total,
         this.report.test.stats.average.overall,
-        this.report.test.stats.highest.overall
+        this.report.test.stats.highest.overall,
       ])
       return data
     },
@@ -177,12 +177,12 @@ export default {
           data[i].push([
             this.topicWiseScore[i][j][0],
             this.topicWiseScore[i][j][1],
-            this.topicWiseWeightage[i][j][1]
+            this.topicWiseWeightage[i][j][1],
           ])
         }
       }
       return data
-    }
+    },
   },
   methods: {
     getOptions(i) {
@@ -191,9 +191,9 @@ export default {
         vAxis: {
           viewWindowMode: "explicit",
           viewWindow: {
-            min: 0
-          }
-        }
+            min: 0,
+          },
+        },
       }
     },
     isNotEmpty(data) {
@@ -201,23 +201,23 @@ export default {
         if (data[i].length > 1 && data[i][1] > 0) return true
       }
       return false
-    }
+    },
   },
   components: {
     StandardLayout,
     SectionLayout,
-    GChart
+    GChart,
   },
   created() {
     this.$store.cache.dispatch("subjects/list").then((subjects) => {
       this.subjectTopics = subjects
     })
-  }
+  },
 }
 </script>
 
 <style module lang="scss">
-@import "~@/sass/colors";
+@import "~@/styles/colors";
 .chartBox {
   text-align: center;
   width: 100%;

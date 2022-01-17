@@ -140,7 +140,7 @@ export default {
 </script>
 
 <style module lang="scss">
-@import "~@/sass/components";
+@import "~@/styles/components";
 .card {
   width: 100%;
   margin: 25px auto;

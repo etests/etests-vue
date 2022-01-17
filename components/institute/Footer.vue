@@ -1,64 +1,17 @@
 <template>
-  <v-container fluid class="ma-0 pa-0">
-    <v-row justify="center" class="primary darken-1">
-      <v-col class="text-center white--text display-1" cols="12" md="auto">
-        <div>Follow Us</div>
-      </v-col>
-
-      <v-col v-if="contacts.social" class="text-center" cols="12" md="auto">
-        <v-btn
-          v-if="contacts.social.facebook"
-          :href="contacts.social.facebook"
-          target="_blank"
-          class="mx-4 white--text"
-          icon
-        >
-          <v-icon>mdi-facebook</v-icon>
-        </v-btn>
-        <v-btn
-          v-if="contacts.social.twitter"
-          :href="contacts.social.twitter"
-          target="_blank"
-          class="mx-4 white--text"
-          icon
-        >
-          <v-icon>mdi-twitter</v-icon>
-        </v-btn>
-        <v-btn
-          v-if="contacts.social.youtube"
-          :href="contacts.social.youtube"
-          target="_blank"
-          class="mx-4 white--text"
-          icon
-        >
-          <v-icon>mdi-youtube</v-icon>
-        </v-btn>
-        <v-btn
-          v-if="contacts.social.linkedin"
-          :href="contacts.social.linkedin"
-          target="_blank"
-          class="mx-4 white--text"
-          icon
-        >
-          <v-icon>mdi-linkedin</v-icon>
-        </v-btn>
-        <v-btn
-          v-if="contacts.social.instagram"
-          :href="contacts.social.instagram"
-          target="_blank"
-          class="mx-4 white--text"
-          icon
-        >
-          <v-icon>mdi-instagram</v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-row justify="center" class="primary darken-1">
-      <v-col cols="12" md="4" lg="3">
-        <div class="title px-2 warning--text">
-          | Quick Links
-        </div>
-        <div class="mx-6 my-2">
+  <v-card min-height="300">
+    <v-col v-if="editable" cols="12" class="text-right my-6">
+      <v-btn color="primary" @click="edit">
+        Update Footer
+      </v-btn>
+    </v-col>
+    <v-card-text>
+      <v-row justify="center">
+        <v-col cols="12" md="4" lg="3">
+          <nuxt-link :class="$style.animate" to="/" v-if="institute && institute.user">
+            {{ institute.user.name }}
+          </nuxt-link>
+          <br />
           <nuxt-link :class="$style.animate" to="/gallery">
             Gallery
           </nuxt-link>
@@ -74,67 +27,89 @@
           <nuxt-link :class="$style.animate" to="/faq">
             Frequently Asked Questions
           </nuxt-link>
-        </div>
-      </v-col>
-      <v-col
-        v-if="institute && institute.courses && institute.courses.length"
-        cols="12"
-        md="4"
-        lg="4"
-      >
-        <div class="title px-2 warning--text">
-          | Classroom Courses
-        </div>
-        <div class="mx-6 my-2">
-          <div v-for="(course, i) in institute.courses" :key="i">
-            <span :class="$style.animate">{{ course.name }}</span>
-            <br /><br />
-          </div>
-        </div>
-      </v-col>
-      <v-col cols="12" md="8" lg="3">
-        <div class="title px-2 warning--text">
-          | Contact
-        </div>
-        <div class="mx-6 my-2">
-          <div v-if="institute && institute.user" class="white--text font-weight-bold mb-3">
-            {{ institute.user.name }}
-          </div>
+        </v-col>
+        <v-col cols="12" md="4" lg="3">
           <a :href="`tel:${contacts.phone}`" :class="$style.animate">
-            <v-icon small color="white" class="mr-3">mdi-phone</v-icon>
+            <v-icon small color="" class="mr-3">mdi-phone</v-icon>
             {{ contacts.phone }}
           </a>
           <br />
           <a :href="`mailto:${contacts.email}`" :class="$style.animate" target="_blank">
-            <v-icon small color="white" class="mr-3">mdi-email</v-icon>
+            <v-icon small color="" class="mr-3">mdi-email</v-icon>
             {{ contacts.email }}
           </a>
           <br />
           <a :class="$style.animate" target="_blank">
-            <v-icon small color="white" class="mr-3">mdi-map-marker</v-icon>
+            <v-icon small color="" class="mr-3">mdi-map-marker</v-icon>
             {{ contacts.address }}
           </a>
-        </div>
-      </v-col>
-      <v-col v-if="editable" cols="12" class="text-center">
-        <v-btn color="primary lighten-2" class="ma-2" dark @click="edit">
-          Update Footer
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-row justify="center" class="grey darken-4 text-center">
-      <v-col cols="auto" class="py-2 white--text font-weight-bold">
-        Designed and Developed by
-      </v-col>
-      <v-col class="py-2 px-0" cols="auto">
-        <a href="https://etests.co.in/" target="_blank">
-          <v-img width="15px" style="float:left" :src="require('@/assets/logos/etests.png')" />
-          <span :class="[$style.logo, 'chill--text']">
-            eTests
-          </span>
-        </a>
-      </v-col>
-    </v-row>
+        </v-col>
+      </v-row>
+
+      <v-row justify="center">
+        <v-col v-if="contacts.social" class="text-center" cols="12" md="auto">
+          <v-btn
+            v-if="contacts.social.facebook"
+            :href="contacts.social.facebook"
+            target="_blank"
+            class="mx-4 facebook white--text"
+            icon
+          >
+            <v-icon>mdi-facebook</v-icon>
+          </v-btn>
+          <v-btn
+            v-if="contacts.social.twitter"
+            :href="contacts.social.twitter"
+            target="_blank"
+            class="mx-4"
+            icon
+          >
+            <v-icon>mdi-twitter</v-icon>
+          </v-btn>
+          <v-btn
+            v-if="contacts.social.youtube"
+            :href="contacts.social.youtube"
+            target="_blank"
+            class="mx-4"
+            icon
+          >
+            <v-icon>mdi-youtube</v-icon>
+          </v-btn>
+          <v-btn
+            v-if="contacts.social.linkedin"
+            :href="contacts.social.linkedin"
+            target="_blank"
+            class="mx-4"
+            icon
+          >
+            <v-icon>mdi-linkedin</v-icon>
+          </v-btn>
+          <v-btn
+            v-if="contacts.social.instagram"
+            :href="contacts.social.instagram"
+            target="_blank"
+            class="mx-4"
+            icon
+          >
+            <v-icon>mdi-instagram</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+
+      <v-row justify="center" class="text-center">
+        <v-col cols="auto" class="px-0 font-weight-bold">
+          Designed and Developed by
+        </v-col>
+        <v-col class="px-0" cols="auto">
+          <a href="https://etests.co.in/" target="_blank">
+            <span :class="[$style.logo, 'chill--text']">
+              CourseClip
+            </span>
+          </a>
+        </v-col>
+      </v-row>
+    </v-card-text>
+
     <v-dialog v-model="updateDialog" width="500">
       <v-card>
         <v-card-title>
@@ -186,7 +161,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-container>
+  </v-card>
 </template>
 
 <script>
@@ -204,9 +179,9 @@ export default {
           twitter: "",
           youtube: "",
           linkedin: "",
-          instagram: ""
-        }
-      }
+          instagram: "",
+        },
+      },
     }
   },
   methods: {
@@ -220,16 +195,16 @@ export default {
     save() {
       this.contacts = {
         ...this.defaultContacts,
-        social: { ...this.defaultContacts.social }
+        social: { ...this.defaultContacts.social },
       }
       this.updateDialog = false
-    }
+    },
   },
   computed: {
     ...mapGetters({
       institute: "institutes/institute",
       editable: "institutes/editable",
-      status: "institutes/status"
+      status: "institutes/status",
     }),
     contacts: {
       get() {
@@ -239,23 +214,23 @@ export default {
       set(contacts) {
         this.$store.cache.dispatch("institutes/update", {
           contacts,
-          handle: this.institute.handle
+          handle: this.institute.handle,
         })
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 
 <style module lang="scss">
 .animate {
-  color: white !important;
+  color: black !important;
   cursor: pointer;
+  line-height: 32px;
 }
 .animate:hover {
   padding-left: 5px;
   transition: 0.4s all ease;
-  color: #edc11f;
 }
 .logo {
   margin: 0 5px;

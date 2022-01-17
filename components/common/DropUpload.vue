@@ -9,7 +9,7 @@
       @dragover.prevent
       @click="$refs.import.click()"
     >
-      <v-overlay absolute class="pa-0 mt-0">
+      <v-overlay absolute class="pa-0 mt-0 text-center">
         <v-row justify="center" align="center">
           <v-col cols="12" :class="['text-center white--text', small ? '' : 'title']">
             Drag an image here

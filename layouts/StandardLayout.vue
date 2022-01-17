@@ -1,14 +1,16 @@
 <template>
-  <v-app class="text-center">
-    <v-container>
-      <Header>
+  <v-app>
+    <v-container fluid style="height: 100%;">
+      <Header :fluid="true">
         <template slot="search">
           <slot name="search" />
         </template>
       </Header>
-      <v-main app class="pt-12 mt-12 px-0">
+      <v-main app class="mt-8">
         <v-row>
-          <slot />
+          <v-col cols="12" class="boxed-container">
+            <slot />
+          </v-col>
         </v-row>
       </v-main>
     </v-container>
@@ -25,11 +27,22 @@ export default {
   data() {
     return {}
   },
+  watch: {
+    theme(newValue, oldValue) {
+      this.$vuetify.theme.themes.light.primary = newValue
+    },
+  },
+  mounted() {
+    if (this.$auth.loggedIn && this.$auth.hasScope("institute")) {
+      this.$store.cache.dispatch("institutes/get", this.$auth.user.handle)
+    }
+    if (this.$handle !== "public") this.$store.cache.dispatch("institutes/get", this.$handle)
+  },
 }
 </script>
 
 <style module lang="scss">
-@import "~@/sass/colors";
+@import "~@/styles/colors";
 
 body {
   margin: 0;

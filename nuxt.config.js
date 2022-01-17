@@ -1,4 +1,6 @@
 export default {
+  ssr: false,
+
   head: {
     titleTemplate: "%s",
     title: "Home",
@@ -43,8 +45,6 @@ export default {
     background: "white",
     height: "4px",
   },
-
-  css: ["@/sass/main.sass"],
 
   plugins: [
     { src: "@/plugins/host", mode: "client" },
@@ -136,25 +136,19 @@ export default {
     duration: 2000,
   },
 
+  css: ["@/styles/main.scss", "@/styles/vuetify.scss"],
+
   vuetify: {
-    customVariables: ["@/assets/variables.scss"],
-    icons: {
-      iconfont: "mdi",
-    },
     theme: {
-      options: {
-        customProperties: true,
-      },
-      light: true,
       themes: {
         light: {
-          primary: "#2cce74",
-          secondary: "#196b69",
-          accent: "#82B1FF",
-          error: "#ff4444",
-          info: "#33b5e5",
-          success: "#00C851",
-          warning: "#ffbb33",
+          primary: "#9155FD",
+          accent: "#0d6efd",
+          secondary: "#8A8D93",
+          success: "#56CA00",
+          info: "#16B1FF",
+          warning: "#FFB400",
+          error: "#FF4C51",
         },
       },
     },

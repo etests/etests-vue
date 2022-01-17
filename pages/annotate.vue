@@ -436,7 +436,7 @@ export default {
 }
 </script>
 <style module lang="scss">
-@import "~@/sass/components";
+@import "~@/styles/components";
 .card {
   padding: 10px 20px;
   width: 100%;

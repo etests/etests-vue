@@ -1,48 +1,27 @@
 <template>
-  <v-container fluid :class="[$style.hero, $style[$mq]]">
-    <v-row justify="center" align="end">
-      <v-col cols="12" lg="auto">
+  <v-container fluid :class="[$style.hero, $style[$mq]]" fill-height>
+    <v-row justify="center" align="center">
+      <!-- <v-col cols="12" lg="auto">
         <img :src="require('@/assets/logos/etests.png')" :class="$style.logo" />
-      </v-col>
+      </v-col> -->
       <v-col cols="12" lg="auto">
-        <div :class="[$style.heading, 'chill--text']">
-          eTests
-        </div>
-        <div :class="$style.subheading" cols="12">
-          enhance your potential
+        <div :class="[$style.heading, 'plume--text']">
+          CourseClip
         </div>
         <v-btn
-          large
+          x-large
           rounded
           outlined
-          class="chill"
+          class="plume"
           :to="{ path: 'test', query: { id: 0, demo: 1 } }"
         >
           <transition appear enter-active-class="animated zoomIn">
-            <v-icon>mdi-play-circle</v-icon>
+            <v-icon class="mr-2">mdi-play-circle-outline</v-icon>
           </transition>
-          take a test
-        </v-btn>
-        <v-btn
-          v-if="!$store.getters['loggedIn'] && !['xs', 'sm'].includes($mq)"
-          dark
-          large
-          outlined
-          color="secondary"
-          rounded
-          @click="showRegisterDialog"
-        >
-          Signup now
+          watch a demo
         </v-btn>
       </v-col>
     </v-row>
-    <!-- <v-row>
-      <v-col cols="4" v-for="i in 3" :key="i">
-        <v-card class="object">
-          <v-card-title> Feature {{ i }} </v-card-title>
-        </v-card>
-      </v-col>
-    </v-row> -->
   </v-container>
 </template>
 
@@ -92,20 +71,16 @@ export default {
 </script>
 
 <style module lang="scss">
-@import "~@/sass/colors";
-
 .hero {
-  background-color: #fff;
   text-align: center;
   margin: auto;
-  padding: 20vh 0;
+  height: 70vh;
   width: 100%;
 
   .heading {
-    color: $primary;
-    font-family: "Montserrat", Arial, Helvetica, sans-serif;
-    font-weight: 800;
-    font-size: 6rem;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 8rem;
   }
   .subheading {
     font-family: "Open Sans", Arial, Helvetica, sans-serif;
@@ -113,7 +88,6 @@ export default {
     font-size: 1.6rem;
     text-transform: uppercase;
     margin-bottom: 10px;
-    color: $secondary;
   }
 }
 

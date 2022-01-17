@@ -1,36 +1,21 @@
 <template>
   <StandardLayout>
-    <v-col cols="12">
-      <v-card class="page">
-        <v-card-title>Frequently Asked Questions</v-card-title>
-        <v-divider />
-        <v-card-text class="px-0">
-          <v-row align="center" justify="center">
-            <v-col cols="12">
-              <v-expansion-panels flat focusable>
-                <v-expansion-panel
-                  v-for="(step, i) in steps"
-                  v-show="
-                    !$auth.loggedIn ||
-                    step.scope.find((scope) => $auth.hasScope(scope)) ||
-                    $auth.hasScope('staff')
-                  "
-                  :key="i"
-                  class="text-left"
-                >
-                  <v-expansion-panel-header class="body-1">
-                    {{ step.title }}
-                  </v-expansion-panel-header>
-                  <v-expansion-panel-content class="py-2">
-                    {{ step.description }}
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-col>
+    <v-card
+      v-for="(step, i) in steps"
+      v-show="
+        !$auth.loggedIn ||
+        step.scope.find((scope) => $auth.hasScope(scope)) ||
+        $auth.hasScope('staff')
+      "
+      :key="i"
+      class="page text-left mb-4 mb-xl-12 pa-2"
+      min-height="180"
+    >
+      <v-card-title>{{ step.title }}</v-card-title>
+      <v-card-text class="body-1">
+        {{ step.description }}
+      </v-card-text>
+    </v-card>
   </StandardLayout>
 </template>
 
@@ -94,7 +79,7 @@ export default {
 </script>
 
 <style module lang="scss">
-@import "~@/sass/colors";
+@import "~@/styles/colors";
 .stepCard {
   border-radius: 8px;
   .step {

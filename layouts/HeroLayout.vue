@@ -1,15 +1,15 @@
 <template>
-  <v-app class="text-center">
-    <v-main app class="ma-0 pa-0">
-      <Header
-        :temporary-drawer="true"
-        :disable-drawer-close="true"
-        :show-search-bar="false"
-        :dark="true"
-        :show-logo="false"
-      />
-      <slot />
-    </v-main>
+  <v-app>
+    <v-container style="height: 100%;">
+      <Header :showDrawer="false" :temporaryDrawer="true" />
+      <v-main app class="mt-8">
+        <v-row>
+          <v-col cols="12">
+            <slot />
+          </v-col>
+        </v-row>
+      </v-main>
+    </v-container>
   </v-app>
 </template>
 
@@ -18,19 +18,10 @@ import Header from "@/components/public/Header.vue"
 
 export default {
   components: {
-    Header
+    Header,
   },
   data() {
     return {}
-  }
+  },
 }
 </script>
-
-<style module lang="scss">
-@import "~@/sass/colors";
-
-body {
-  margin: 0;
-  padding: 0;
-}
-</style>

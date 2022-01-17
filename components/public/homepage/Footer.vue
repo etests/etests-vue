@@ -83,27 +83,27 @@ import { socialPages } from "@/js/socialPages"
 
 export default {
   components: {
-    SectionLayout
+    SectionLayout,
   },
   props: {
     authType: {
       required: false,
-      default: 0
-    }
+      default: 0,
+    },
   },
   data() {
     return {
-      socialPages
+      socialPages,
     }
   },
   computed: {
-    ...mapGetters(["loggedIn", "userType"])
-  }
+    ...mapGetters(["loggedIn", "userType"]),
+  },
 }
 </script>
 
 <style module lang="scss">
-@import "~@/sass/colors";
+@import "~@/styles/colors";
 .card {
   a {
     color: $secondary;

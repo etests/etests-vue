@@ -279,7 +279,7 @@
             class="pa-2"
             min-height="200px"
             max-height="400px"
-            style="overflow:scroll"
+            style="overflow: scroll;"
           >
             <ckeditor v-model="answer.solution" :editor="editor" :config="editorConfig" />
           </v-sheet>
@@ -330,7 +330,7 @@
               <span>-{{ currentQuestion.incorrectMarks }}</span>
             </v-btn>
           </template>
-          <v-list style="width:75px">
+          <v-list style="width: 75px;">
             <v-list-item
               v-for="n in [0, 0.1, 0.2, 0.25, 0.3, 0.4, 0.5, 1, 2, 3, 4, 5, 10, 20, 25]"
               :key="n"
@@ -344,7 +344,7 @@
       <v-col cols="12" md="4">
         <v-menu open-on-hover offset-y transition="slide-y-transition" bottom>
           <template #activator="{ on }">
-            <v-btn color="indigo" rounded outlined style="width:95%" v-on="on">
+            <v-btn color="indigo" rounded outlined style="width: 95%;" v-on="on">
               <span>{{ questionTypes[currentQuestion.type].text }} &nbsp;</span>
               <v-icon>mdi-chevron-down</v-icon>
             </v-btn>
@@ -615,7 +615,7 @@ export default {
   components: {
     TestLayout,
     EditorHelp,
-    ckeditor: CKEditor.component
+    ckeditor: CKEditor.component,
   },
   props: ["testData"],
   data() {
@@ -628,27 +628,27 @@ export default {
           openerMethod: "popup",
           uploadUrl: `${this.$config.apiURL}/questions/images/`,
           options: {
-            resourceType: "Images"
+            resourceType: "Images",
           },
-          extraPlugins: ["Mathematics"]
-        }
+          extraPlugins: ["Mathematics"],
+        },
       },
       panel: null,
       questionTypes: [
         { value: 0, text: "Single Correct" },
         { value: 1, text: "Multiple Correct" },
         { value: 2, text: "Numerical" },
-        { value: 3, text: "Matrix Match" }
+        { value: 3, text: "Matrix Match" },
         // { value: 4, text: "One Word Answer" },
         // { value: 5, text: "Subjective" }
       ],
       labels: {
         options: ["A", "B", "C", "D"],
-        answers: ["P", "Q", "R", "S", "T"]
+        answers: ["P", "Q", "R", "S", "T"],
       },
       swipeActions: {
         left: () => this.nextQuestion(),
-        right: () => this.previousQuestion()
+        right: () => this.previousQuestion(),
       },
       sectionIndex: 0,
       questionIndex: 0,
@@ -668,13 +668,13 @@ export default {
         incorrectMarks: 1,
         partialMarks: 0,
         topic: null,
-        optionCount: 4
+        optionCount: 4,
       },
       emptyAnswer: {
         answer: [],
-        solution: ""
+        solution: "",
       },
-      subjectTopics: []
+      subjectTopics: [],
     }
   },
   computed: {
@@ -722,7 +722,7 @@ export default {
     },
     currentSection() {
       return this.test.sections[this.sectionIndex]
-    }
+    },
   },
   watch: {
     questionIndex(newQuestion, oldQuestion) {
@@ -735,7 +735,7 @@ export default {
         newSolution.length * oldSolution.length === 0
       )
         this.updateStatus(this.questionIndex)
-    }
+    },
   },
   created() {
     this.$store.cache.dispatch("subjects/list").then((subjects) => {
@@ -744,7 +744,7 @@ export default {
   },
   mounted() {
     const vm = this
-    setInterval(function() {
+    setInterval(function () {
       vm.$emit("update", vm.test)
     }, 5000)
   },
@@ -893,7 +893,7 @@ export default {
       this.sections.push({
         start: this.questions.length,
         end: this.questions.length - 1,
-        subject
+        subject,
       })
       this.changeSection(this.sections.length - 1)
       this.addQuestion(0)
@@ -939,13 +939,13 @@ export default {
       if (noSolution) messages.push("solution")
       if (messages.length === 1) return messages[0]
       else return messages.slice(0, -1).join(", ") + " and " + messages.slice(-1)[0]
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style module lang="scss">
-@import "~@/sass/colors";
+@import "~@/styles/colors";
 .questionInfo {
   border-bottom: 1px solid grey !important;
 }

@@ -26,7 +26,7 @@ export default {
 }
 </script>
 <style module lang="scss">
-@import "~@/sass/colors";
+@import "~@/styles/colors";
 
 .section {
   text-align: center;

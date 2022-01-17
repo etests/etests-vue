@@ -205,7 +205,7 @@ export default {
 </script>
 
 <style module lang="scss">
-@import "~@/sass/components";
+@import "~@/styles/components";
 .error {
   margin-top: 150px;
   min-height: 250px;

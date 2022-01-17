@@ -37,33 +37,28 @@
             <v-card
               class="object"
               hover
-              :min-width="['lg', 'xl'].includes($mq) ? '240px' : ''"
+              :max-width="['lg', 'xl'].includes($mq) ? '240px' : ''"
               :to="`/testseries?institute=${institute.id}`"
             >
               <v-img
-                :src="require('@/assets/images/bg/circle.svg')"
-                max-height="80"
-                class="hot white--text font-weight-bold"
-              >
-                <v-card-title class="text-truncate">
-                  {{ institute.name }}
-                </v-card-title>
-              </v-img>
-              <v-divider />
-              <v-card-text class="text-center">
-                <v-img
-                  class="mx-auto"
-                  max-width="150px"
-                  :src="require('@/assets/images/icons/institute.png')"
-                >
-                  <template #placeholder>
-                    <v-skeleton-loader type="image" min-width="200" />
-                  </template>
-                </v-img>
-              </v-card-text>
-              <v-divider />
-              <v-card-text class="text-center">
-                <span v-if="institute.city">{{ institute.city }}, {{ institute.state }}</span>
+                class="white--text align-end"
+                :src="require('@/assets/images/bg/building.png')"
+                height="120"
+              />
+              <v-card-text class="position-relative">
+                <v-avatar size="60" color="white" class="avatar-center mt-n6">
+                  <v-img :src="require('@/assets/images/avatars/1.png')"></v-img>
+                </v-avatar>
+                <div class="d-flex justify-space-between flex-wrap pt-4">
+                  <div class="me-2 mb-2">
+                    <v-card-title class="text-body-2 font-weight-bold pt-0 px-0">
+                      {{ institute.name }}
+                    </v-card-title>
+                    <v-card-subtitle class="text-xs pa-0">
+                      Institute
+                    </v-card-subtitle>
+                  </div>
+                </div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -172,7 +167,7 @@ export default {
 </script>
 
 <style module lang="scss">
-@import "~@/sass/colors";
+@import "~@/styles/colors";
 .dialog {
   border: 1px solid #dadce0;
   border-radius: 5px;

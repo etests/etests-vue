@@ -1,22 +1,36 @@
 <template>
-  <v-navigation-drawer v-model="drawer" clipped app floating width="260" :temporary="isTemporary">
-    <v-list class="text-left">
-      <v-list-item-group color="primary">
-        <template v-for="(item, i) in menu">
-          <div v-if="!item.requiresLogin || (item.requiresLogin && loggedIn)" :key="i">
-            <v-divider v-if="item.divider" dark class="my-2" />
-            <v-list-item v-else exact :to="item.link">
-              <v-list-item-action>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-action>
+  <v-navigation-drawer app v-model="drawer" :temporary="isTemporary" width="260" dark>
+    <v-row class="py-6 px-2">
+      <v-col cols="auto">
+        <router-link to="/" class="d-flex align-center">
+          <v-img
+            :src="require('@/assets/logos/etests.png')"
+            max-height="30px"
+            max-width="30px"
+            alt="logo"
+            contain
+            eager
+            class="me-3"
+          />
+          <v-slide-x-transition>
+            <div class="text-h5 white--text">
+              CourseClip
+            </div>
+          </v-slide-x-transition>
+        </router-link>
+      </v-col>
+    </v-row>
 
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ item.title }}
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </div>
+    <v-list expand shaped class="pr-5">
+      <v-list-item-group>
+        <template v-for="(item, i) in menu">
+          <nav-menu-link
+            v-if="checkVisible(item)"
+            :key="i"
+            :title="item.title"
+            :to="item.link"
+            :icon="item.icon"
+          />
         </template>
       </v-list-item-group>
     </v-list>
@@ -25,16 +39,21 @@
 <script>
 import { mapGetters } from "vuex"
 
+import NavMenuLink from "@/components/ui/nav/NavMenuLink.vue"
+
 export default {
   props: {
     show: {
       required: false,
-      default: true
+      default: true,
     },
     isTemporary: {
       required: false,
-      default: false
-    }
+      default: false,
+    },
+  },
+  components: {
+    NavMenuLink,
   },
   data() {
     return {}
@@ -47,54 +66,126 @@ export default {
       },
       set(value) {
         this.$emit("change", value)
-      }
+      },
     },
     menu() {
       return [
-        { title: "Home", icon: "mdi-home", link: "/" },
+        { title: "Home", icon: "mdi-home-outline", link: "/" },
 
         {
           title: "Tests",
-          icon: "mdi-note",
-          link: { path: "/dashboard?tab=0" },
-          requiresLogin: true
+          icon: "mdi-math-compass",
+          link: { path: "/user/tests" },
+          auth: true,
+          sites: ["public", "institute"],
+          scope: ["student", "institute", "staff"],
         },
 
         {
-          title: "Dashboard",
-          icon: "mdi-account-circle",
-          link: { path: "/dashboard" },
-          requiresLogin: true
+          title: "Online Classes",
+          icon: "mdi-video-outline",
+          link: { path: "/institute/classes" },
+          auth: true,
+          sites: ["institute"],
+          scope: ["student", "institute", "staff"],
         },
 
-        { divider: true, requiresLogin: true },
+        {
+          title: "Assignments",
+          icon: "mdi-paperclip",
+          link: { path: "/institute/assignments" },
+          auth: true,
+          sites: ["institute"],
+          scope: ["student", "institute", "staff"],
+        },
+
+        {
+          title: "Question Bank",
+          icon: "mdi-book-multiple",
+          link: { path: "/questionbank" },
+          auth: true,
+          sites: ["public"],
+          scope: ["staff"],
+        },
+
+        {
+          title: "Annotate",
+          icon: "mdi-pencil-box-outline",
+          link: { path: "/annotate" },
+          auth: true,
+          sites: ["public"],
+          scope: ["staff"],
+        },
+
+        {
+          title: "Students",
+          icon: "mdi-account-multiple-outline",
+          link: { path: "/institute/students" },
+          auth: true,
+          sites: ["institute"],
+          scope: ["institute"],
+        },
 
         {
           title: "Test Series",
-          icon: "mdi-book",
-          link: { path: "/testseries" }
+          icon: "mdi-book-outline",
+          link: { path: "/testseries" },
+          sites: ["public"],
         },
         {
           title: "Exams",
-          icon: "mdi-newspaper-variant",
-          link: { path: "/exams" }
+          icon: "mdi-newspaper-variant-outline",
+          link: { path: "/exams" },
+          sites: ["public"],
         },
 
         {
           title: "Institutes",
-          icon: "mdi-city",
-          link: { path: "/institutes" }
+          icon: "mdi-school-outline",
+          link: { path: "/institutes" },
+          sites: ["public"],
         },
 
-        { divider: true },
+        {
+          title: "Plans",
+          icon: "mdi-tag-outline",
+          link: { path: "/plans" },
+          auth: false,
+          sites: ["public"],
+        },
 
         {
           title: "Help",
-          icon: "mdi-help-circle",
-          link: { path: "/help" }
-        }
+          icon: "mdi-help-circle-outline",
+          link: { path: "/help" },
+          sites: ["public", "institute"],
+        },
       ]
-    }
-  }
+    },
+  },
+  methods: {
+    checkVisible(item) {
+      let authCheck = false,
+        siteCheck = false,
+        scopeCheck = false
+
+      if (item.auth === true && this.loggedIn) authCheck = true
+      else if (item.auth === false && !this.loggedIn) authCheck = true
+      else if (item.auth === undefined) authCheck = true
+
+      if (Array.isArray(item.sites)) {
+        if (this.$handle === "public" && item.sites.includes("public")) siteCheck = true
+        if (this.$handle === "public" && this.loggedIn && this.$auth.hasScope("institute"))
+          siteCheck = true
+        if (this.$handle !== "public" && item.sites.includes("institute")) siteCheck = true
+      } else siteCheck = true
+
+      if (Array.isArray(item.scope) && this.loggedIn) {
+        if (item.scope.filter((value) => this.$auth.hasScope(value)).length > 0) scopeCheck = true
+      } else scopeCheck = true
+
+      return authCheck && siteCheck && scopeCheck
+    },
+  },
 }
 </script>

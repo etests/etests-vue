@@ -1,16 +1,13 @@
 <template>
-  <v-app>
-    <v-container style="max-width:100%;" class="ma-0 pa-0">
-      <Header :dark="true" />
-      <Carousel />
-    </v-container>
-    <v-main v-if="institute" app class="pa-0">
-      <SectionLayout v-for="(section, i) in sections" :key="i" style="min-height: 100vh">
-        <v-container>
-          <component :is="section.component" :title="section.title" />
-        </v-container>
-      </SectionLayout>
-    </v-main>
+  <StandardLayout>
+    <template v-if="institute">
+      <v-container>
+        <Carousel />
+      </v-container>
+      <template v-for="(section, i) in sections">
+        <component :is="section.component" :title="section.title" :key="i" />
+      </template>
+    </template>
     <Footer v-if="institute" />
     <v-dialog> </v-dialog>
     <v-dialog v-if="banner" v-model="bannerDialog" width="500">
@@ -71,12 +68,13 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-  </v-app>
+  </StandardLayout>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
-import Header from "@/components/institute/Header"
+import Header from "@/components/public/Header"
+import StandardLayout from "@/layouts/StandardLayout"
 import Carousel from "@/components/institute/Carousel"
 import Notifications from "@/components/institute/Notifications"
 import Features from "@/components/institute/Features"
@@ -89,6 +87,7 @@ import SectionLayout from "@/components/institute/SectionLayout"
 export default {
   components: {
     Header,
+    StandardLayout,
     Carousel,
     Notifications,
     Features,
@@ -96,7 +95,7 @@ export default {
     Toppers,
     Contact,
     SectionLayout,
-    Footer
+    Footer,
   },
   data() {
     return {
@@ -106,15 +105,15 @@ export default {
         { component: "Features" },
         { component: "Team" },
         { component: "Toppers" },
-        { component: "Contact" }
-      ]
+        { component: "Contact" },
+      ],
     }
   },
   computed: {
     ...mapGetters({
       institute: "institutes/institute",
       theme: "institutes/theme",
-      status: "institutes/status"
+      status: "institutes/status",
     }),
     sections() {
       if (this.institute && this.institute.settings && this.institute.settings.sections) {
@@ -137,15 +136,15 @@ export default {
       if (this.institute && this.institute.extras && this.institute.extras.banner)
         return this.institute.extras.banner
       else return null
-    }
+    },
   },
   watch: {
     theme(newValue, oldValue) {
       this.$vuetify.theme.themes.light.primary = newValue
-    }
+    },
   },
   mounted() {
     this.$store.cache.dispatch("institutes/get", this.$handle)
-  }
+  },
 }
 </script>

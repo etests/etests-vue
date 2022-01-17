@@ -29,12 +29,12 @@ export default {
   props: {
     report: {
       required: true,
-      type: Object
+      type: Object,
     },
     demo: {
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
@@ -44,28 +44,28 @@ export default {
           text: "Subject",
           align: "center",
           sortable: false,
-          value: "name"
+          value: "name",
         },
         {
           text: "Marks Scored",
           value: "score",
           align: "center",
-          sortable: false
+          sortable: false,
         },
         {
           text: "Maximum Marks",
           value: "maxMarks",
           align: "center",
-          sortable: false
+          sortable: false,
         },
         {
           text: "Rank",
           value: "rank",
           align: "center",
-          sortable: false
-        }
+          sortable: false,
+        },
       ],
-      subjectTopics: []
+      subjectTopics: [],
     }
   },
   computed: {
@@ -111,23 +111,23 @@ export default {
           name: "Overall",
           maxMarks: this.marks.maxMarks[this.marks.maxMarks.length - 1],
           score: this.marks.total,
-          rank: this.report.ranks ? this.report.ranks.overall : "-"
+          rank: this.report.ranks ? this.report.ranks.overall : "-",
         })
       }
       return a
-    }
+    },
   },
 
   created() {
     this.$store.cache.dispatch("subjects/list").then((subjects) => {
       this.subjectTopics = subjects
     })
-  }
+  },
 }
 </script>
 
 <style module lang="scss">
-@import "~@/sass/components";
+@import "~@/styles/components";
 .marksTable {
   width: 98%;
   margin: auto;

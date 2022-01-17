@@ -1,62 +1,22 @@
 <template>
-  <v-row class="v-application">
-    <v-carousel continuous cycle hide-delimiters class="black" style="height: 100vh;">
-      <v-carousel-item v-if="carousel && !carousel.length" :src="defaultImage" class="text-center">
-        <v-overlay absolute>
-          <v-row justify="center" align="center" class="full-height">
-            <v-col v-if="institute" cols="12" class="text-center white--text">
-              <div class="display-2 font-weight-bold">
-                {{ institute.user.name }}
-              </div>
-              <div class="title my-5">
-                {{ institute.about }}
-              </div>
-            </v-col>
-            <v-col cols="auto" v-else>
-              <v-progress-circular size="80" indeterminate color="primary" />
-            </v-col>
-            <v-btn v-if="editable" x-large color="primary" @click="newDialog = true">
-              Add Images
-              <v-icon>mdi-plus</v-icon>
-            </v-btn>
-          </v-row>
-        </v-overlay>
-      </v-carousel-item>
-      <v-carousel-item
-        v-for="(item, i) in carousel"
-        :key="i"
-        :src="item.image"
-        class="text-right"
-        :transition="false"
-        style="height: 100% !important;"
-      >
-        <v-overlay absolute :opacity="item.opacity || 0.6">
-          <v-row justify="center" align="center" class="full-height">
-            <v-col v-if="institute" cols="12" class="text-center white--text">
-              <div class="display-2 font-weight-bold">
-                {{ institute.user.name }}
-              </div>
-              <div class="title my-5">
-                {{ institute.about }}
-              </div>
-            </v-col>
-          </v-row>
-          <v-row
-            v-if="editable"
-            v-show="carousel && carousel.length"
-            align="center"
-            justify="center"
-          >
-            <v-btn color="primary" @click="newDialog = true">
-              Add Images
-            </v-btn>
-            <v-btn text color="white" outlined @click="deleteDialog = true">
-              Delete Images
-            </v-btn>
-          </v-row>
-        </v-overlay>
-      </v-carousel-item>
-    </v-carousel>
+  <v-row>
+    <v-card width="100%">
+      <v-img :src="defaultImage" class="text-center">
+        <v-row justify="center" align="center" class="full-height">
+          <v-col v-if="institute" cols="12" class="text-center">
+            <div class="display-2 font-weight-bold">
+              {{ institute.user.name }}
+            </div>
+            <div class="title my-5">
+              {{ institute.about }}
+            </div>
+          </v-col>
+          <v-col cols="auto" v-else>
+            <v-progress-circular size="80" indeterminate color="primary" />
+          </v-col>
+        </v-row>
+      </v-img>
+    </v-card>
 
     <v-dialog v-model="deleteDialog" width="500">
       <v-card>
@@ -159,8 +119,7 @@ export default {
       newImages: [],
       deleteDialog: false,
       newDialog: false,
-      defaultImage:
-        "https://c4.wallpaperflare.com/wallpaper/653/402/499/romain-trystam-digital-art-cityscape-city-lights-wallpaper-preview.jpg",
+      defaultImage: "https://www.hklibfest.gov.hk/images/background.jpg",
     }
   },
   methods: {

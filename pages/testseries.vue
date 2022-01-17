@@ -37,18 +37,16 @@
             <v-card
               class="object"
               hover
-              :min-width="['lg', 'xl'].includes($mq) ? '240px' : ''"
+              :min-width="['xs', 'sm'].includes($mq) ? '240px' : ''"
+              :width="['xs', 'sm'].includes($mq) ? '' : '250px'"
               :to="`/tests?testseries=${testSeries.id}`"
+              height="270px"
             >
-              <v-img
-                :src="require('@/assets/images/bg/circle.svg')"
-                max-height="80"
-                class="chill white--text font-weight-bold"
-              >
-                <v-card-title class="text-truncate">
+              <v-img :src="require('@/assets/images/bg/circle.svg')" max-height="120" class="plume">
+                <v-card-text class="px-4 pt-8 pb-0 title text-truncate white--text">
                   {{ testSeries.name }}
-                </v-card-title>
-                <v-card-subtitle class="white--text font-weight-bold">
+                </v-card-text>
+                <v-card-subtitle class="white--text">
                   {{ testSeries.institute }}
                 </v-card-subtitle>
               </v-img>
@@ -63,15 +61,17 @@
                   mdi-check-circle
                 </v-icon>
                 <template v-if="testSeries.exams.length">
-                  {{ testSeries.exams.join(", ") }}
+                  <span class="text-truncate">
+                    {{ testSeries.exams.join(", ").substring(0, 20) }}...
+                  </span>
                 </template>
               </v-card-text>
-              <v-divider class="mt-5 mb-3" />
+              <v-divider class="mt-2 mb-0" />
               <v-card-actions>
                 <v-row v-show="false" />
                 <v-chip
                   v-if="testSeries.status !== 4"
-                  color="white"
+                  color="success"
                   class="success--text text-uppercase font-weight-bold"
                 >
                   <template v-if="testSeries.price > 0"> rs. {{ testSeries.price }}/- </template>
@@ -79,7 +79,7 @@
                     free
                   </template>
                 </v-chip>
-                <v-chip v-else label small color="grey lighten-5">
+                <v-chip v-else label small color="success">
                   Purchased
                 </v-chip>
 
@@ -104,7 +104,7 @@
     </v-col>
     <v-sheet
       v-show="!status.loading && filteredTestSeries.length === 0"
-      class="text-center title chill--text ma-auto pa-12"
+      class="text-center title plume--text ma-auto pa-12"
     >
       Oops! Nothing Found
     </v-sheet>

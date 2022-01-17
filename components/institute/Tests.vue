@@ -8,12 +8,11 @@ import TestList from "./TestList"
 
 export default {
   components: {
-    TestList
+    TestList,
   },
-  props: {
-    expand: {
-      type: Boolean,
-      default: false
+  data() {
+    return {
+      expanded: true,
     }
   },
   created() {
@@ -22,19 +21,11 @@ export default {
   computed: {
     ...mapState({
       status: (state) => state.tests.status,
-      tests: (state) => state.tests.all.items
+      tests: (state) => state.tests.all.items,
     }),
     loading() {
       return this.$store.state.tests.status.loading
     },
-    expanded: {
-      get() {
-        return this.expand
-      },
-      set(value) {
-        this.$emit("toggle")
-      }
-    }
-  }
+  },
 }
 </script>

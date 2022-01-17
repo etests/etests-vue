@@ -1,14 +1,13 @@
 <template>
   <div>
     <slot name="help" />
-    <v-btn v-if="loggedIn" :color="color" class="mx-0" icon @click="logout">
-      <v-icon>mdi-power</v-icon>
-    </v-btn>
+    <template v-if="loggedIn">
+      <AppBarUserMenu />
+    </template>
     <v-btn
       v-else
-      :color="color"
+      color="primary"
       class="mx-0"
-      rounded
       @click="$store.commit('tabs/toggleAuthDialog', true)"
     >
       Login
@@ -28,10 +27,12 @@
 <script>
 import { mapGetters } from "vuex"
 import Login from "./Login"
+import AppBarUserMenu from "@/components/ui/AppBarUserMenu"
 
 export default {
   components: {
     Login,
+    AppBarUserMenu,
   },
   props: {
     show: {

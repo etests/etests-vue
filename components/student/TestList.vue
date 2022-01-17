@@ -1,6 +1,6 @@
 <template>
   <client-only>
-    <v-card class="page">
+    <v-card>
       <v-card-title>
         <v-btn v-if="testSeries" icon color="black" @click="$emit('close')">
           <v-icon>mdi-arrow-left</v-icon>
@@ -169,27 +169,27 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Tests"
+      default: "Tests",
     },
     tests: {
       type: Array,
-      required: true
+      required: true,
     },
     testSeries: {
       type: Object,
       required: false,
-      default: null
+      default: null,
     },
     expand: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     loading: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
@@ -201,17 +201,17 @@ export default {
         {
           align: "center",
           text: "Status",
-          value: "status"
+          value: "status",
         },
-        { align: "center", sortable: false, text: "Actions", value: "actions" }
+        { align: "center", sortable: false, text: "Actions", value: "actions" },
       ],
-      expandedRows: []
+      expandedRows: [],
     }
   },
   computed: {
     ...mapState({
       user: (state) => state.auth.user,
-      status: (state) => state.tests.status
+      status: (state) => state.tests.status,
     }),
     expanded: {
       get() {
@@ -219,8 +219,8 @@ export default {
       },
       set(value) {
         this.$emit("toggle")
-      }
-    }
+      },
+    },
   },
   methods: {
     formatDate(dateString) {
@@ -233,8 +233,8 @@ export default {
       const i = this.expandedRows.indexOf(value)
       if (i === -1) this.expandedRows.push(value)
       else this.expandedRows.splice(i, 1)
-    }
-  }
+    },
+  },
 }
 </script>
 

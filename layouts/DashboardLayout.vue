@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="grey lighten-5" style="height: 100%;">
+  <v-container fluid style="height: 100%;">
     <v-overlay v-model="searchDialog" />
     <component :is="header" />
     <v-main app class="mx-0 mt-8">
@@ -18,14 +18,13 @@
             <v-hover #default="{ hover }">
               <v-btn
                 :elevation="hover ? 10 : 4"
-                small
                 :class="$style.icon"
                 :color="hover || tab === i ? control.color : 'white'"
                 :dark="hover || tab === i"
                 :to="control.link ? control.link.path : `/dashboard?tab=${i}`"
               >
                 <transition appear enter-active-class="animated zoomIn">
-                  <v-icon :color="hover || tab === i ? '' : control.color" style="font-size: 60px;">
+                  <v-icon :color="hover || tab === i ? '' : control.color" size="60">
                     {{ control.icon }}
                   </v-icon>
                 </transition>
@@ -41,13 +40,12 @@
       </v-row>
 
       <v-row v-else class="text-center">
-        <v-col cols="12" md="1">
+        <v-col cols="12">
           <v-row justify="center" align="center">
             <v-col
               v-for="(control, i) in controls"
               :key="i"
               cols="auto"
-              md="12"
               v-show="
                 !control.institute || (control.institute && $handle.length && $handle !== 'public')
               "
@@ -77,7 +75,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col v-if="tab !== null" cols="12" md="11" class="px-5">
+        <v-col v-if="tab !== null" cols="12" class="px-5">
           <v-row class="text-center" justify="center">
             <v-col
               v-for="(card, i) in controls[tab].cards"

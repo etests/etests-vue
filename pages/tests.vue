@@ -6,10 +6,10 @@
         <v-img
           v-else
           :src="require('@/assets/images/bg/circle.svg')"
-          max-height="100"
-          class="chill white--text font-weight-bold"
+          max-height="120"
+          class="plume"
         >
-          <v-card-title>
+          <v-card-text class="title pt-5 pb-0">
             <v-btn dark icon text @click="$router.go(-1)">
               <v-icon>mdi-arrow-left</v-icon>
             </v-btn>
@@ -64,8 +64,8 @@
                 purchased
               </template>
             </v-chip>
-          </v-card-title>
-          <v-card-subtitle class="white--text font-weight-bold ml-11">
+          </v-card-text>
+          <v-card-subtitle class="white--text ml-12">
             {{ testSeries.institute }}
           </v-card-subtitle>
         </v-img>

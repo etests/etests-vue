@@ -1,6 +1,5 @@
 <template>
   <HeroLayout>
-    <Social class="hidden-sm-and-down" />
     <component :is="section" v-for="section in sections" :key="section" />
   </HeroLayout>
 </template>
@@ -9,25 +8,15 @@
 import HeroLayout from "@/layouts/HeroLayout.vue"
 import SectionLayout from "@/components/public/homepage/SectionLayout.vue"
 import Hero from "@/components/public/homepage/Hero.vue"
-import TestDisplay from "@/components/public/homepage/TestDisplay.vue"
-import QuickStart from "@/components/public/homepage/QuickStart.vue"
-import Footer from "@/components/public/homepage/Footer.vue"
-
-const Social = () => import("@/components/public/Social.vue")
 
 export default {
   components: {
     Hero,
-    Social,
     HeroLayout,
-    TestDisplay,
-    QuickStart,
-    SectionLayout,
-    Footer,
   },
   data() {
     return {
-      sections: ["Hero", "TestDisplay", "QuickStart", "Footer"],
+      sections: ["Hero"],
       options: {
         licenseKey: null,
         scrollingSpeed: 500,

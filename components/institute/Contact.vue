@@ -1,5 +1,5 @@
 <template>
-  <v-card class="page my-10 elevation-0" outlined max-width="600">
+  <v-card class="ma-auto my-8" max-width="600">
     <v-card-title>{{ title }}</v-card-title>
     <v-divider />
     <v-card-text>
@@ -56,8 +56,8 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Contact Us"
-    }
+      default: "Contact Us",
+    },
   },
   data: () => ({
     valid: true,
@@ -69,22 +69,22 @@ export default {
     rules: {
       firstName: [
         (v) => !!v || "Write your name",
-        (v) => (v && v.length <= 50) || "Your name is too long"
+        (v) => (v && v.length <= 50) || "Your name is too long",
       ],
       phone: [
         (v) => !!v || "Please enter your phone number",
-        (v) => /[6-9]\d{9,12}/.test(v) || "Enter a valid phone number"
+        (v) => /[6-9]\d{9,12}/.test(v) || "Enter a valid phone number",
       ],
       email: [
         (v) => !!v || "Please enter your email id",
         (v) => (v && v.length <= 100) || "Email is too long",
-        (v) => /.+@.+\..+/.test(v) || "Enter a valid email id"
+        (v) => /.+@.+\..+/.test(v) || "Enter a valid email id",
       ],
       description: [
         (v) => !!v || "Write a few words.",
-        (v) => (v && v.length <= 250) || "Description is too long"
-      ]
-    }
+        (v) => (v && v.length <= 250) || "Description is too long",
+      ],
+    },
   }),
   methods: {
     validate() {
@@ -101,9 +101,9 @@ export default {
         phone: this.phone,
         email: this.email,
         description: this.description,
-        institute: this.$handle
+        institute: this.$handle,
       })
-    }
-  }
+    },
+  },
 }
 </script>

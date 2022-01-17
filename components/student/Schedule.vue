@@ -60,7 +60,7 @@ import Footer from "@/components/public/Footer.vue"
 export default {
   components: {
     Header,
-    Footer
+    Footer,
   },
   data: () => ({
     today: "2019-06-08",
@@ -69,63 +69,63 @@ export default {
         title: "Unit Test 1",
         details: "New test venue will be declared soon.",
         date: "2018-12-30",
-        open: false
+        open: false,
       },
       {
         title: "Unit Test 1",
         details: "New test venue will be declared soon.",
         date: "2018-12-31",
-        open: false
+        open: false,
       },
       {
         title: "Unit Test 1",
         details: "New test venue will be declared soon.",
         date: "2019-06-07",
-        open: false
+        open: false,
       },
       {
         title: "Unit Test 1",
         details: "New test venue will be declared soon.",
         date: "2019-06-03",
-        open: false
+        open: false,
       },
       {
         title: "Unit Test 1",
         details: "New test venue will be declared soon.",
         date: "2019-06-01",
-        open: false
+        open: false,
       },
       {
         title: "Unit Test 1",
         details: "New test venue will be declared soon.",
         date: "2019-06-21",
-        open: false
+        open: false,
       },
       {
         title: "Unit Test 1",
         details: "New test venue will be declared soon.",
         date: "2019-02-01",
-        open: false
-      }
-    ]
+        open: false,
+      },
+    ],
   }),
   computed: {
     eventsMap() {
       const map = {}
       this.events.forEach((e) => (map[e.date] = map[e.date] || []).push(e))
       return map
-    }
+    },
   },
   methods: {
     open(event) {
       alert(event.title)
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style module lang="scss">
-@import "~@/sass/colors";
+@import "~@/styles/colors";
 .logo {
   width: 40px;
   float: left;

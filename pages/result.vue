@@ -76,7 +76,7 @@ export default {
 }
 </script>
 <style module lang="scss">
-@import "~@/sass/components";
+@import "~@/styles/components";
 .loading {
   margin: 60px auto;
   min-height: 200px;

@@ -17,17 +17,17 @@ export default {
   props: {
     heading: {
       required: false,
-      type: String
-    }
+      type: String,
+    },
   },
   data() {
     return {}
-  }
+  },
 }
 </script>
 
 <style module lang="scss">
-@import "~@/sass/colors";
+@import "~@/styles/colors";
 .section {
   font-family: "Montserrat", Arial, sans-serif;
   margin: 20px 10px;

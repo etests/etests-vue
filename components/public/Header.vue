@@ -2,7 +2,7 @@
   <v-row>
     <SideBar
       :show="drawer"
-      :is-temporary="true"
+      :is-temporary="temporaryDrawer"
       @change="
         (value) => {
           drawer = value
@@ -11,56 +11,25 @@
     />
     <v-app-bar
       flat
-      :class="[offsetTop > 20 ? $style.shadow : '', $style.header]"
+      :class="[
+        offsetTop > 20 ? $style.shadow : '',
+        $style.header,
+        fluid ? 'boxed-container' : 'mx-4 my-2',
+      ]"
       app
       tabs
-      clipped-left
       :absolute="false"
       :fixed="true"
     >
-      <v-app-bar-nav-icon v-if="isSmallScreen" @click="drawer = !drawer">
-        <v-icon color="chill">
+      <v-app-bar-nav-icon v-if="!drawer" @click="drawer = !drawer">
+        <v-icon large color="plume">
           mdi-menu
         </v-icon>
       </v-app-bar-nav-icon>
 
-      <nuxt-link to="/" class="hidden-sm-and-down ml-5 mr-8">
-        <v-toolbar-title>
-          <v-img width="32px" style="float:left" :src="require('@/assets/logos/etests.png')" />
-          <span v-if="dark" :class="[$style.logo, 'chill--text']">
-            eTests
-          </span>
-        </v-toolbar-title>
-      </nuxt-link>
-
       <slot name="search" />
 
       <v-spacer />
-      <slot name="default">
-        <template v-for="item in topNavMenu">
-          <v-btn
-            v-if="(item.requiresLogin && loggedIn) || !item.requiresLogin"
-            v-show="!isSmallScreen || item.requiresLogin"
-            :key="item.title"
-            text
-            rounded
-            depressed
-            :icon="isSmallScreen"
-            color="secondary"
-            :to="item.link"
-          >
-            <v-icon :class="isSmallScreen ? '' : 'mr-1'">
-              {{ item.icon }}
-            </v-icon>
-            <template v-if="!isSmallScreen">
-              {{ item.title }}
-            </template>
-          </v-btn>
-        </template>
-      </slot>
-
-      <v-divider vertical inset class="mx-2 hidden-sm-and-down" />
-
       <DotMenu />
     </v-app-bar>
   </v-row>
@@ -74,45 +43,55 @@ import DotMenu from "@/components/common/DotMenu"
 export default {
   components: {
     SideBar,
-    DotMenu
+    DotMenu,
   },
   props: {
     dark: {
       required: false,
       default: false,
-      type: Boolean
+      type: Boolean,
     },
     textColor: {
       required: false,
       default: "secondary",
-      type: String
+      type: String,
     },
     color: {
       required: false,
       default: "white",
-      type: String
+      type: String,
     },
     isAbsolute: {
       required: false,
       default: true,
-      type: Boolean
+      type: Boolean,
     },
     showLogo: {
       required: false,
       default: true,
-      type: Boolean
+      type: Boolean,
+    },
+    temporaryDrawer: {
+      required: false,
+      default: null,
+      type: Boolean,
     },
     showDrawer: {
       required: false,
       default: null,
-      type: Boolean
-    }
+      type: Boolean,
+    },
+    fluid: {
+      required: false,
+      default: false,
+      type: Boolean,
+    },
   },
   data() {
     return {
       offsetTop: 0,
       drawer: this.showDrawer,
-      title: "eTests"
+      title: "CourseClip",
     }
   },
   computed: {
@@ -125,31 +104,31 @@ export default {
         {
           title: "Test Series",
           icon: "",
-          link: { path: "/testseries" }
+          link: { path: "/testseries" },
         },
         {
           title: "Institutes",
           icon: "",
-          link: { path: "/institutes" }
+          link: { path: "/institutes" },
         },
         {
           title: "Exams",
           icon: "",
-          link: { path: "/exams" }
+          link: { path: "/exams" },
         },
         {
           title: this.loggedIn ? this.user.name.split(" ")[0] : "",
           icon: "mdi-account-circle",
           link: { path: "/dashboard" },
-          requiresLogin: true
+          requiresLogin: true,
         },
-        { title: "Help", icon: "", link: { path: "/help" } }
+        { title: "Help", icon: "", link: { path: "/help" } },
       ]
-    }
+    },
   },
   mounted() {
     if (process.client) window.onscroll = () => (this.offsetTop = window.scrollY)
-  }
+  },
 }
 </script>
 

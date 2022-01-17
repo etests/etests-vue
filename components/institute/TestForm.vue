@@ -140,7 +140,7 @@ export default {
   props: {
     instituteId: {
       required: false,
-      type: Number
+      type: Number,
     },
     testData: {
       required: false,
@@ -155,32 +155,32 @@ export default {
           registeredBatches: [],
           exam: null,
           free: false,
-          syllabus: null
+          syllabus: null,
         }
       },
-      type: Object
+      type: Object,
     },
     newTest: {
       required: false,
       default: false,
-      type: Boolean
+      type: Boolean,
     },
     aits: {
       required: false,
       default: null,
-      type: Object
+      type: Object,
     },
     show: {
       required: false,
       default: false,
-      type: Boolean
-    }
+      type: Boolean,
+    },
   },
   data() {
     return {
       dateMenu: false,
       timeMenu: false,
-      test: this.newTest ? this.testData : this.getFormattedTest(this.testData)
+      test: this.newTest ? this.testData : this.getFormattedTest(this.testData),
     }
   },
   watch: {
@@ -191,7 +191,7 @@ export default {
           this.test.exam = newValue[index].id
         }
       }
-    }
+    },
   },
   created() {
     this.$store.cache.dispatch("batches/list")
@@ -201,7 +201,7 @@ export default {
     ...mapState({
       status: (state) => state.tests.status,
       batches: (state) => state.batches.items,
-      exams: (state) => state.exams.items
+      exams: (state) => state.exams.items,
     }),
     dialog: {
       get() {
@@ -209,8 +209,8 @@ export default {
       },
       set(value) {
         this.$emit("toggle", value)
-      }
-    }
+      },
+    },
   },
   methods: {
     formatDuration(duration) {
@@ -256,7 +256,7 @@ export default {
         duration: test.timeAlotted,
         registeredBatches: test.registeredBatches,
         free: test.free,
-        syllabus: test.syllabus
+        syllabus: test.syllabus,
       }
     },
     getTestInSubmitFormat(test) {
@@ -268,7 +268,7 @@ export default {
         exam: test.exam,
         syllabus: test.syllabus,
         registeredBatches: test.registeredBatches,
-        syllabus: test.syllabus
+        syllabus: test.syllabus,
       }
     },
     create() {
@@ -278,7 +278,7 @@ export default {
           questions: testTemplate.questions,
           answers: testTemplate.answers,
           sections: testTemplate.sections,
-          free: this.test.free
+          free: this.test.free,
         }
         if (this.aits !== null) {
           data.aits = true
@@ -292,17 +292,17 @@ export default {
       const data = {
         id: this.test.id,
         ...this.getTestInSubmitFormat(this.test),
-        free: this.test.free
+        free: this.test.free,
       }
       if (this.aits !== null) data.free = data.free || this.aits.price === 0
       this.$store.cache.dispatch("tests/update", data)
-    }
+    },
   },
 
-  components: { DateField, TimeField }
+  components: { DateField, TimeField },
 }
 </script>
 
 <style module lang="scss">
-@import "~@/sass/components";
+@import "~@/styles/components";
 </style>
