@@ -1,63 +1,74 @@
 <template>
-  <v-card class="ma-auto my-8" max-width="600">
-    <v-card-title>{{ title }}</v-card-title>
-    <v-divider />
-    <v-card-text>
-      <v-form ref="form" v-model="valid" :lazy-validation="true">
-        <v-text-field
-          v-model="firstName"
-          solo-inverted
-          flat
-          :rules="rules.firstName"
-          label="First Name"
-          required
-        />
-        <v-text-field v-model="lastName" solo-inverted flat label="Last Name" />
-        <v-text-field
-          v-model="phone"
-          solo-inverted
-          flat
-          label="Phone "
-          :rules="rules.phone"
-          required
-        />
-        <v-text-field
-          v-model="email"
-          solo-inverted
-          flat
-          :rules="rules.email"
-          label="E-mail"
-          required
-        />
+  <v-row class="my-8">
+    <v-col cols="12" lg="6" class="pa-0">
+      <v-card class="ma-auto pa-8">
+        <v-card-text class="title py-6">{{ title }}</v-card-text>
+        <v-card-text>
+          <v-form ref="form" v-model="valid" :lazy-validation="true">
+            <v-text-field
+              v-model="firstName"
+              solo-inverted
+              flat
+              :rules="rules.firstName"
+              label="First Name"
+              required
+            />
+            <v-text-field v-model="lastName" solo-inverted flat label="Last Name" />
+            <v-text-field
+              v-model="phone"
+              solo-inverted
+              flat
+              label="Phone "
+              :rules="rules.phone"
+              required
+            />
+            <v-text-field
+              v-model="email"
+              solo-inverted
+              flat
+              :rules="rules.email"
+              label="E-mail"
+              required
+            />
 
-        <v-textarea
-          v-model="description"
-          solo-inverted
-          flat
-          :counter="250"
-          label="Description"
-          :rules="rules.description"
-        />
-      </v-form>
-    </v-card-text>
-    <v-card-actions>
-      <v-spacer />
-      <v-btn text color="primary" @click="reset">
-        Reset
-      </v-btn>
-      <v-btn :disabled="!valid" color="primary" @click="validate">
-        Submit
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+            <v-textarea
+              v-model="description"
+              solo-inverted
+              flat
+              :counter="250"
+              label="Message"
+              :rules="rules.description"
+            />
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn text color="primary" @click="reset">
+            Reset
+          </v-btn>
+          <v-btn :disabled="!valid" color="primary" @click="validate">
+            Submit
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-col>
+    <v-col cols="12" lg="6" class="pa-0">
+      <Footer />
+    </v-col>
+  </v-row>
 </template>
 <script>
+import Footer from "./Footer"
+
 export default {
   props: {
     title: {
       type: String,
       default: "Contact Us",
     },
+  },
+  components: {
+    Footer,
   },
   data: () => ({
     valid: true,

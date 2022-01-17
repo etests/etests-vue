@@ -8,7 +8,6 @@
         <component :is="section.component" :title="section.title" :key="i" />
       </template>
     </template>
-    <Footer v-if="institute" />
     <v-dialog> </v-dialog>
     <v-dialog v-if="banner" v-model="bannerDialog" width="500">
       <v-card>

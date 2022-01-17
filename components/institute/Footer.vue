@@ -1,114 +1,104 @@
 <template>
-  <v-card min-height="300">
-    <v-col v-if="editable" cols="12" class="text-right my-6">
-      <v-btn color="primary" @click="edit">
-        Update Footer
-      </v-btn>
-    </v-col>
-    <v-card-text>
-      <v-row justify="center">
-        <v-col cols="12" md="4" lg="3">
-          <nuxt-link :class="$style.animate" to="/" v-if="institute && institute.user">
-            {{ institute.user.name }}
-          </nuxt-link>
-          <br />
-          <nuxt-link :class="$style.animate" to="/gallery">
-            Gallery
-          </nuxt-link>
-          <br />
-          <nuxt-link :class="$style.animate" to="/faculty">
-            Our Faculty
-          </nuxt-link>
-          <br />
-          <nuxt-link :class="$style.animate" to="/downloads">
-            Downloads
-          </nuxt-link>
-          <br />
-          <nuxt-link :class="$style.animate" to="/faq">
-            Frequently Asked Questions
-          </nuxt-link>
-        </v-col>
-        <v-col cols="12" md="4" lg="3">
-          <a :href="`tel:${contacts.phone}`" :class="$style.animate">
-            <v-icon small color="" class="mr-3">mdi-phone</v-icon>
-            {{ contacts.phone }}
-          </a>
-          <br />
-          <a :href="`mailto:${contacts.email}`" :class="$style.animate" target="_blank">
-            <v-icon small color="" class="mr-3">mdi-email</v-icon>
-            {{ contacts.email }}
-          </a>
-          <br />
-          <a :class="$style.animate" target="_blank">
-            <v-icon small color="" class="mr-3">mdi-map-marker</v-icon>
+  <v-card height="100%" min-height="500" class="pa-8">
+    <v-card-title> </v-card-title>
+    <v-card-text class="py-4">
+      <v-list color="transparent" class="text-body-2" dark>
+        <v-list-item>
+          <v-list-item-avatar size="48">
+            <v-icon color="chill">mdi-phone</v-icon>
+          </v-list-item-avatar>
+
+          <v-list-item-content>
+            <a :href="`tel:${contacts.phone}`" class="black--text">
+              {{ contacts.phone }}
+            </a>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-avatar size="48">
+            <v-icon color="chill">mdi-email</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <a :href="`mailto:${contacts.email}`" class="black--text">
+              {{ contacts.email }}
+            </a>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-avatar size="48">
+            <v-icon color="chill">mdi-map-marker</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content class="black--text">
             {{ contacts.address }}
-          </a>
-        </v-col>
-      </v-row>
-
-      <v-row justify="center">
-        <v-col v-if="contacts.social" class="text-center" cols="12" md="auto">
-          <v-btn
-            v-if="contacts.social.facebook"
-            :href="contacts.social.facebook"
-            target="_blank"
-            class="mx-4 facebook white--text"
-            icon
-          >
-            <v-icon>mdi-facebook</v-icon>
-          </v-btn>
-          <v-btn
-            v-if="contacts.social.twitter"
-            :href="contacts.social.twitter"
-            target="_blank"
-            class="mx-4"
-            icon
-          >
-            <v-icon>mdi-twitter</v-icon>
-          </v-btn>
-          <v-btn
-            v-if="contacts.social.youtube"
-            :href="contacts.social.youtube"
-            target="_blank"
-            class="mx-4"
-            icon
-          >
-            <v-icon>mdi-youtube</v-icon>
-          </v-btn>
-          <v-btn
-            v-if="contacts.social.linkedin"
-            :href="contacts.social.linkedin"
-            target="_blank"
-            class="mx-4"
-            icon
-          >
-            <v-icon>mdi-linkedin</v-icon>
-          </v-btn>
-          <v-btn
-            v-if="contacts.social.instagram"
-            :href="contacts.social.instagram"
-            target="_blank"
-            class="mx-4"
-            icon
-          >
-            <v-icon>mdi-instagram</v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
-
-      <v-row justify="center" class="text-center">
-        <v-col cols="auto" class="px-0 font-weight-bold">
-          Designed and Developed by
-        </v-col>
-        <v-col class="px-0" cols="auto">
-          <a href="https://etests.co.in/" target="_blank">
-            <span :class="[$style.logo, 'chill--text']">
-              CourseClip
-            </span>
-          </a>
-        </v-col>
-      </v-row>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-avatar size="48">
+            <v-icon color="chill">mdi-web</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <a href="https://courseclip.com/" target="_blank">
+              <span :class="[$style.logo, 'chill--text']">
+                CourseClip
+              </span>
+            </a>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </v-card-text>
+    <v-footer absolute justify="center" bottom color="white" class="pa-10">
+      <v-col v-if="contacts.social" class="text-center" cols="12" md="auto">
+        <v-btn
+          v-if="contacts.social.facebook"
+          :href="contacts.social.facebook"
+          target="_blank"
+          class="mx-4 facebook white--text"
+          icon
+        >
+          <v-icon>mdi-facebook</v-icon>
+        </v-btn>
+        <v-btn
+          v-if="contacts.social.twitter"
+          :href="contacts.social.twitter"
+          target="_blank"
+          class="mx-4 cool white--text"
+          icon
+        >
+          <v-icon>mdi-twitter</v-icon>
+        </v-btn>
+        <v-btn
+          v-if="contacts.social.youtube"
+          :href="contacts.social.youtube"
+          target="_blank"
+          class="mx-4 youtube white--text"
+          icon
+        >
+          <v-icon>mdi-youtube</v-icon>
+        </v-btn>
+        <v-btn
+          v-if="contacts.social.linkedin"
+          :href="contacts.social.linkedin"
+          target="_blank"
+          class="mx-4"
+          icon
+        >
+          <v-icon>mdi-linkedin</v-icon>
+        </v-btn>
+        <v-btn
+          v-if="contacts.social.instagram"
+          :href="contacts.social.instagram"
+          target="_blank"
+          class="mx-4"
+          icon
+        >
+          <v-icon>mdi-instagram</v-icon>
+        </v-btn>
+      </v-col>
+      <v-spacer v-if="['lg', 'xl'].includes($mq)" />
+      <v-btn color="primary" class="mx-auto" @click="edit" v-if="editable">
+        Update
+      </v-btn>
+    </v-footer>
 
     <v-dialog v-model="updateDialog" width="500">
       <v-card>
@@ -223,20 +213,9 @@ export default {
 </script>
 
 <style module lang="scss">
-.animate {
-  color: black !important;
-  cursor: pointer;
-  line-height: 32px;
-}
-.animate:hover {
-  padding-left: 5px;
-  transition: 0.4s all ease;
-}
 .logo {
-  margin: 0 5px;
-  line-height: 15px;
   font-family: "Montserrat", Arial, Helvetica, sans-serif;
   font-weight: 800;
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 </style>
