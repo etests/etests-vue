@@ -1,20 +1,20 @@
 <template>
   <client-only>
-    <component :is="layout">
+    <StandardLayout>
       <v-col cols="12" class="py-5 ma-auto">
         <Login />
       </v-col>
-    </component>
+    </StandardLayout>
   </client-only>
 </template>
 
 <script>
 import StandardLayout from "@/layouts/StandardLayout"
-import InstituteLayout from "@/layouts/InstituteLayout"
 import Login from "@/components/common/Login"
 
 export default {
   components: {
+    StandardLayout,
     Login,
   },
   head() {
@@ -22,10 +22,6 @@ export default {
       title: "Login",
     }
   },
-  computed: {
-    layout() {
-      return this.$handle == "public" ? StandardLayout : InstituteLayout
-    },
-  },
+  computed: {},
 }
 </script>

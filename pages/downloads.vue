@@ -1,6 +1,6 @@
 <template>
-  <InstituteLayout>
-    <v-card class="page mb-10">
+  <StandardLayout>
+    <v-card>
       <v-card-title>
         <v-row justify="center" align="center">
           <v-col cols="12" md="auto">
@@ -90,17 +90,17 @@
         </v-card>
       </v-dialog>
     </v-card>
-  </InstituteLayout>
+  </StandardLayout>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
-import InstituteLayout from "@/layouts/InstituteLayout"
+import StandardLayout from "@/layouts/StandardLayout"
 import utils from "@/js/utils"
 
 export default {
   components: {
-    InstituteLayout,
+    StandardLayout,
   },
   middleware: "institute",
   head() {

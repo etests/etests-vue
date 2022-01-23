@@ -1,6 +1,6 @@
 <template>
   <StandardLayout>
-    <v-card class="page my-10" min-height="300">
+    <v-card min-height="300">
       <v-card-title class="px-10 py-10 font-weight-bold">
         <v-icon class="mr-4" size="48" color="chill">mdi-file-outline</v-icon>
         Assignments

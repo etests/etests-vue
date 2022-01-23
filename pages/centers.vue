@@ -1,18 +1,14 @@
 <template>
-  <InstituteLayout>
-    <v-row justify="center">
-      <v-col cols="12" md="auto" class="display-2">
-        {{ title }}
-      </v-col>
+  <StandardLayout>
+    <v-row justify="center" v-if="editable">
       <v-spacer />
       <v-col cols="12" md="auto">
-        <v-btn v-if="editable" v-show="centers && centers.length" color="primary" @click="addItem">
+        <v-btn v-show="centers && centers.length" color="primary" @click="addItem">
           Add Center
         </v-btn>
       </v-col>
-      <v-col cols="12">
-        <v-divider />
-      </v-col>
+    </v-row>
+    <v-row justify="center">
       <v-col v-if="centers && !centers.length" cols="12" justify="center" align="center">
         <template v-if="status.loading">
           Loading...
@@ -56,7 +52,7 @@
                   </template>
                 </v-img>
               </v-col>
-              <v-col cols="12" md="8" class="py-0 text-left">
+              <v-col cols="12" md="8" class="text-left">
                 <v-list disabled>
                   <v-list-item-group color="primary">
                     <v-list-item v-if="center.phone">
@@ -79,7 +75,7 @@
                     </v-list-item>
                   </v-list-item-group>
                 </v-list>
-                <v-btn class="ml-6" large color="primary" dark @click="setMapCenter(center)">
+                <v-btn class="ml-6" color="primary" dark @click="setMapCenter(center)">
                   View On Google Map
                 </v-btn>
               </v-col>
@@ -208,7 +204,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </InstituteLayout>
+  </StandardLayout>
 </template>
 
 <script>
@@ -216,7 +212,7 @@ import { mapGetters } from "vuex"
 import Map from "vue2-google-maps/src/components/map"
 import Marker from "vue2-google-maps/src/components/marker"
 import Autocomplete from "vue2-google-maps/src/components/autocomplete"
-import InstituteLayout from "@/layouts/InstituteLayout"
+import StandardLayout from "@/layouts/StandardLayout"
 import DropUpload from "@/components/common/DropUpload"
 
 export default {
@@ -225,7 +221,7 @@ export default {
     GmapMap: Map,
     GmapMarker: Marker,
     GmapAutocomplete: Autocomplete,
-    InstituteLayout,
+    StandardLayout,
   },
   middleware: "institute",
   head() {

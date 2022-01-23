@@ -1,12 +1,6 @@
 <template>
-  <InstituteLayout>
+  <StandardLayout>
     <v-row justify="center" align="center">
-      <v-col class="display-2" cols="12" md="auto">
-        {{ title }}
-      </v-col>
-
-      <v-spacer />
-
       <v-col cols="12" md="auto" class="text-center">
         <v-select
           v-model="subjectIndex"
@@ -23,18 +17,9 @@
           @change="newFaculty.subjectIndex = subjectIndex"
         />
       </v-col>
+      <v-spacer />
       <v-col cols="6" md="auto" class="text-center">
-        <v-btn
-          v-if="editable"
-          v-show="
-            faculty &&
-            faculty.length &&
-            faculty[subjectIndex].members &&
-            faculty[subjectIndex].members.length
-          "
-          color="primary"
-          @click="edit"
-        >
+        <v-btn v-if="editable" color="primary" @click="edit">
           Add Member
         </v-btn>
       </v-col>
@@ -59,78 +44,54 @@
       </v-col>
     </v-row>
 
-    <v-divider />
-
-    <v-container>
-      <v-row
-        v-if="
-          faculty &&
-          (faculty.length === 0 ||
-            !faculty[subjectIndex].members ||
-            faculty[subjectIndex].members.length === 0)
-        "
-        justify="center"
-        align="center"
-        class="full-height"
-      >
-        <v-btn
-          v-if="editable"
-          v-show="
-            faculty.length === 0 ||
-            !faculty[subjectIndex].members ||
-            faculty[subjectIndex].members.length === 0
-          "
-          x-large
-          color="primary"
-          @click="edit"
-        >
-          Add Member
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
-        <span v-else>No members</span>
-      </v-row>
-      <v-row v-else>
-        <v-col
-          v-for="(person, i) in faculty[subjectIndex].members"
-          :key="i"
-          cols="12"
-          sm="6"
-          md="3"
-        >
-          <v-card class="object ma-2" outlined flat hover height="100%">
-            <v-img height="200px" :src="person.image">
-              <v-menu v-if="editable" open-on-hover>
-                <template #activator="{ on }">
-                  <v-btn absolute top right icon color="white" v-on="on">
-                    <v-icon>mdi-dots-vertical</v-icon>
-                  </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item @click="editItem(i)">
-                    <v-list-item-title>Edit</v-list-item-title>
-                  </v-list-item>
-                  <v-list-item @click="deleteItem(i)">
-                    <v-list-item-title>Delete</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-              <template #placeholder>
-                <v-skeleton-loader type="image" />
+    <v-row
+      v-if="
+        faculty &&
+        (faculty.length === 0 ||
+          !faculty[subjectIndex].members ||
+          faculty[subjectIndex].members.length === 0)
+      "
+      justify="center"
+      align="center"
+      class="full-height"
+    >
+      <span>No members</span>
+    </v-row>
+    <v-row v-else>
+      <v-col v-for="(person, i) in faculty[subjectIndex].members" :key="i" cols="12" sm="6" md="3">
+        <v-card class="object ma-2" outlined flat hover height="100%">
+          <v-img height="200px" :src="person.image">
+            <v-menu v-if="editable" open-on-hover>
+              <template #activator="{ on }">
+                <v-btn absolute top right icon color="white" v-on="on">
+                  <v-icon>mdi-dots-vertical</v-icon>
+                </v-btn>
               </template>
-            </v-img>
-            <v-divider />
-            <v-card-title class="primary--text">
-              {{ person.name }}
-            </v-card-title>
-            <v-card-text>
-              <p class="multiline-truncate">
-                {{ person.description }}
-              </p>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+              <v-list>
+                <v-list-item @click="editItem(i)">
+                  <v-list-item-title>Edit</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="deleteItem(i)">
+                  <v-list-item-title>Delete</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+            <template #placeholder>
+              <v-skeleton-loader type="image" />
+            </template>
+          </v-img>
+          <v-divider />
+          <v-card-title class="primary--text">
+            {{ person.name }}
+          </v-card-title>
+          <v-card-text>
+            <p class="multiline-truncate">
+              {{ person.description }}
+            </p>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
 
     <v-dialog v-if="editable && faculty && faculty.length" v-model="deleteDialog" width="500">
       <v-card>
@@ -222,18 +183,18 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </InstituteLayout>
+  </StandardLayout>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
-import InstituteLayout from "@/layouts/InstituteLayout"
+import StandardLayout from "@/layouts/StandardLayout"
 import DropUpload from "@/components/common/DropUpload"
 
 export default {
   components: {
     DropUpload,
-    InstituteLayout,
+    StandardLayout,
   },
   middleware: "institute",
   head() {

@@ -1,5 +1,5 @@
 <template>
-  <component :is="layout">
+  <StandardLayout>
     <v-col v-if="report" cols="12" align="center">
       <Marks :report="report" />
       <Analysis v-if="report && report.result" :report="report" />
@@ -19,13 +19,12 @@
         </v-card>
       </v-col>
     </v-col>
-  </component>
+  </StandardLayout>
 </template>
 
 <script>
 import Analysis from "@/components/common/test/Analysis"
 import Marks from "@/components/common/test/Marks"
-import InstituteLayout from "@/layouts/InstituteLayout"
 import StandardLayout from "@/layouts/StandardLayout"
 
 export default {
@@ -60,9 +59,6 @@ export default {
     }
   },
   computed: {
-    layout() {
-      return this.$handle == "public" ? StandardLayout : InstituteLayout
-    },
     report() {
       return this.$store.state.results.result
     },

@@ -1,18 +1,14 @@
 <template>
-  <InstituteLayout>
-    <v-row justify="center" align="center" class="text-center">
-      <v-col cols="12" md="auto" class="display-2">
-        {{ title }}
-      </v-col>
+  <StandardLayout>
+    <v-row justify="center" v-if="editable">
       <v-spacer />
       <v-col cols="12" md="auto">
-        <v-btn v-if="editable" v-show="courses && courses.length" color="primary" @click="addItem">
+        <v-btn v-show="courses && courses.length" color="primary" @click="addItem">
           Add Course
         </v-btn>
       </v-col>
-      <v-col cols="12">
-        <v-divider />
-      </v-col>
+    </v-row>
+    <v-row justify="center">
       <v-col v-if="courses && !courses.length" cols="12" justify="center" align="center">
         <template v-if="status.loading">
           Loading...
@@ -106,16 +102,16 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </InstituteLayout>
+  </StandardLayout>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
-import InstituteLayout from "@/layouts/InstituteLayout"
+import StandardLayout from "@/layouts/StandardLayout"
 
 export default {
   components: {
-    InstituteLayout,
+    StandardLayout,
   },
   middleware: "institute",
   head() {

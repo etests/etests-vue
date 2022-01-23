@@ -17,7 +17,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <component :is="layout" v-if="!started || completed">
+      <StandardLayout v-if="!started || completed">
         <v-col v-if="completed && report !== null" cols="12">
           <Marks :report="report" :demo="demo" />
           <Analysis v-if="report && report.result" :report="report" />
@@ -42,7 +42,7 @@
             </Instructions>
           </v-col>
         </v-row>
-      </component>
+      </StandardLayout>
       <template v-else-if="session !== null && !completed">
         <Test :session-data="session" @update="updateSession" @exit="exitDialog = true" />
       </template>
@@ -56,7 +56,6 @@ import Instructions from "@/components/common/test/Instructions"
 import Test from "@/components/common/test/Test"
 import Marks from "@/components/common/test/Marks"
 import Analysis from "@/components/common/test/Analysis"
-import InstituteLayout from "@/layouts/InstituteLayout"
 import StandardLayout from "@/layouts/StandardLayout"
 import { demoTests } from "@/js/demoTests"
 
@@ -91,9 +90,6 @@ export default {
     ...mapState({
       status: (state) => state.sessions.status,
     }),
-    layout() {
-      return this.$handle == "public" ? StandardLayout : InstituteLayout
-    },
   },
   created() {
     if (process.client) this.resumeTest()

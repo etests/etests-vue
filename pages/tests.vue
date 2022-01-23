@@ -1,5 +1,5 @@
 <template>
-  <component :is="layout">
+  <StandardLayout>
     <v-col cols="12">
       <v-card class="page">
         <v-skeleton-loader v-if="!testSeries" type="heading" max-width="400" class="pa-5" />
@@ -129,14 +129,13 @@
       </v-dialog> -->
       </v-card>
     </v-col>
-  </component>
+  </StandardLayout>
 </template>
 <script>
 import { mapState } from "vuex"
 import RazorPay from "@/components/common/RazorPay"
 import Payment from "@/components/common/Payment"
 import StandardLayout from "@/layouts/StandardLayout"
-import InstituteLayout from "@/layouts/InstituteLayout"
 import utils from "@/js/utils"
 import { testTemplate } from "@/js/test"
 
@@ -167,9 +166,6 @@ export default {
     }),
     buying() {
       return this.$auth.loggedIn && this.paymentDialog
-    },
-    layout() {
-      return this.$handle == "public" ? StandardLayout : InstituteLayout
     },
   },
   created() {

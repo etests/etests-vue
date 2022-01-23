@@ -1,27 +1,13 @@
 <template>
-  <InstituteLayout>
-    <v-card class="page my-10" min-height="300">
+  <StandardLayout>
+    <v-card min-height="300">
       <v-card-title>
         {{ title }}s
         <v-spacer />
-        <v-btn
-          v-if="editable"
-          v-show="forms && forms.length"
-          color="primary"
-          @click="addDialog = true"
-        >
-          add {{ title }}s
-        </v-btn>
+        <v-btn v-if="editable" color="primary" @click="addDialog = true"> add {{ title }}s </v-btn>
       </v-card-title>
       <v-divider />
       <v-card-text class="px-0">
-        <v-row v-if="forms && !forms.length" justify="center" align="center">
-          <v-btn v-if="editable" color="primary" x-large @click="addDialog = true">
-            add {{ title }}
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-          <template v-else> No {{ title }}s </template>
-        </v-row>
         <v-list v-if="forms && forms.length">
           <v-list-item v-for="(item, i) in forms" :key="i">
             <v-list-item-avatar>
@@ -130,17 +116,17 @@
         </v-card>
       </v-dialog>
     </v-card>
-  </InstituteLayout>
+  </StandardLayout>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
-import InstituteLayout from "@/layouts/InstituteLayout"
+import StandardLayout from "@/layouts/StandardLayout"
 import utils from "@/js/utils"
 
 export default {
   components: {
-    InstituteLayout,
+    StandardLayout,
   },
   middleware: "institute",
   head() {

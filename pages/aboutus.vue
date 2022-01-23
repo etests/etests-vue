@@ -1,5 +1,5 @@
 <template>
-  <InstituteLayout>
+  <StandardLayout>
     <v-overlay v-if="status.loading" :value="true">
       <v-progress-circular color="primary" indeterminate size="64" />
     </v-overlay>
@@ -119,17 +119,17 @@
         </v-btn>
       </v-col>
     </v-row>
-  </InstituteLayout>
+  </StandardLayout>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
-import InstituteLayout from "@/layouts/InstituteLayout"
+import StandardLayout from "@/layouts/StandardLayout"
 import DropUpload from "@/components/common/DropUpload"
 
 export default {
   components: {
-    InstituteLayout,
+    StandardLayout,
     DropUpload,
   },
   middleware: "institute",

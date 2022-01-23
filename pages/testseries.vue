@@ -1,5 +1,5 @@
 <template>
-  <component :is="layout">
+  <StandardLayout>
     <v-text-field
       slot="search"
       v-model="searchTestSeries"
@@ -108,14 +108,12 @@
     >
       Oops! Nothing Found
     </v-sheet>
-  </component>
+  </StandardLayout>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
 import StandardLayout from "@/layouts/StandardLayout"
-import InstituteLayout from "@/layouts/InstituteLayout"
-
 import utils from "@/js/utils"
 
 export default {
@@ -123,6 +121,9 @@ export default {
     return {
       title: "Test Series",
     }
+  },
+  components: {
+    StandardLayout,
   },
   data() {
     return {
@@ -152,9 +153,6 @@ export default {
       return this.testSeriesList.filter((testSeries) =>
         testSeries.name.toLowerCase().includes(this.searchTestSeries.toLowerCase())
       )
-    },
-    layout() {
-      return this.$handle == "public" ? StandardLayout : InstituteLayout
     },
   },
 }

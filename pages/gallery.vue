@@ -1,6 +1,6 @@
 <template>
-  <InstituteLayout>
-    <v-card class="page mb-10">
+  <StandardLayout>
+    <v-card>
       <v-card-title>
         <v-row justify="center" align="center">
           <v-col cols="12" md="auto">
@@ -78,7 +78,7 @@
               v-show="
                 gallery.length === 0 || !gallery[event].images || gallery[event].images.length === 0
               "
-              x-large
+              large
               color="primary"
               @click="
                 if (gallery && gallery.length) newGallery.event = event
@@ -218,17 +218,17 @@
         </v-card>
       </v-dialog>
     </v-card>
-  </InstituteLayout>
+  </StandardLayout>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
-import InstituteLayout from "@/layouts/InstituteLayout"
+import StandardLayout from "@/layouts/StandardLayout"
 import DropUpload from "@/components/common/DropUpload"
 
 export default {
   components: {
-    InstituteLayout,
+    StandardLayout,
     DropUpload,
   },
   middleware: "institute",

@@ -1,6 +1,6 @@
 <template>
   <StandardLayout>
-    <v-card class="page my-10" min-height="300">
+    <v-card min-height="300">
       <v-card-title class="px-10 py-8 font-weight-bold">
         <v-icon class="mr-4" size="60" color="hot">mdi-video-outline</v-icon>
         Online Classes

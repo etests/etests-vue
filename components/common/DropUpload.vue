@@ -12,11 +12,11 @@
       <v-overlay absolute class="pa-0 mt-0 text-center">
         <v-row justify="center" align="center">
           <v-col cols="12" :class="['text-center white--text', small ? '' : 'title']">
-            Drag an image here
+            Drag image
           </v-col>
           <v-col cols="12">
             <v-btn :small="small" color="primary" :loading="loading">
-              or select image
+              select
             </v-btn>
           </v-col>
           <v-col cols="12" />
