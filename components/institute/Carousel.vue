@@ -4,10 +4,13 @@
       <v-img :src="defaultImage" class="text-center">
         <v-row justify="center" align="center" class="full-height">
           <v-col v-if="institute" cols="12" class="text-center">
-            <div class="display-2 font-weight-bold">
+            <div
+              class="font-weight-bold"
+              :class="['xs', 'sm'].includes($mq) ? 'display-1' : 'display-2'"
+            >
               {{ institute.user.name }}
             </div>
-            <div class="title my-5">
+            <div class="my-5" :class="['xs', 'sm'].includes($mq) ? 'subtitle-1' : 'title'">
               {{ institute.about }}
             </div>
           </v-col>

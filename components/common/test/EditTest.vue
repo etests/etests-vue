@@ -389,6 +389,7 @@
     <v-row slot="options">
       <template v-for="(question, q) in questions">
         <v-col v-show="questionIndex === q" :key="q" cols="12" class="ml-2">
+          {{ answers }}
           <v-radio-group
             v-if="question.type === 0"
             v-model="answers[q].answer"
@@ -401,6 +402,7 @@
               :on-icon="`mdi-alpha-${letter('a', j - 1, true)}-circle`"
               :off-icon="`mdi-alpha-${letter('a', j - 1, true)}-circle-outline`"
               class="mb-2"
+              :value="j"
             />
           </v-radio-group>
 
@@ -840,7 +842,7 @@ export default {
       question.topic = this.currentQuestion.topic
 
       let answer = { ...this.emptyAnswer }
-      if (type === 3) answer = { answer: [[], [], [], []] }
+      if (type === 3) answer.answer = [[], [], [], []]
 
       this.currentSection.end++
       for (let j = this.sectionIndex + 1; j < this.sections.length; j++) {

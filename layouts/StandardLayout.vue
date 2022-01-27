@@ -33,9 +33,6 @@ export default {
     },
   },
   mounted() {
-    if (this.$auth.loggedIn && this.$auth.hasScope("institute")) {
-      this.$store.cache.dispatch("institutes/get", this.$auth.user.handle)
-    }
     if (this.$handle !== "public") this.$store.cache.dispatch("institutes/get", this.$handle)
   },
 }

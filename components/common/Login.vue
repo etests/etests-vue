@@ -291,7 +291,6 @@ export default {
                 this.$toast.success("Welcome!")
                 this.loading = false
                 if (this.$route.query.redirect) this.$router.push(this.$route.query.redirect)
-                else if (this.$route.path === "/") this.$router.push("/dashboard")
               },
               (error) => {
                 this.$toast.success(error)

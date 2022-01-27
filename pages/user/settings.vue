@@ -1,5 +1,5 @@
 <template>
-  <InstituteLayout>
+  <StandardLayout>
     <v-row>
       <v-col cols="12" md="auto" class="display-1">
         Settings
@@ -63,17 +63,17 @@
         </v-card>
       </v-col>
     </v-row>
-  </InstituteLayout>
+  </StandardLayout>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
 import { Sketch } from "vue-color"
-import InstituteLayout from "@/layouts/InstituteLayout"
+import StandardLayout from "@/layouts/StandardLayout"
 
 export default {
   components: {
-    InstituteLayout,
+    StandardLayout,
     Sketch,
   },
   middleware: "institute",
@@ -123,8 +123,8 @@ export default {
       status: "institutes/status",
     }),
   },
-  mounted() {
-    this.$store.cache.dispatch("institutes/get", this.$handle).then((institute) => {
+  created() {
+    this.$store.dispatch("institutes/get", this.$handle).then((institute) => {
       if (institute.settings) {
         let newSections = this.settings.sections.filter((section1) => {
           return !institute.settings.sections.find((section2) => {
