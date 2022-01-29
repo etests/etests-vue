@@ -185,7 +185,7 @@
                   mdi-dns
                 </v-icon>
               </v-btn>
-              <v-btn rounded icon small color="info" :to="`/edit?id=${item.id}`" target="_blank">
+              <v-btn rounded icon small color="info" :to="`/edit/${item.id}`" target="_blank">
                 <v-icon small>
                   mdi-pencil
                 </v-icon>
@@ -242,7 +242,7 @@
               v-for="(test, i) in tests.slice(0, 5)"
               :key="i"
               dense
-              :to="`/edit?id=${test.id}`"
+              :to="`/edit/${test.id}`"
               target="_blank"
             >
               <v-list-item-content>
@@ -320,23 +320,23 @@ export default {
   props: {
     tests: {
       type: Array,
-      required: true
+      required: true,
     },
     testSeries: {
       type: Object,
       required: false,
-      default: null
+      default: null,
     },
     expand: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     loading: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
@@ -355,32 +355,32 @@ export default {
         {
           align: "center",
           text: "Institute",
-          value: "institute.name"
+          value: "institute.name",
         },
         {
           align: "center",
           text: "Activation Time",
-          value: "activationTime"
+          value: "activationTime",
         },
         {
           align: "center",
           text: "Closing Time",
-          value: "closingTime"
+          value: "closingTime",
         },
         {
           align: "center",
           text: "Status",
-          value: "status"
+          value: "status",
         },
-        { align: "center", sortable: false, text: "Actions", value: "actions" }
-      ]
+        { align: "center", sortable: false, text: "Actions", value: "actions" },
+      ],
     }
   },
   computed: {
     ...mapState({
       user: (state) => state.auth.user,
       status: (state) => state.tests.status,
-      rankLists: (state) => state.tests.rankLists
+      rankLists: (state) => state.tests.rankLists,
     }),
     expanded: {
       get() {
@@ -388,12 +388,12 @@ export default {
       },
       set(value) {
         this.$emit("toggle")
-      }
-    }
+      },
+    },
   },
   methods: {
     ...mapActions({
-      updateTestSeries: "testSeries/update"
+      updateTestSeries: "testSeries/update",
     }),
     formatDate: utils.formatDate,
     formatDuration: utils.formatDuration,
@@ -423,17 +423,17 @@ export default {
           this.$nuxt.$loading.fail()
         }
       )
-    }
+    },
   },
   watch: {
     declareDialog(newValue, oldValue) {
       if (!newValue) this.$store.commit("tests/clearStatus")
-    }
+    },
   },
   components: {
     TestForm,
-    RankList
-  }
+    RankList,
+  },
 }
 </script>
 

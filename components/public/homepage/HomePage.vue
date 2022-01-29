@@ -6,7 +6,6 @@
 
 <script>
 import HeroLayout from "@/layouts/HeroLayout.vue"
-import SectionLayout from "@/components/public/homepage/SectionLayout.vue"
 import Hero from "@/components/public/homepage/Hero.vue"
 
 export default {

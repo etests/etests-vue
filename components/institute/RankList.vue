@@ -14,7 +14,7 @@
         v-model="search"
         label="Search"
         dense
-        style="max-width: 400px"
+        style="max-width: 400px;"
         prepend-inner-icon="mdi-magnify"
       />
     </v-card-title>
@@ -32,10 +32,10 @@
           <strong v-else class="success--text">{{ item.rank }}</strong>
         </template>
         <template #item.actions="{ item }">
-          <v-btn dark small color="primary" :to="`/result?id=${item.id}`" target="_blank">
+          <v-btn dark small color="primary" :to="`/result/${item.id}`" target="_blank">
             Result
           </v-btn>
-          <v-btn dark small color="primary" :to="`/review?id=${item.id}`" target="_blank">
+          <v-btn dark small color="primary" :to="`/review/${item.id}`" target="_blank">
             Review
           </v-btn>
         </template>
@@ -54,12 +54,12 @@ export default {
         {
           align: "center",
           text: "Rank",
-          value: "rank"
+          value: "rank",
         },
         { align: "center", text: "Name", value: "name" },
         { align: "center", text: "Marks", value: "marks" },
-        { align: "center", text: "Detailed result", value: "actions", sortable: false }
-      ]
+        { align: "center", text: "Detailed result", value: "actions", sortable: false },
+      ],
     }
   },
   computed: {
@@ -70,7 +70,7 @@ export default {
           rank: session.ranks ? session.ranks.overall : session.practice ? "Practice" : "NA",
           name: session.name,
           marks: session.marks.total,
-          practice: session.practice
+          practice: session.practice,
         }
         session.subjects.forEach((subject, i) => {
           ranks[subject] = session.marks.sectionWise[i] + "/" + session.marks.maxMarks[i]
@@ -80,7 +80,7 @@ export default {
       })
       ranklist.sort((a, b) => (isNaN(a.rank) || a.rank > b.rank ? 1 : -1))
       return ranklist
-    }
+    },
   },
   methods: {
     download() {
@@ -101,7 +101,7 @@ export default {
       a.download = fileName
       a.click()
       window.URL.revokeObjectURL(url)
-    }
-  }
+    },
+  },
 }
 </script>

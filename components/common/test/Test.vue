@@ -17,7 +17,10 @@
     </v-dialog>
     <v-dialog v-model="submitDialog" max-width="400">
       <v-card>
-        <v-card-title>Are you sure you want to submit the test?</v-card-title>
+        <v-card-title>End Test</v-card-title>
+        <v-card-text>
+          Are you sure you want to submit this test?
+        </v-card-text>
         <v-card-actions>
           <v-spacer />
           <v-btn color="primary" text @click="submitDialog = false">

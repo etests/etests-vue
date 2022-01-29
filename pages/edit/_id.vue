@@ -47,6 +47,7 @@ import { testTemplate } from "@/js/test"
 import { demoTests } from "@/js/demoTests"
 
 export default {
+  middleware: "login",
   head() {
     return {
       title: this.test ? this.test.name : "Edit Test",

@@ -1,20 +1,20 @@
 <template>
   <client-only>
-    <StandardLayout>
-      <v-col cols="12" class="py-5 ma-auto">
+    <HeroLayout>
+      <v-col cols="12" class="py-12 px-0 ma-auto">
         <Login />
       </v-col>
-    </StandardLayout>
+    </HeroLayout>
   </client-only>
 </template>
 
 <script>
-import StandardLayout from "@/layouts/StandardLayout"
+import HeroLayout from "@/layouts/HeroLayout"
 import Login from "@/components/common/Login"
 
 export default {
   components: {
-    StandardLayout,
+    HeroLayout,
     Login,
   },
   head() {

@@ -60,6 +60,7 @@ import StandardLayout from "@/layouts/StandardLayout"
 import { demoTests } from "@/js/demoTests"
 
 export default {
+  middleware: "login",
   head() {
     return {
       title: this.session ? this.session.test.name : "Start Test",

@@ -3,14 +3,14 @@ export const state = () => ({
   test: {},
   all: { items: [] },
   free: { items: [] },
-  rankLists: []
+  rankLists: [],
 })
 
 export const getters = {
   tests: (state) => state.all.items,
   test: (state) => state.test,
   rankLists: (state) => state.rankLists,
-  freeTests: (state) => state.free.items
+  freeTests: (state) => state.free.items,
 }
 export const actions = {
   get({ commit }, id) {
@@ -117,7 +117,7 @@ export const actions = {
         throw error
       }
     )
-  }
+  },
 }
 export const mutations = {
   clearStatus(state) {
@@ -170,7 +170,7 @@ export const mutations = {
   createSuccess(state, data) {
     if (data.testSeries && data.testSeries.length) {
       this.dispatch("testSeries/addTest", data, {
-        root: true
+        root: true,
       })
     } else state.all.items.push(data)
     state.status = { created: true, test: data }
@@ -194,7 +194,7 @@ export const mutations = {
     state.status = { removed: true, id: id }
     state.all.items = state.all.items.filter((test) => test.id !== id)
     this.dispatch("testSeries/removeTest", id, {
-      root: true
+      root: true,
     })
   },
   removeFailure(state, error) {
@@ -211,5 +211,5 @@ export const mutations = {
   },
   getRankListFailure(state, error) {
     state.status = { error }
-  }
+  },
 }

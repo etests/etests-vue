@@ -20,7 +20,7 @@
           {{ formatDate(item["time"]) }}
         </template>
         <template #item.actions="{ item }">
-          <v-btn dark small color="primary" :to="`/result?id=${item.id}`">
+          <v-btn dark small color="primary" :to="`/result/${item.id}`">
             Result
           </v-btn>
         </template>
@@ -38,17 +38,17 @@ export default {
       sessionSearch: "",
       pagination: {
         descending: true,
-        rowsPerPage: 10
+        rowsPerPage: 10,
       },
       sessionHeaders: [
         { align: "left", text: "Test", value: "name" },
         {
           align: "center",
           text: "Attempted at",
-          value: "time"
+          value: "time",
         },
-        { align: "center", sortable: false, text: "Actions", value: "actions" }
-      ]
+        { align: "center", sortable: false, text: "Actions", value: "actions" },
+      ],
     }
   },
   computed: {
@@ -58,10 +58,10 @@ export default {
           id: session.id,
           name: session.test.name,
           time: session.checkinTime,
-          practice: session.practice
+          practice: session.practice,
         }
       })
-    }
+    },
   },
   created() {
     this.$store.cache.dispatch("sessions/list")
@@ -69,8 +69,8 @@ export default {
   methods: {
     formatDate(dateString) {
       return utils.formatDate(dateString)
-    }
-  }
+    },
+  },
 }
 </script>
 

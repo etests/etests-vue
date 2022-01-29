@@ -1,19 +1,13 @@
 <template>
-  <v-card :tile="['xs', 'sm'].includes($mq)" max-width="800" class="mx-auto">
-    <v-card-title class="pb-0">
-      <v-tabs v-model="tab" slider-color="primary" centered>
-        <v-tab active-class="primary--text font-weight-bold">
-          Login
-        </v-tab>
-        <v-tab active-class="primary--text font-weight-bold">
-          Signup
-        </v-tab>
-        <v-spacer />
-        <v-btn fixed right icon @click="$emit('close')">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </v-tabs>
-    </v-card-title>
+  <v-card width="100%" max-width="640" min-height="400" class="mx-auto">
+    <v-tabs v-model="tab" height="60" fixed-tabs hide-slider centered>
+      <v-tab active-class="title light-primary primary--text font-weight-bold">
+        Login
+      </v-tab>
+      <v-tab active-class="title light-primary primary--text font-weight-bold">
+        Signup
+      </v-tab>
+    </v-tabs>
     <v-divider />
     <v-card-text>
       <div v-if="false" ref="googleLoginBtn">
@@ -24,7 +18,7 @@
 
       <v-tabs-items v-model="tab">
         <v-tab-item>
-          <v-card-title>
+          <v-card-title class="subtitle-1">
             <span v-if="forgot">Recover password</span>
           </v-card-title>
           <v-card-text>
@@ -312,6 +306,7 @@ export default {
             this.$toast.success("Welcome!")
             this.loading = false
             if (this.$route.query.redirect) this.$router.push(this.$route.query.redirect)
+            else this.$router.push("/")
           },
           (error) => {
             this.$toast.success(error)
@@ -386,3 +381,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.light-primary {
+  background-color: #9155fd2a;
+}
+</style>

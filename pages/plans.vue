@@ -1,10 +1,6 @@
 <template>
   <StandardLayout>
     <v-container fluid class="ma-1">
-      <v-row cols="12" md="auto" class="display-2">
-        Pricing
-      </v-row>
-      <v-divider class="my-5" />
       <v-row justify="center">
         <v-col v-for="(plan, i) in plans" :key="i" cols="12" md="12">
           <v-card class="object pb-2" flat outlined height="100%">

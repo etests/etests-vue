@@ -69,14 +69,14 @@
                     <v-btn
                       v-if="!item.sessions.length && item.status === 1"
                       color="success"
-                      :to="`/test?id=${item.id}`"
+                      :to="`/test/${item.id}`"
                     >
                       Start this test
                     </v-btn>
                     <v-btn disabled v-else-if="item.sessions.length && item.status === 1">
                       Attempted
                     </v-btn>
-                    <v-btn v-else-if="item.status > 1" color="info" :to="`/test?id=${item.id}`">
+                    <v-btn v-else-if="item.status > 1" color="info" :to="`/test/${item.id}`">
                       Practice Attempt
                     </v-btn>
                   </v-col>
@@ -95,7 +95,7 @@
                       icon
                       text
                       color="info"
-                      :to="`/test?id=${item.id}`"
+                      :to="`/test/${item.id}`"
                     >
                       <v-icon>mdi-play-pause</v-icon>
                     </v-btn>
@@ -104,7 +104,7 @@
                       icon
                       text
                       color="success"
-                      :to="`/result?id=${session.id}`"
+                      :to="`/result/${session.id}`"
                       target="_blank"
                     >
                       <v-icon>mdi-file-chart</v-icon>
@@ -114,7 +114,7 @@
                       icon
                       text
                       color="warning"
-                      :to="`/review?id=${session.id}`"
+                      :to="`/review/${session.id}`"
                       target="_blank"
                     >
                       <v-icon>mdi-file-find</v-icon>
@@ -136,7 +136,7 @@
               v-for="(test, i) in tests.slice(0, 5)"
               :key="i"
               dense
-              :to="`/test?id=${test.id}`"
+              :to="`/test/${test.id}`"
               target="_blank"
             >
               <v-list-item-content>

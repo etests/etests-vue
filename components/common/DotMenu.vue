@@ -4,12 +4,7 @@
     <template v-if="loggedIn">
       <AppBarUserMenu />
     </template>
-    <v-btn
-      v-else
-      color="primary"
-      class="mx-0"
-      @click="$store.commit('tabs/toggleAuthDialog', true)"
-    >
+    <v-btn v-else color="primary" class="mx-0" to="/login" v-show="$route.path != '/login'">
       Login
     </v-btn>
 

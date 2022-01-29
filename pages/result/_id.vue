@@ -28,6 +28,7 @@ import Marks from "@/components/common/test/Marks"
 import StandardLayout from "@/layouts/StandardLayout"
 
 export default {
+  middleware: "login",
   components: {
     StandardLayout,
     Analysis,

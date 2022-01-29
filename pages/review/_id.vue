@@ -191,6 +191,7 @@ import TestLayout from "@/layouts/TestLayout.vue"
 import { testTemplate } from "@/js/test"
 
 export default {
+  middleware: "login",
   components: {
     TestLayout,
     AnswerField,
