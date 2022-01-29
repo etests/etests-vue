@@ -166,7 +166,7 @@ export default {
       if (error) this.$toast.info(error)
       else
         this.$store.cache
-          .dispatch("profile/updateProfile", this.profile)
+          .dispatch("profile/update", this.profile)
           .then((_) => (this.editing = false))
     },
   },

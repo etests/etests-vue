@@ -11,10 +11,9 @@
     <template #activator="{ on }">
       <v-text-field
         slot="activator"
-        solo-inverted
-        flat
+        outlined
         :label="label"
-        :value="value"
+        :value="twelveHourTime(value)"
         prepend-inner-icon="mdi-clock-outline"
         readonly
         v-on="on"
@@ -35,13 +34,24 @@ export default {
   props: ["value", "label"],
   data() {
     return {
-      menu: false
+      menu: false,
     }
   },
   methods: {
     handleInput(value) {
       this.$emit("input", value)
-    }
-  }
+    },
+    twelveHourTime(value) {
+      let splits = value.split(":")
+      let hours = parseInt(splits[0])
+      let minutes = parseInt(splits[1])
+      let am_pm = "AM"
+      if (hours >= 12) am_pm = "PM"
+      if (hours > 12) hours -= 12
+      hours = hours.toString().padStart(2, "0")
+      minutes = minutes.toString().padStart(2, "0")
+      return `${hours}:${minutes} ${am_pm}`
+    },
+  },
 }
 </script>

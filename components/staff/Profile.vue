@@ -11,7 +11,7 @@
             class="ma-auto mb-10"
             max-width="200px"
             max-height="200px"
-            style="border-radius:100%"
+            style="border-radius: 100%;"
             :src="profile.image ? profile.image : require('@/assets/images/icons/student.png')"
           >
             <DropUpload
@@ -63,11 +63,11 @@ export default {
   components: {
     DropUpload,
     AddressInput,
-    ChangePassword
+    ChangePassword,
   },
   data() {
     return {
-      states
+      states,
     }
   },
   computed: {
@@ -77,8 +77,8 @@ export default {
       },
       set(value) {
         this.$store.commit("profile/updateSuccess", value)
-      }
-    }
+      },
+    },
   },
   methods: {
     save(e) {
@@ -88,9 +88,9 @@ export default {
       else if (!this.profile.phone) error = "Enter your phone number."
 
       if (error) this.$toast.info(error)
-      else this.$store.cache.dispatch("profile/updateProfile", this.profile)
-    }
-  }
+      else this.$store.cache.dispatch("profile/update", this.profile)
+    },
+  },
 }
 </script>
 

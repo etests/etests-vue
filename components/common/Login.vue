@@ -1,24 +1,18 @@
 <template>
   <v-card :tile="['xs', 'sm'].includes($mq)" max-width="800" class="mx-auto">
     <v-card-title class="pb-0">
-      <v-tabs v-model="tab" class="transparent" slider-color="primary" centered>
-        <v-tab active-class="primary--text">
+      <v-tabs v-model="tab" slider-color="primary" centered>
+        <v-tab active-class="primary--text font-weight-bold">
           Login
         </v-tab>
-        <v-tab active-class="primary--text">
+        <v-tab active-class="primary--text font-weight-bold">
           Signup
         </v-tab>
+        <v-spacer />
+        <v-btn fixed right icon @click="$emit('close')">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
       </v-tabs>
-      <v-btn
-        v-if="['xs', 'sm'].includes($mq)"
-        fixed
-        class="mr-5"
-        right
-        icon
-        @click="$emit('close')"
-      >
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
     </v-card-title>
     <v-divider />
     <v-card-text>
@@ -91,7 +85,13 @@
                 </div>
               </v-form>
               <v-form v-else @keyup.enter="login">
-                <v-text-field v-model="username" solo-inverted flat label="Email or phone" />
+                <v-text-field
+                  v-model="username"
+                  solo-inverted
+                  flat
+                  label="Email or phone"
+                  autocomplete="username"
+                />
                 <v-text-field
                   v-model="password"
                   solo-inverted
@@ -102,6 +102,7 @@
                   label="Password"
                   value=""
                   @click:append="showPassword = !showPassword"
+                  autocomplete="new-password"
                 />
                 <div class="text-left my-1">
                   <nuxt-link to="" @click.native="forgot = true">
@@ -118,11 +119,13 @@
         </v-tab-item>
 
         <v-tab-item>
-          <v-card-title v-if="verification" class="body-1">
-            Enter the verification code sent to your email.
+          <v-card-title class="body-1">
+            <template v-if="verification">
+              Enter the verification code sent to your email.
+            </template>
           </v-card-title>
           <v-card-text>
-            <v-form v-if="verification" autocomplete="false">
+            <v-form v-if="verification">
               <v-text-field
                 v-model="verificationCode"
                 solo-inverted
@@ -133,10 +136,22 @@
                 Submit
               </v-btn>
             </v-form>
-            <v-form v-else @keyup.enter="register" autocomplete="false">
+            <v-form v-else @keyup.enter="register">
               <v-text-field v-model="name" solo-inverted flat label="Name" />
-              <v-text-field v-model="email" solo-inverted flat label="Email" />
-              <v-text-field v-model="phone" solo-inverted flat label="Phone" />
+              <v-text-field
+                v-model="email"
+                solo-inverted
+                flat
+                label="Email"
+                autocomplete="username"
+              />
+              <v-text-field
+                v-model="phone"
+                solo-inverted
+                flat
+                label="Phone"
+                autocomplete="username"
+              />
               <v-text-field
                 v-model="registerPassword"
                 solo-inverted
@@ -147,6 +162,7 @@
                 label="Password"
                 value=""
                 @click:append="showPassword = !showPassword"
+                autocomplete="new-password"
               />
               <v-btn color="primary" @click="register" :loading="loading">
                 Signup
@@ -278,27 +294,30 @@ export default {
         let username = this.username,
           password = this.password
         if (username && password) {
-          this.loading = true
-          this.$auth
-            .loginWith("local", {
-              data: { username, password },
-            })
-            .then(
-              (response) => {
-                this.$store.commit("tabs/toggleAuthDialog", false)
-                this.$auth.$storage.setUniversal("user", response.data.user)
-                this.$auth.$storage.setUniversal("loggedIn", true)
-                this.$toast.success("Welcome!")
-                this.loading = false
-                if (this.$route.query.redirect) this.$router.push(this.$route.query.redirect)
-              },
-              (error) => {
-                this.$toast.success(error)
-                this.loading = false
-              }
-            )
+          this.loginWithCredentials(username, password)
         }
       }
+    },
+    loginWithCredentials(username, password) {
+      this.loading = true
+      this.$auth
+        .loginWith("local", {
+          data: { username, password },
+        })
+        .then(
+          (response) => {
+            this.$store.commit("tabs/toggleAuthDialog", false)
+            this.$auth.$storage.setUniversal("user", response.data.user)
+            this.$auth.$storage.setUniversal("loggedIn", true)
+            this.$toast.success("Welcome!")
+            this.loading = false
+            if (this.$route.query.redirect) this.$router.push(this.$route.query.redirect)
+          },
+          (error) => {
+            this.$toast.success(error)
+            this.loading = false
+          }
+        )
     },
     register(e) {
       let error = null
@@ -323,8 +342,9 @@ export default {
         this.loading = true
         this.$store.dispatch("tabs/register", data).then(
           (_) => {
-            this.verification = true
+            // this.verification = true
             this.loading = false
+            this.loginWithCredentials(this.phone, this.registerPassword)
           },
           (error) => {
             console.log(error)

@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       demo: !!this.$route.query.demo,
-      id: parseInt(this.$route.query.id) || 10000000000,
+      id: parseInt(this.$route.params.id) || 10000000000,
       test: null,
       started: false,
       loading: false,
@@ -125,7 +125,7 @@ export default {
       const session = demoTests.newSession(this.test)
       session.testId = this.id
       if (process.client) localStorage.setItem("session", JSON.stringify(session))
-      this.$router.push({ path: "test", query: { id: this.id, demo: 1 } })
+      this.$router.push({ path: `test${this.id}`, query: { demo: 1 } })
     },
     deleteTest() {
       if (process.client) localStorage.removeItem("session")

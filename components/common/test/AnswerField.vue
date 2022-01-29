@@ -12,6 +12,7 @@
         :on-icon="`mdi-alpha-${letter('a', j - 1, true)}-circle`"
         :off-icon="`mdi-alpha-${letter('a', j - 1, true)}-circle-outline`"
         class="mb-2 ml-2"
+        :value="j"
       />
     </v-radio-group>
 
@@ -38,7 +39,7 @@
         label="Answer (integer or decimal number)"
         type="number"
         :disabled="disabled"
-        style="max-width: 500px"
+        style="max-width: 500px;"
       />
     </div>
 
@@ -89,8 +90,8 @@ export default {
     return {
       labels: {
         options: ["A", "B", "C", "D"],
-        answers: ["P", "Q", "R", "S", "T"]
-      }
+        answers: ["P", "Q", "R", "S", "T"],
+      },
     }
   },
   computed: {
@@ -101,8 +102,8 @@ export default {
       set(value) {
         this.$emit("input", value)
         this.$emit("change")
-      }
-    }
+      },
+    },
   },
   methods: {
     letter(start, index, order) {
@@ -112,7 +113,7 @@ export default {
       return order
         ? small[(small.indexOf(start) + index) % size]
         : caps[(caps.indexOf(start) + index) % size]
-    }
-  }
+    },
+  },
 }
 </script>

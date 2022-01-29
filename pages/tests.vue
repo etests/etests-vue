@@ -85,11 +85,11 @@
               <v-list-item
                 v-for="(test, i) in testSeries.tests"
                 :key="i"
-                :to="$auth.loggedIn && $auth.hasScope('student') ? `/test?id=${test.id}` : ''"
+                :to="$auth.loggedIn && $auth.hasScope('student') ? `/test/${test.id}` : ''"
                 @click="
                   if (!$auth.loggedIn) {
                     $store.commit('tabs/toggleAuthDialog', true)
-                    $route.query.redirect = `/test?id=${test.id}`
+                    $route.query.redirect = `/test/${test.id}`
                   }
                 "
               >

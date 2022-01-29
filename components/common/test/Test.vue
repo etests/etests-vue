@@ -128,7 +128,7 @@
           {{ questionTypes[currentQuestion.type].text }}
         </v-chip>
         <br v-if="small" />
-        <v-chip rounded class="white primary--text mb-1" style="width:100px;">
+        <v-chip rounded class="white primary--text mb-1" style="width: 100px;">
           <v-icon color="primary">
             mdi-clock
           </v-icon>
@@ -154,7 +154,7 @@
         </v-chip>
       </template>
 
-      <v-row slot="page-view" align="center" justify="center" style="margin-top:-64px">
+      <v-row slot="page-view" align="center" justify="center" style="margin-top: -64px;">
         <v-col v-for="(question, i) in questions" :key="i" cols="12">
           <v-card class="object ma-auto">
             <v-card-title>
@@ -202,7 +202,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="=12" class="text-center">
+        <v-col cols="12" class="text-center">
           <v-btn dark color="primary" @click="submitDialog = true">
             <span>end test</span>
           </v-btn>
@@ -359,7 +359,7 @@ import StandardLayout from "@/layouts/StandardLayout"
 export default {
   components: {
     TestLayout,
-    AnswerField
+    AnswerField,
   },
   props: ["sessionData"],
   data() {
@@ -375,21 +375,21 @@ export default {
         { value: 2, text: "Numerical" },
         { value: 3, text: "Matrix Match" },
         { value: 4, text: "One Word Answer" },
-        { value: 5, text: "Subjective" }
+        { value: 5, text: "Subjective" },
       ],
       labels: {
         options: ["A", "B", "C", "D"],
-        answers: ["P", "Q", "R", "S", "T"]
+        answers: ["P", "Q", "R", "S", "T"],
       },
       swipeActions: {
         left: () => this.nextQuestion(),
-        right: () => this.previousQuestion()
+        right: () => this.previousQuestion(),
       },
       helpDialog: false,
       submitDialog: false,
       pageView: false,
       session: this.sessionData,
-      subjectTopics: []
+      subjectTopics: [],
     }
   },
   computed: {
@@ -415,7 +415,7 @@ export default {
       },
       set(value) {
         this.session.current.sectionIndex = value
-      }
+      },
     },
     questionIndex: {
       get() {
@@ -423,7 +423,7 @@ export default {
       },
       set(value) {
         this.session.current.questionIndex = value
-      }
+      },
     },
     sections() {
       return this.test.sections
@@ -445,12 +445,12 @@ export default {
     },
     currentSection() {
       return this.test.sections[this.sectionIndex]
-    }
+    },
   },
   watch: {
     questionIndex(newQuestion, oldQuestion) {
       this.updateStatus(newQuestion)
-    }
+    },
   },
   created() {
     this.$store.cache.dispatch("subjects/list").then((subjects) => {
@@ -465,7 +465,7 @@ export default {
   mounted() {
     setInterval(this.updateTime, 1000)
     const vm = this
-    setInterval(function() {
+    setInterval(function () {
       vm.$emit("update", vm.session)
     }, 5000)
   },
@@ -583,8 +583,8 @@ export default {
       setTimeout((_) => {
         vm.$emit("update")
       }, 100)
-    }
-  }
+    },
+  },
 }
 </script>
 

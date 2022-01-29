@@ -49,7 +49,7 @@
       <template slot="info" />
 
       <template slot="text-image">
-        <v-chip color="grey darken-2" class="my-1" outlined small>
+        <v-chip color="grey darken-2" class="my-4" outlined small>
           <strong>
             Q{{ questionIndex + 1 }} &nbsp;
             <span style="text-transform: uppercase;" v-if="topics">
@@ -202,7 +202,7 @@ export default {
   },
   data() {
     return {
-      id: parseInt(this.$route.query.id),
+      id: parseInt(this.$route.params.id),
       demo: !!this.$route.query.demo,
       panel: null,
       questionTypes: [

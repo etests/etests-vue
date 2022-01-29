@@ -1,5 +1,5 @@
 <template>
-  <v-card v-if="!editing">
+  <v-card v-if="!editing" min-height="600">
     <v-card-text class="text-center">
       <v-row justify="center" align="center">
         <v-col cols="12">
@@ -48,26 +48,26 @@
         </v-col>
         <v-col cols="auto"> {{ profile.phone }} </v-col>
       </v-row>
-      <v-row>
+      <v-row v-if="profile.scope.includes('institute')">
         <v-col cols="auto">
           <b>About:</b>
         </v-col>
         <v-col cols="auto"> {{ profile.about }} </v-col>
       </v-row>
-      <v-row>
+      <v-row v-if="profile.scope.includes('institute')">
         <v-col cols="auto">
           <b>Address:</b>
         </v-col>
         <v-col cols="auto"> {{ profile.address }} </v-col>
       </v-row>
     </v-card-text>
-    <v-card-text class="text-center">
-      <v-btn color="primary" @click="editing = true" width="100">
+    <v-footer color="white" bottom absolute class="pa-6 text-center">
+      <v-btn class="ma-auto" color="primary" @click="editing = true" width="100">
         Edit
       </v-btn>
-    </v-card-text>
+    </v-footer>
   </v-card>
-  <v-card v-else>
+  <v-card v-else min-height="600">
     <v-card-text>
       <v-img
         class="ma-auto mt-12 mb-8"
@@ -90,39 +90,42 @@
       </v-img>
     </v-card-text>
     <v-card-text>
-      <v-text-field v-model="profile.id" solo-inverted flat prefix="Institute Id: " disabled />
       <v-text-field
-        v-model="profile.name"
+        v-model="profile.id"
         solo-inverted
         flat
-        prepend-inner-icon="mdi-rename-box"
-        label="Name"
+        prefix="Institute Id: "
+        disabled
+        v-if="profile.scope.includes('institute')"
       />
-      <v-text-field
-        v-model="profile.phone"
-        solo-inverted
-        flat
-        prepend-inner-icon="mdi-phone"
-        label="Phone"
-      />
+      <v-text-field v-model="profile.name" solo-inverted flat label="Name" />
+      <v-text-field v-model="profile.phone" solo-inverted flat label="Phone" />
       <v-text-field
         v-model="profile.about"
         solo-inverted
         flat
-        prepend-inner-icon="mdi-information"
-        placeholder="Write a tagline for your institute"
+        placeholder="Write about yourself"
+        v-if="profile.scope.includes('institute')"
       />
 
-      <AddressInput v-model="profile.address" placeholder="Address" icon="mdi-map-marker" />
+      <AddressInput
+        v-model="profile.address"
+        placeholder="Address"
+        icon="mdi-map-marker"
+        v-if="profile.scope.includes('institute')"
+      />
     </v-card-text>
-    <v-card-text class="text-center">
-      <v-btn color="success" @click="save" width="100">
-        Save
-      </v-btn>
-      <v-btn color="primary" @click="editing = false" width="100">
-        Cancel
-      </v-btn>
-    </v-card-text>
+    <v-footer color="white" bottom absolute>
+      <v-row class="pa-6" align="center" justify="center">
+        <v-btn color="success" @click="save" width="100">
+          Save
+        </v-btn>
+        <v-btn color="primary" @click="editing = false" width="100">
+          Cancel
+        </v-btn>
+      </v-row>
+    </v-footer>
+    <v-card-text class="text-center"> </v-card-text>
   </v-card>
 </template>
 
@@ -161,9 +164,10 @@ export default {
 
       if (error) this.$toast.info(error)
       else
-        this.$store.cache
-          .dispatch("profile/updateProfile", this.profile)
-          .then((_) => (this.editing = false))
+        this.$store.cache.dispatch("profile/update", this.profile).then((profile) => {
+          this.editing = false
+          this.$auth.$storage.setUniversal("user", profile)
+        })
     },
   },
 }

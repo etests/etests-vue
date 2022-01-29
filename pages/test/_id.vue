@@ -75,7 +75,7 @@ export default {
   data() {
     return {
       demo: !!this.$route.query.demo,
-      id: parseInt(this.$route.query.id),
+      id: parseInt(this.$route.params.id),
       session: null,
       started: false,
       loading: false,
@@ -161,6 +161,7 @@ export default {
       this.$nuxt.$loading.start()
       if (this.demo && this.session.isDemo) {
         this.report = demoTests.getResult(this.session)
+        this.report.id = this.$route.params.id
         if (process.client) localStorage.removeItem("session")
         this.loading = false
         this.$nuxt.$loading.finish()

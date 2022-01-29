@@ -389,7 +389,6 @@
     <v-row slot="options">
       <template v-for="(question, q) in questions">
         <v-col v-show="questionIndex === q" :key="q" cols="12" class="ml-2">
-          {{ answers }}
           <v-radio-group
             v-if="question.type === 0"
             v-model="answers[q].answer"

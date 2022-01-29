@@ -14,7 +14,7 @@
         </nuxt-link>
         <strong>FREE</strong> of cost.
       </p>
-      <v-btn rounded dark large color="chill" :to="{ path: 'test', query: { id: 0, demo: 1 } }">
+      <v-btn rounded dark large color="chill" :to="{ path: 'test/0', query: { demo: 1 } }">
         <v-icon>mdi-play-circle</v-icon>
         attempt demo test
       </v-btn>
@@ -28,29 +28,29 @@ import SectionLayout from "@/components/public/homepage/SectionLayout.vue"
 export default {
   name: "Welcome",
   components: {
-    SectionLayout
+    SectionLayout,
   },
   data() {
     return {
       cards: [
         {
           title: "Create online tests",
-          src: require("@/assets/images/features/create.png")
+          src: require("@/assets/images/features/create.png"),
         },
         {
           title: "Attempt online tests",
-          src: require("@/assets/images/features/attempt.png")
+          src: require("@/assets/images/features/attempt.png"),
         },
         {
           title: "Detailed analysis of tests",
-          src: require("@/assets/images/features/analysis.png")
+          src: require("@/assets/images/features/analysis.png"),
         },
         {
           title: "Sell your Test Series",
-          src: require("@/assets/images/features/sell.png")
-        }
-      ]
+          src: require("@/assets/images/features/sell.png"),
+        },
+      ],
     }
-  }
+  },
 }
 </script>

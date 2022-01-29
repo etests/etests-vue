@@ -54,7 +54,7 @@ export default {
   },
   data() {
     return {
-      id: parseInt(this.$route.query.id),
+      id: parseInt(this.$route.params.id),
       reviewing: this.review,
     }
   },

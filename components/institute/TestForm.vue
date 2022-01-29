@@ -48,15 +48,24 @@
           Enter the following details
         </v-card-subtitle>
         <v-card-text>
-          <v-text-field v-model="test.name" solo-inverted flat label="Name" />
-          <DateField v-model="test.activationDate" label="Activation Date" />
-          <TimeField v-model="test.activationTime" label="Activation Time" />
-          <DateField v-model="test.closingDate" label="Closing Date" />
-          <TimeField v-model="test.closingTime" label="Closing Time" />
+          <v-text-field v-model="test.name" outlined label="Name" />
+          <v-row>
+            <v-col cols="6" class="pb-0">
+              <DateField v-model="test.activationDate" label="Activation Date" />
+            </v-col>
+            <v-col cols="6" class="pb-0">
+              <TimeField v-model="test.activationTime" label="Activation Time" />
+            </v-col>
+            <v-col cols="6" class="pt-0">
+              <DateField v-model="test.closingDate" label="Closing Date" />
+            </v-col>
+            <v-col cols="6" class="pt-0">
+              <TimeField v-model="test.closingTime" label="Closing Time" />
+            </v-col>
+          </v-row>
           <v-text-field
             v-model="test.duration"
-            solo-inverted
-            flat
+            outlined
             label="Duration"
             placeholder="_ _ : _ _ : _ _"
             mask="##:##:##"

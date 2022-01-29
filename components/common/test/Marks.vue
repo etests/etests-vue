@@ -6,7 +6,7 @@
       <v-btn
         v-if="report.result && report.test.answers"
         color="primary"
-        :to="{ path: 'review', query: { id: report.id, demo: demo ? 1 : undefined } }"
+        :to="{ path: `/review/${report.id}`, query: { demo: demo ? 1 : undefined } }"
         target="_blank"
       >
         review &amp; solution

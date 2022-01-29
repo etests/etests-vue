@@ -11,8 +11,7 @@
     <template #activator="{ on }">
       <v-text-field
         slot="activator"
-        solo-inverted
-        flat
+        outlined
         :label="label"
         :value="value"
         prepend-inner-icon="mdi-calendar"
@@ -20,7 +19,7 @@
         v-on="on"
       />
     </template>
-    <v-date-picker :value="value" scrollable @input="handleInput">
+    <v-date-picker :value="value" scrollable @input="handleInput" event-color="black">
       <template>
         <v-spacer />
         <v-btn text color="primary" @click="menu = false">
@@ -35,13 +34,13 @@ export default {
   props: ["value", "label"],
   data() {
     return {
-      menu: false
+      menu: false,
     }
   },
   methods: {
     handleInput(value) {
       this.$emit("input", value)
-    }
-  }
+    },
+  },
 }
 </script>

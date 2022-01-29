@@ -14,9 +14,9 @@
 
 <script>
 import StandardLayout from "@/layouts/StandardLayout"
-import StudentTests from "@/components/institute/Tests"
+import StudentTests from "@/components/student/Tests"
 import InstituteTests from "@/components/institute/Tests"
-import StaffTests from "@/components/institute/Tests"
+import StaffTests from "@/components/staff/Tests"
 
 export default {
   middleware: "login",

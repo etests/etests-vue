@@ -28,7 +28,7 @@ export default {
   methods: {
     setValue(place) {
       this.$emit("input", place.formatted_address)
-    }
-  }
+    },
+  },
 }
 </script>

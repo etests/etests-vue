@@ -8,13 +8,7 @@
         <div :class="[$style.heading, 'plume--text']">
           CourseClip
         </div>
-        <v-btn
-          x-large
-          rounded
-          outlined
-          class="plume"
-          :to="{ path: 'test', query: { id: 0, demo: 1 } }"
-        >
+        <v-btn x-large rounded outlined class="plume" :to="{ path: 'test/0', query: { demo: 1 } }">
           <transition appear enter-active-class="animated zoomIn">
             <v-icon class="mr-2">mdi-play-circle-outline</v-icon>
           </transition>
