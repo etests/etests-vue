@@ -1,12 +1,12 @@
 export const state = () => ({
   status: {},
   session: null,
-  all: { items: [] }
+  all: { items: [] },
 })
 
 export const getters = {
   sessions: (state) => state.items,
-  session: (state) => state.session
+  session: (state) => state.session,
 }
 
 export const actions = {
@@ -50,7 +50,7 @@ export const actions = {
         throw error
       }
     )
-  }
+  },
 }
 
 export const mutations = {
@@ -68,6 +68,7 @@ export const mutations = {
     state.status = { loading: true }
   },
   listSuccess(state, sessions) {
+    state.status = {}
     state.all.items = sessions
   },
   listFailure(state, error) {
@@ -82,5 +83,5 @@ export const mutations = {
   },
   updateFailure(state, error) {
     state.status = { error: error }
-  }
+  },
 }

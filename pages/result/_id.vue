@@ -3,18 +3,18 @@
     <v-col v-if="report" cols="12" align="center">
       <Marks :report="report" />
       <Analysis v-if="report && report.result" :report="report" />
-      <v-card v-else :class="[$style.card, $style.message]">
+      <v-card v-else class="body-1 py-12">
         Analysis of your test is not generated yet.
       </v-card>
     </v-col>
     <v-col v-else-if="status.loading" cols="12">
-      <v-card :class="$style.card">
+      <v-card class="ma-auto text-center">
         <v-progress-circular :class="$style.loading" :size="50" color="primary" indeterminate />
       </v-card>
     </v-col>
     <v-col v-else cols="12" align="center">
       <v-col v-show="status.error" cols="12">
-        <v-card :class="[$style.card, $style.message]">
+        <v-card class="body-1 py-12">
           You cannot access this result.
         </v-card>
       </v-col>
@@ -77,5 +77,6 @@ export default {
 .loading {
   margin: 60px auto;
   min-height: 200px;
+  text-align: center;
 }
 </style>

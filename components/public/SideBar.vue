@@ -127,6 +127,14 @@ export default {
         },
 
         {
+          title: "Results",
+          icon: "mdi-file-chart",
+          link: { path: "/user/results" },
+          auth: true,
+          scope: ["student"],
+        },
+
+        {
           title: "Test Series",
           icon: "mdi-book-outline",
           link: { path: "/testseries" },

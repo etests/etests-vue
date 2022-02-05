@@ -7,16 +7,18 @@ import TestList from "./TestList"
 
 export default {
   components: {
-    TestList
+    TestList,
   },
   props: {
     expand: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
-    return {}
+    return {
+      expanded: true,
+    }
   },
   computed: {
     tests() {
@@ -25,17 +27,9 @@ export default {
     loading() {
       return this.$store.state.tests.status.loading
     },
-    expanded: {
-      get() {
-        return this.expand
-      },
-      set(value) {
-        this.$emit("toggle")
-      }
-    }
   },
   created() {
     this.$store.cache.dispatch("tests/list")
-  }
+  },
 }
 </script>

@@ -1,10 +1,10 @@
 <template>
   <v-card width="100%" max-width="640" min-height="400" class="mx-auto">
-    <v-tabs v-model="tab" height="60" fixed-tabs hide-slider centered>
-      <v-tab active-class="title light-primary primary--text font-weight-bold">
+    <v-tabs v-model="tab">
+      <v-tab active-class="light-primary primary--text font-weight-bold">
         Login
       </v-tab>
-      <v-tab active-class="title light-primary primary--text font-weight-bold">
+      <v-tab active-class="light-primary primary--text font-weight-bold">
         Signup
       </v-tab>
     </v-tabs>
