@@ -80,7 +80,7 @@
       </v-row>
 
       <v-sheet slot="review" v-if="session">
-        <div :class="`${statusColor(currentResult.status)}--text subheading`">
+        <div :class="`${statusColor(currentResult.status)}--text subheading`" class="pt-2">
           {{ statusText(currentResult.status) }}
         </div>
         <div>Answer: {{ formatAnswer(questionIndex) }}</div>
@@ -275,10 +275,10 @@ export default {
     formatAnswer(i) {
       switch (this.questions[i].type) {
         case 0:
-          return this.letter("A", this.test.answers[i].answer, 0)
+          return this.letter("A", this.test.answers[i].answer - 1, 0)
         case 1:
           return this.test.answers[i].answer
-            .map((answer) => this.letter("A", answer, 0))
+            .map((answer) => this.letter("A", answer - 1, 0))
             .sort()
             .join(", ")
         case 2:
@@ -289,7 +289,7 @@ export default {
               (option, index) =>
                 "[" +
                 option
-                  .map((answer) => this.letter("P", answer, 0))
+                  .map((answer) => this.letter("P", answer - 1, 0))
                   .sort()
                   .join(", ") +
                 "]"
