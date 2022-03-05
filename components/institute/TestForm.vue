@@ -203,7 +203,7 @@ export default {
     },
   },
   created() {
-    this.$store.cache.dispatch("batches/list")
+    this.$store.cache.dispatch("batches/listSimple")
     this.$store.cache.dispatch("exams/list")
   },
   computed: {

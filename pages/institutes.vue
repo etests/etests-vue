@@ -105,7 +105,7 @@ export default {
     ...mapGetters({
       institutes: "institutes/institutes",
       status: "institutes/status",
-      batchStatus: "batches/sttus",
+      batchStatus: "batches/status",
       loggedIn: "loggedIn",
       user: "user",
     }),
